@@ -65,11 +65,11 @@ class Lexer {
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
     "\11\0\1\1\1\2\2\3\1\2\22\0\1\1\11\0"+
-    "\1\4\1\5\1\1\1\5\1\0\1\6\12\7\3\0"+
-    "\1\4\3\0\32\10\4\0\1\11\1\0\4\10\1\12"+
-    "\1\13\2\10\1\14\2\10\1\15\1\10\1\16\4\10"+
-    "\1\17\1\20\6\10\12\0\1\3\u01a2\0\2\3\326\0"+
-    "\u0100\3";
+    "\2\4\1\1\1\4\1\0\1\5\1\6\7\7\2\10"+
+    "\3\0\1\4\3\0\32\11\4\0\1\12\1\0\4\11"+
+    "\1\13\1\14\2\11\1\15\2\11\1\16\1\11\1\17"+
+    "\4\11\1\20\1\21\6\11\12\0\1\3\u01a2\0\2\3"+
+    "\326\0\u0100\3";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[1024];
@@ -96,7 +96,7 @@ class Lexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\3\3\1\4\3\5\1\2\1\5"+
+    "\1\0\1\1\1\2\2\3\2\4\3\5\1\2\1\5"+
     "\1\6\2\5";
 
   private static int [] zzUnpackAction() {
@@ -125,8 +125,8 @@ class Lexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\21\0\42\0\21\0\63\0\104\0\63\0\125"+
-    "\0\146\0\167\0\210\0\231\0\125\0\252\0\273";
+    "\0\0\0\22\0\44\0\22\0\66\0\110\0\132\0\154"+
+    "\0\176\0\220\0\242\0\264\0\154\0\306\0\330";
 
   private static int [] zzUnpackRowMap() {
     int [] result = new int[15];
@@ -152,15 +152,15 @@ class Lexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\2\3\1\0\1\4\1\5\1\6\1\7\1\10"+
-    "\1\2\1\11\1\10\1\12\4\10\22\0\2\3\25\0"+
-    "\1\7\17\0\1\13\21\0\12\10\7\0\6\10\1\14"+
-    "\3\10\7\0\4\10\1\15\2\10\1\16\2\10\2\13"+
-    "\2\0\15\13\7\0\10\10\1\17\1\10\7\0\11\10"+
-    "\1\15\7\0\3\10\1\15\6\10";
+    "\1\2\2\3\1\0\1\4\1\5\1\6\2\7\1\10"+
+    "\1\2\1\11\1\10\1\12\4\10\23\0\2\3\24\0"+
+    "\1\13\22\0\2\6\20\0\3\7\17\0\14\10\6\0"+
+    "\10\10\1\14\3\10\6\0\6\10\1\15\2\10\1\16"+
+    "\2\10\2\13\2\0\16\13\6\0\12\10\1\17\1\10"+
+    "\6\0\13\10\1\15\6\0\5\10\1\15\6\10";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[204];
+    int [] result = new int[234];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;

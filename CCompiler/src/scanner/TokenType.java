@@ -8,8 +8,6 @@ public enum TokenType {
     INTEGER,
     FLOAT,
     DOUBLE,
-    HEX,
-    OCT,
     STRING,
     CHAR,
     ERROR

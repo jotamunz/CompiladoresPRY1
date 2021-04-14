@@ -24,11 +24,14 @@ S = [ ,\t,\r,\n]
 "else" {return token(KEYWORD, yytext());}
 {S}+ {/*Ignore*/}
 "//".* {/*Ignore*/}
-{L}({L}|{D}|"_")* {return token(IDENTIFIER, yytext());}
-("+"|"-")?{D}+ {return token(INTEGER, yytext());}
 "=" |
 "+" |
 "-" |
 "*" |
 "/" {return token(OPERATOR, yytext());}
+{L}({L}|{D}|"_")* {return token(IDENTIFIER, yytext());}
+0[0-7]+ |
+0[xX][{D}A-Fa-f]+ |
+[1-9]{D}* |
+0 {return token(INTEGER, yytext());}
  . {return token(ERROR, yytext());}
