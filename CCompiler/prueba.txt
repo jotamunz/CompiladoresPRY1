@@ -1,3 +1,5 @@
 int hola = 0x05F
-//comentario
+/* comen
+tario */
 2 + 3
+//comentario
