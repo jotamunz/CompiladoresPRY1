@@ -7,10 +7,13 @@ import static scanner.Token.*;
 %class Lexer
 %function nextToken
 %type Token
-L = [a-zA-Z]
-D = [0-9]
-T = \r|\n|\r\n
-S = {T}|[ \t\f]
+Letter = [a-zA-Z]
+Digit = [0-9]
+EOL = \r|\n|\r\n
+Space = {EOL}|[ \t\f]
+EChar = \\[ntbrf\\\'\"]
+CChar = [^\'\\\n\r] | {EChar}
+SChar = [^\"\\\n\r] | {EChar}
 
 %{
     private Token token(TokenType type, Object value){
@@ -22,11 +25,12 @@ S = {T}|[ \t\f]
 
 /* KEYWORDS */
 "int" |
+"char" |
 "if" |
 "else" {return token(KEYWORD, yytext());}
 
 /* SPACES */
-{S}+ {/*Ignore*/}
+{Space}+ {/*Ignore*/}
 
 /* COMMENTS */
 "//"[^\r\n]* |
@@ -40,13 +44,17 @@ S = {T}|[ \t\f]
 "/" {return token(OPERATOR, yytext());}
 
 /* IDENTIFIERS */
-{L}({L}|{D}|"_")* {return token(IDENTIFIER, yytext());}
+{Letter}({Letter}|{Digit}|"_")* {return token(IDENTIFIER, yytext());}
 
 /* INTEGERS */
 0[0-7]+ |
-0[xX][{D}A-Fa-f]+ |
-[1-9]{D}* |
+0[xX][{Digit}A-Fa-f]+ |
+[1-9]{Digit}* |
 0 {return token(INTEGER, yytext());}
 
+/* CHARS */
+\'{CChar}\' {return token(CHAR, yytext());}
+\"{SChar}*\" {return token(STRING, yytext());}
+
 /* ERRORS */
- . {return token(ERROR, yytext());}
+. {return token(ERROR, yytext());}
