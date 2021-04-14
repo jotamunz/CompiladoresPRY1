@@ -64,13 +64,6 @@ SChar = [^\"\\\n\r] | {EChar}
 "//"[^\r\n]* |
 "/*"~"*/" {/*Ignore*/}
 
-/* OPERATORS */
-"=" |
-"+" |
-"-" |
-"*" |
-"/" {return token(OPERATOR, yytext());}
-
 /* IDENTIFIERS */
 {Letter}({Letter}|{Digit}|"_")* {return token(IDENTIFIER, yytext());}
 
@@ -83,6 +76,52 @@ SChar = [^\"\\\n\r] | {EChar}
 /* CHARS */
 \'{CChar}\' {return token(CHAR, yytext());}
 \"{SChar}*\" {return token(STRING, yytext());}
+
+/* OPERATORS */
+"," |
+";" |
+"++" |
+"--" |
+"==" |
+">=" |
+">" |
+"?" |
+"<=" |
+"!=" |
+"||" |
+"&&" |
+"!" |
+"=" |
+"+" | 
+"-" | 
+"*" |
+"/" |
+"%" |
+"(" |
+")" |
+"[" |
+"]" |
+"{" |
+"}" |
+":" |
+"." |
+"+=" |
+"-=" |
+"*=" |
+"/=" |
+"&" | 
+"^" |
+"|" |
+">>" | 
+"<<" |
+"~" |
+"%=" |
+"&=" |
+"^=" |
+"|=" |
+"<<=" |
+">>=" |
+"->" {return token(OPERATOR, yytext());}
 
 /* ERRORS */
 . {return token(ERROR, yytext());}
