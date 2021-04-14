@@ -7,7 +7,6 @@ public enum TokenType {
     IDENTIFIER,
     INTEGER,
     FLOAT,
-    DOUBLE,
     STRING,
     CHAR,
     ERROR

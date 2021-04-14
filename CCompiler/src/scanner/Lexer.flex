@@ -24,10 +24,38 @@ SChar = [^\"\\\n\r] | {EChar}
 %%
 
 /* KEYWORDS */
-"int" |
+"auto" |
+"break" |
+"case" |
 "char" |
+"const" |
+"continue" |
+"default" |
+"do" |
+"double" |
+"else" |
+"enum" |
+"extern" |
+"float" |
+"for" |
+"goto" |
 "if" |
-"else" {return token(KEYWORD, yytext());}
+"int" |
+"long" |
+"register" |
+"return" |
+"short" |
+"signed" |
+"sizeof" |
+"static" |
+"struct" |
+"switch" |
+"typedef" |
+"union" |
+"unsigned" |
+"void" |
+"volatile" |
+"while" {return token(KEYWORD, yytext());}
 
 /* SPACES */
 {Space}+ {/*Ignore*/}
