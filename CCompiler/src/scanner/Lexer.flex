@@ -12,10 +12,6 @@ D = [0-9]
 S = [ ,\t,\r,\n]
 
 %{
-    private Token token(TokenType type){
-        return new Token(type);
-    }
-
     private Token token(TokenType type, Object value){
         return new Token(type, value);
     }
@@ -25,14 +21,14 @@ S = [ ,\t,\r,\n]
 
 "int" |
 "if" |
-"else" {return token(Keyword, yytext());}
+"else" {return token(KEYWORD, yytext());}
 {S}+ {/*Ignore*/}
 "//".* {/*Ignore*/}
+{L}({L}|{D}|"_")* {return token(IDENTIFIER, yytext());}
+("+"|"-")?{D}+ {return token(INTEGER, yytext());}
 "=" |
 "+" |
 "-" |
 "*" |
-"/" {return token(Operator, yytext());}
-{L}({L}|{D}|"_")* {return token(Identifier, yytext());}
-("+"|"-")?{D}+ {return token(Integer, yytext());}
- . {return token(Error, yytext());}
+"/" {return token(OPERATOR, yytext());}
+ . {return token(ERROR, yytext());}

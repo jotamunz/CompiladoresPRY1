@@ -2,9 +2,15 @@
 package scanner;
 
 public enum TokenType {
-    Keyword,
-    Operator,
-    Identifier,
-    Integer,
-    Error
+    KEYWORD,
+    OPERATOR,
+    IDENTIFIER,
+    INTEGER,
+    FLOAT,
+    DOUBLE,
+    HEX,
+    OCT,
+    STRING,
+    CHAR,
+    ERROR
 }
