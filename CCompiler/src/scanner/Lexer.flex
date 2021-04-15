@@ -68,10 +68,10 @@ SChar = [^\"\\\n\r] | {EChar}
 {Letter}({Letter}|{Digit}|"_")* {return token(IDENTIFIER, yytext());}
 
 /* INTEGERS */
-0[0-7]+ |
-0[xX][{Digit}A-Fa-f]+ |
-[1-9]{Digit}* |
-0 {return token(INTEGER, yytext());}
+0[0-7]+ |                                       //Oct
+0[xX][{Digit}A-Fa-f]+ |                         //Hexa
+[-+]?[1-9]{Digit}* |                            //Dec
+[-+]?0 {return token(INTEGER, yytext());}
 
 /* CHARS */
 \'{CChar}\' {return token(CHAR, yytext());}
