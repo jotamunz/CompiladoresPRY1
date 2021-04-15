@@ -74,7 +74,7 @@ SChar = [^\"\\\n\r] | {EChar}
 0 {return token(INTEGER, yytext());}
 
 /* FLOATS */
-[-+]?{Digit}*"."{Digit}* {return token(FLOAT, yytext());}
+{Digit}*"."{Digit}* {return token(FLOAT, yytext());}
 
 /* CHARS */
 \'{CChar}\' {return token(CHAR, yytext());}
