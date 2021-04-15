@@ -70,8 +70,8 @@ SChar = [^\"\\\n\r] | {EChar}
 /* INTEGERS */
 0[0-7]+ |                                       
 0[xX][{Digit}A-Fa-f]+ |                         
-[-+]?[1-9]{Digit}* |                           
-[-+]?0 {return token(INTEGER, yytext());}
+[1-9]{Digit}* |                           
+0 {return token(INTEGER, yytext());}
 
 /* FLOATS */
 [-+]?{Digit}*"."{Digit}* {return token(FLOAT, yytext());}
