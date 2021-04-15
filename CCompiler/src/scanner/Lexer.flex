@@ -5,6 +5,7 @@ import static scanner.Token.*;
 %%
 
 %class Lexer
+%line
 %function nextToken
 %type Token
 Letter = [a-zA-Z]
@@ -17,7 +18,7 @@ SChar = [^\"\\\n\r] | {EChar}
 
 %{
     private Token token(TokenType type, Object value){
-        return new Token(type, value);
+        return new Token(type, value, yyline);
     }
 %}
 

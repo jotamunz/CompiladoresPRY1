@@ -7,3 +7,4 @@ char adios = '\n'
 -5.1111
 3456
 -0.1
+hola = hola + hola
