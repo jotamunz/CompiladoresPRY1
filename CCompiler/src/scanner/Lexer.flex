@@ -68,10 +68,13 @@ SChar = [^\"\\\n\r] | {EChar}
 {Letter}({Letter}|{Digit}|"_")* {return token(IDENTIFIER, yytext());}
 
 /* INTEGERS */
-0[0-7]+ |                                       //Oct
-0[xX][{Digit}A-Fa-f]+ |                         //Hexa
-[-+]?[1-9]{Digit}* |                            //Dec
+0[0-7]+ |                                       
+0[xX][{Digit}A-Fa-f]+ |                         
+[-+]?[1-9]{Digit}* |                           
 [-+]?0 {return token(INTEGER, yytext());}
+
+/* Floats */
+[-+]?{Digit}*"."{Digit}* {return token(FLOAT, yytext());}
 
 /* CHARS */
 \'{CChar}\' {return token(CHAR, yytext());}
@@ -121,7 +124,7 @@ SChar = [^\"\\\n\r] | {EChar}
 "|=" |
 "<<=" |
 ">>=" |
-"->" {return token(OPERATOR, yytext());}
+"->" {return token(OPERATOR_LOGICAL, yytext());}
 
 /* ERRORS */
 . {return token(ERROR, yytext());}
