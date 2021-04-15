@@ -73,33 +73,20 @@ SChar = [^\"\\\n\r] | {EChar}
 [-+]?[1-9]{Digit}* |                           
 [-+]?0 {return token(INTEGER, yytext());}
 
-/* Floats */
+/* FLOATS */
 [-+]?{Digit}*"."{Digit}* {return token(FLOAT, yytext());}
 
 /* CHARS */
 \'{CChar}\' {return token(CHAR, yytext());}
+
+/* STRINGS */
 \"{SChar}*\" {return token(STRING, yytext());}
 
-/* OPERATORS */
+/* OPERATORS_STRUCTURE*/
 "," |
 ";" |
-"++" |
-"--" |
-"==" |
-">=" |
-">" |
 "?" |
-"<=" |
-"!=" |
-"||" |
-"&&" |
-"!" |
 "=" |
-"+" | 
-"-" | 
-"*" |
-"/" |
-"%" |
 "(" |
 ")" |
 "[" |
@@ -108,23 +95,43 @@ SChar = [^\"\\\n\r] | {EChar}
 "}" |
 ":" |
 "." |
+"->" {return token(OPERATOR_STRUCTURE, yytext());}
+
+/* OPERATORS_ARITHMETIC */
+"++" |
+"--" |
+"+" | 
+"-" | 
+"*" |
+"/" |
+"%" |
 "+=" |
 "-=" |
 "*=" |
 "/=" |
+"%=" {return token(OPERATOR_ARITHMETIC, yytext());}
+
+/* OPERATOR_LOGICAL */
+"==" |
+">=" |
+">" |
+"<" |
+"<=" |
+"!=" |
+"||" |
+"&&" |
+"!" |
+">>" | 
+"<<" |
 "&" | 
 "^" |
 "|" |
-">>" | 
-"<<" |
 "~" |
-"%=" |
 "&=" |
 "^=" |
 "|=" |
 "<<=" |
-">>=" |
-"->" {return token(OPERATOR_LOGICAL, yytext());}
+">>=" {return token(OPERATOR_LOGICAL, yytext());}
 
 /* ERRORS */
 . {return token(ERROR, yytext());}
