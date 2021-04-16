@@ -816,17 +816,17 @@ class Lexer {
             // fall through
           case 13: break;
           case 3:
-            { return token(OP_LOGICAL, yytext());
+            { return token(OPERATOR_LOGICAL, yytext());
             }
             // fall through
           case 14: break;
           case 4:
-            { return token(OP_ARITHMETIC, yytext());
+            { return token(OPERATOR_ARITHMETIC, yytext());
             }
             // fall through
           case 15: break;
           case 5:
-            { return token(OP_STRUCTURE, yytext());
+            { return token(OPERATOR_STRUCTURE, yytext());
             }
             // fall through
           case 16: break;

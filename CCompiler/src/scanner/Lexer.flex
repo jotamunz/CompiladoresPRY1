@@ -79,11 +79,9 @@ SChar = [^\"\\\n\r] | {EChar}
 
 /* CHARS */
 \'{CChar}\' {return token(CHAR, yytext());}
-
-/* STRINGS */
 \"{SChar}*\" {return token(STRING, yytext());}
 
-/* OPERATORS_STRUCTURE*/
+/* OPERATORS */
 "," |
 ";" |
 "?" |
@@ -96,9 +94,7 @@ SChar = [^\"\\\n\r] | {EChar}
 "}" |
 ":" |
 "." |
-"->" {return token(OPERATOR_STRUCTURE, yytext());}
-
-/* OPERATORS_ARITHMETIC */
+"->" {return token(OP_STRUCTURE, yytext());}
 "++" |
 "--" |
 "+" | 
@@ -110,9 +106,7 @@ SChar = [^\"\\\n\r] | {EChar}
 "-=" |
 "*=" |
 "/=" |
-"%=" {return token(OPERATOR_ARITHMETIC, yytext());}
-
-/* OPERATOR_LOGICAL */
+"%=" {return token(OP_ARITHMETIC, yytext());}
 "==" |
 ">=" |
 ">" |
@@ -132,7 +126,7 @@ SChar = [^\"\\\n\r] | {EChar}
 "^=" |
 "|=" |
 "<<=" |
-">>=" {return token(OPERATOR_LOGICAL, yytext());}
+">>=" {return token(OP_LOGICAL, yytext());}
 
 /* ERRORS */
 . {return token(ERROR, yytext());}
