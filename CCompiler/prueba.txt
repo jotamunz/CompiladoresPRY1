@@ -4,3 +4,9 @@ tario */
 char hola = '\n'
 2 + (3 / 2)
 //comentario
+//Floats
+123.123
+123.123e-12
+.234e-24
+432.e23
+432e-23

@@ -15,6 +15,7 @@ Space = {EOL}|[ \t\f]
 EChar = \\[ntbrf\\\'\"]
 CChar = [^\'\\\n\r] | {EChar}
 SChar = [^\"\\\n\r] | {EChar}
+Exponent = [eE][+-]?{Digit}+
 
 %{
     private Token token(TokenType type, Object value){
@@ -75,7 +76,10 @@ SChar = [^\"\\\n\r] | {EChar}
 0 {return token(INTEGER, yytext());}
 
 /* FLOATS */
-{Digit}*"."{Digit}* {return token(FLOAT, yytext());}
+{Digit}+ "." {Digit}+ {Exponent}? |
+"." {Digit}+ {Exponent}? |
+{Digit}+ "." {Exponent}? |
+{Digit}+ {Exponent} {return token(FLOAT, yytext());}
 
 /* CHARS */
 \'{CChar}\' {return token(CHAR, yytext());}
