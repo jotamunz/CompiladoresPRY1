@@ -1,5 +1,5 @@
 
-package scanner;
+package model.scanner;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,6 +14,7 @@ public class Scanner {
     
     public void scan(String path){
         try {
+            uniqueTokens = new HashMap<>();
             Lexer lex = new Lexer(new FileReader(path));
             Token newToken;
             // Read tokens
@@ -41,6 +42,12 @@ public class Scanner {
             System.out.println(token.toString());
         }
     }
+
+    public HashMap<String, Token> getUniqueTokens() {
+        return uniqueTokens;
+    }
+    
+    
 }
     
 

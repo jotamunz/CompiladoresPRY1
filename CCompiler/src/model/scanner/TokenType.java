@@ -1,5 +1,5 @@
 
-package scanner;
+package model.scanner;
 
 public enum TokenType {
     KEYWORD,
