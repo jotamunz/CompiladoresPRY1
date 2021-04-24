@@ -8,6 +8,7 @@ import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import model.compiler.Model;
 import model.compiler.scanner.Token;
+import static model.compiler.scanner.TokenType.ERROR;
 import view.View;
 
 public class Controller implements ActionListener {
@@ -23,6 +24,7 @@ public class Controller implements ActionListener {
         //Action listeners
         this.view.btn_scan.addActionListener(this);
         this.view.btn_select.addActionListener(this);
+        
         view.setTitle("C Compiler Scanner");
         view.setLocationRelativeTo(null);
         view.setVisible(true);
@@ -61,10 +63,16 @@ public class Controller implements ActionListener {
         HashMap<String, Token> scanResult = model.scanFile();
         DefaultTableModel table = (DefaultTableModel)view.table_scannerResult.getModel();
         table.setRowCount(0);
+        DefaultTableModel tableErrors = (DefaultTableModel)view.table_scannerResultErrors.getModel();
+        tableErrors.setRowCount(0);
         for (Token token : scanResult.values()) {
             String row[] = {token.getValue().toString(),token.getType().name(),token.linesToString()};
-            table.addRow(row);
+            if (token.getType() == ERROR){
+                tableErrors.addRow(row);
+            }
+            else{
+                table.addRow(row);
+            }
         } 
     }
-
 }
