@@ -27,11 +27,8 @@ public class Token {
         return this.lines;
     }
     
-    @Override
-    public String toString(){
-        String res;  
-        res = this.value.toString() + "\t\t";
-        res += this.type.toString() + "\t\t";
+    public String linesToString(){
+        String res = "";
         int counter = 1;
         for (int i = 0; i < lines.size(); i++){
             int line = lines.get(i);
@@ -45,12 +42,24 @@ public class Token {
                     res += "(" + String.valueOf(counter) + ")";
                     counter = 1;
                 }
-                res += " " + String.valueOf(line);
+                if (i == 0)
+                    res += " " + String.valueOf(line);
+                else
+                    res += ", " + String.valueOf(line);
             }
         }
         // If last element was a repetition add (counter) to result
         if (counter != 1)
             res += "(" + String.valueOf(counter) + ")";
+        return res;
+    }
+    
+    @Override
+    public String toString(){
+        String res;  
+        res = this.value.toString() + "\t\t";
+        res += this.type.toString() + "\t\t";
+        res += linesToString();
         return res;
     } 
 }

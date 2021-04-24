@@ -62,8 +62,7 @@ public class Controller implements ActionListener {
         DefaultTableModel table = (DefaultTableModel)view.table_scannerResult.getModel();
         table.setRowCount(0);
         for (Token token : scanResult.values()) {
-            String lines = token.getLines().toString().replace("[", "").replace("]", "");
-            String row[] = {token.getValue().toString(),token.getType().name(),lines};
+            String row[] = {token.getValue().toString(),token.getType().name(),token.linesToString()};
             table.addRow(row);
         } 
     }
