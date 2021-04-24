@@ -1,27 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import javax.swing.JFileChooser;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import model.scanner.Model;
-import model.scanner.Scanner;
-import model.scanner.Token;
+import model.compiler.Model;
+import model.compiler.scanner.Token;
 import view.View;
 
-/**
- * 
- * @author Sammy Guergachi <sguergachi at gmail.com>
- */
 public class Controller implements ActionListener {
     private Model model;
     private View view;
@@ -29,14 +17,12 @@ public class Controller implements ActionListener {
     public Controller(Model model, View view) {
         this.model = model;
         this.view = view;
-        
-        //Add action Listeners
-        this.view.btn_scan.addActionListener(this);
-        this.view.btn_select.addActionListener(this);
-
     }
     
     public void start(){
+        //Action listeners
+        this.view.btn_scan.addActionListener(this);
+        this.view.btn_select.addActionListener(this);
         view.setTitle("C Compiler Scanner");
         view.setLocationRelativeTo(null);
         view.setVisible(true);
@@ -45,27 +31,23 @@ public class Controller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         if (e.getSource() == view.btn_select) {
-            selectOption();
+            selectFile();
         }
         else if (e.getSource() == view.btn_scan) {
-            scanOption();
+            scanFile();
         }
     }
+
+    //Actions
     
-    //Implement the Actions
-    
-    private void selectOption(){
-        // Create File chooser
+    private void selectFile(){
         JFileChooser chooser = new JFileChooser(".");
         chooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
         int returnVal = chooser.showOpenDialog(null);
-        
-        String filePath = "";
-        String fileName = "";
      
         if (returnVal == JFileChooser.APPROVE_OPTION){ 
-            filePath = chooser.getSelectedFile().getPath();
-            fileName = chooser.getSelectedFile().getName();
+            String filePath = chooser.getSelectedFile().getPath();
+            String fileName = chooser.getSelectedFile().getName();
 
             model.setFilePath(filePath);
             model.setFileName(fileName);
@@ -75,17 +57,15 @@ public class Controller implements ActionListener {
         }
     }
     
-    public void scanOption(){
-        model.scan();
-        HashMap<String, Token> scanResult = model.getScanResult();
+    public void scanFile(){
+        HashMap<String, Token> scanResult = model.scanFile();
         DefaultTableModel table = (DefaultTableModel)view.table_scannerResult.getModel();
         table.setRowCount(0);
         for (Token token : scanResult.values()) {
             String lines = token.getLines().toString().replace("[", "").replace("]", "");
             String row[] = {token.getValue().toString(),token.getType().name(),lines};
             table.addRow(row);
-        }
- 
+        } 
     }
 
 }

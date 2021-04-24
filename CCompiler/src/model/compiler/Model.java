@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-package model.scanner;
+package model.compiler;
 
+import model.compiler.scanner.Token;
+import model.compiler.scanner.Scanner;
 import java.util.HashMap;
 
-/**
- * 
- * @author Sammy Guergachi <sguergachi at gmail.com>
- */
 public class Model {
     private String fileName;
     private String filePath;
@@ -23,17 +16,14 @@ public class Model {
         this.scanner = new Scanner();
     }
     
-    public void scan () {
+    public HashMap<String, Token> scanFile () {
         scanner.scan(filePath);
         scanner.printUniqueTokens();
-    }
-    
-    public HashMap<String, Token> getScanResult() {
         return scanner.getUniqueTokens();
     }
 
-    
     //Gets and Sets
+    
     public String getFileName() {
         return fileName;
     }
@@ -42,24 +32,8 @@ public class Model {
         this.fileName = fileName;
     }
 
-    public String getFilePath() {
-        return filePath;
-    }
-
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
-
-    public Scanner getScanner() {
-        return scanner;
-    }
-
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
-    }
-
-
-    
-    
     
 }

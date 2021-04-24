@@ -1,5 +1,5 @@
-
-package model.scanner;
+    
+package model.compiler.scanner;
 
 import java.util.ArrayList;
 

@@ -1,12 +1,10 @@
 
-package model.scanner;
+package model.compiler.scanner;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Scanner {
     
@@ -30,9 +28,9 @@ public class Scanner {
                 }
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Scanner.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("File Not Found");
         } catch (IOException ex) {
-            Logger.getLogger(Scanner.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("IO Exception");
         }
     }
     
