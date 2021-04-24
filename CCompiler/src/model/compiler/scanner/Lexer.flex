@@ -1,6 +1,6 @@
-package scanner;
-import static scanner.TokenType.*;
-import static scanner.Token.*;
+package model.compiler.scanner;
+import static model.compiler.scanner.TokenType.*;
+import static model.compiler.scanner.Token.*;
 
 %%
 
@@ -69,17 +69,22 @@ Exponent = [eE][+-]?{Digit}+
 /* IDENTIFIERS */
 {Letter}({Letter}|{Digit}|"_")* {return token(IDENTIFIER, yytext());}
 
-/* INTEGERS */
-0[0-7]+ |                                       
-0[xX][{Digit}A-Fa-f]+ |                         
-[1-9]{Digit}* |                           
-0 {return token(INTEGER, yytext());}
-
 /* FLOATS */
 {Digit}+ "." {Digit}+ {Exponent}? |
 "." {Digit}+ {Exponent}? |
 {Digit}+ "." {Exponent}? |
 {Digit}+ {Exponent} {return token(FLOAT, yytext());}
+
+/* INTEGERS */
+0[xX][{Digit}A-Fa-f]+ {return token(INTEGER, yytext());}
+
+/* ERROR (Number + Letter) */
+{Digit}+{Letter}+ {return token(ERROR, yytext());}
+
+/* INTEGERS */
+0[0-7]+ |                                                               
+[1-9]{Digit}* |                           
+0 {return token(INTEGER, yytext());}
 
 /* CHARS */
 \'{CChar}\' {return token(CHAR, yytext());}
