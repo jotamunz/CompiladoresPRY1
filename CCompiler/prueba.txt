@@ -1,4 +1,4 @@
-int _hola = 0x05F
+int _8 = 0x05F
 /* comen
 tario */
 char hola == '\n'

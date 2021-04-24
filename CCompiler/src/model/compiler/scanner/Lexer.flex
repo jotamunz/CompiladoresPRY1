@@ -122,7 +122,7 @@ Operator = {Op_Structure}|{Op_Arithmetic}|{Op_Logical}
 "/*"~"*/" {/*Ignore*/}
 
 /* IDENTIFIERS */
-({Letter}|"_")({Letter}|{Digit}|"_")* {return token(IDENTIFIER, yytext());}
+{Letter}({Letter}|{Digit}|"_")* {return token(IDENTIFIER, yytext());}
 
 /* FLOATS */
 {Digit}+ "." {Digit}+ {Exponent}? |
@@ -133,8 +133,9 @@ Operator = {Op_Structure}|{Op_Arithmetic}|{Op_Logical}
 /* INTEGERS */
 0[xX][{Digit}A-Fa-f]+ {return token(INTEGER, yytext());}
 
-/* ERROR (Number + Letter) */
-{Digit}+({Letter}|"_")({Letter}|{Digit}|"_")* {return token(ERROR, yytext());}
+/* ERRORS */
+{Digit}+({Letter}|"_")({Letter}|{Digit}|"_")* |
+("_")+({Letter}|{Digit}|"_")* {return token(ERROR, yytext());}
 
 /* INTEGERS */
 0[0-7]+ |                                                               
