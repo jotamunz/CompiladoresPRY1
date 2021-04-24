@@ -17,15 +17,8 @@ CChar = [^\'\\\n\r] | {EChar}
 SChar = [^\"\\\n\r] | {EChar}
 Exponent = [eE][+-]?{Digit}+
 
-%{
-    private Token token(TokenType type, Object value){
-        return new Token(type, value, yyline);
-    }
-%}
-
-%%
-
 /* KEYWORDS */
+Keyword = 
 "auto" |
 "break" |
 "case" |
@@ -57,40 +50,10 @@ Exponent = [eE][+-]?{Digit}+
 "unsigned" |
 "void" |
 "volatile" |
-"while" {return token(KEYWORD, yytext());}
-
-/* SPACES */
-{Space}+ {/*Ignore*/}
-
-/* COMMENTS */
-"//"[^\r\n]* |
-"/*"~"*/" {/*Ignore*/}
-
-/* IDENTIFIERS */
-{Letter}({Letter}|{Digit}|"_")* {return token(IDENTIFIER, yytext());}
-
-/* FLOATS */
-{Digit}+ "." {Digit}+ {Exponent}? |
-"." {Digit}+ {Exponent}? |
-{Digit}+ "." {Exponent}? |
-{Digit}+ {Exponent} {return token(FLOAT, yytext());}
-
-/* INTEGERS */
-0[xX][{Digit}A-Fa-f]+ {return token(INTEGER, yytext());}
-
-/* ERROR (Number + Letter) */
-{Digit}+{Letter}+ {return token(ERROR, yytext());}
-
-/* INTEGERS */
-0[0-7]+ |                                                               
-[1-9]{Digit}* |                           
-0 {return token(INTEGER, yytext());}
-
-/* CHARS */
-\'{CChar}\' {return token(CHAR, yytext());}
-\"{SChar}*\" {return token(STRING, yytext());}
+"while"
 
 /* OPERATORS */
+Op_Structure = 
 "," |
 ";" |
 "?" |
@@ -103,7 +66,8 @@ Exponent = [eE][+-]?{Digit}+
 "}" |
 ":" |
 "." |
-"->" {return token(OP_STRUCTURE, yytext());}
+"->"
+Op_Arithmetic = 
 "++" |
 "--" |
 "+" | 
@@ -115,7 +79,8 @@ Exponent = [eE][+-]?{Digit}+
 "-=" |
 "*=" |
 "/=" |
-"%=" {return token(OP_ARITHMETIC, yytext());}
+"%="
+Op_Logical = 
 "==" |
 ">=" |
 ">" |
@@ -135,7 +100,55 @@ Exponent = [eE][+-]?{Digit}+
 "^=" |
 "|=" |
 "<<=" |
-">>=" {return token(OP_LOGICAL, yytext());}
+">>="
+Operator = {Op_Structure}|{Op_Arithmetic}|{Op_Logical}
+
+%{
+    private Token token(TokenType type, Object value){
+        return new Token(type, value, yyline);
+    }
+%}
+
+%%
+
+/* KEYWORDS */
+{Keyword} {return token(KEYWORD, yytext());}
+
+/* SPACES */
+{Space}+ {/*Ignore*/}
+
+/* COMMENTS */
+"//"[^\r\n]* |
+"/*"~"*/" {/*Ignore*/}
+
+/* IDENTIFIERS */
+({Letter}|"_")({Letter}|{Digit}|"_")* {return token(IDENTIFIER, yytext());}
+
+/* FLOATS */
+{Digit}+ "." {Digit}+ {Exponent}? |
+"." {Digit}+ {Exponent}? |
+{Digit}+ "." {Exponent}? |
+{Digit}+ {Exponent} {return token(FLOAT, yytext());}
+
+/* INTEGERS */
+0[xX][{Digit}A-Fa-f]+ {return token(INTEGER, yytext());}
+
+/* ERROR (Number + Letter) */
+{Digit}+({Letter}|"_")({Letter}|{Digit}|"_")* {return token(ERROR, yytext());}
+
+/* INTEGERS */
+0[0-7]+ |                                                               
+[1-9]{Digit}* |                           
+0 {return token(INTEGER, yytext());}
+
+/* CHARS */
+\'{CChar}\' {return token(CHAR, yytext());}
+\"{SChar}*\" {return token(STRING, yytext());}
+
+/* OPERATORS */
+{Op_Structure} {return token(OP_STRUCTURE, yytext());}
+{Op_Arithmetic} {return token(OP_ARITHMETIC, yytext());}
+{Op_Logical} {return token(OP_LOGICAL, yytext());}
 
 /* ERRORS */
 . {return token(ERROR, yytext());}

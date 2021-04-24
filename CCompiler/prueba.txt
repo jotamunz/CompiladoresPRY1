@@ -1,9 +1,9 @@
-int hola = 0x05F
+int _hola = 0x05F
 /* comen
 tario */
-char hola = '\n'
+char hola == '\n'
 2 + (3 / 2)
-1ab
+1_
 //Floats
 123.123
 123.123e-12
