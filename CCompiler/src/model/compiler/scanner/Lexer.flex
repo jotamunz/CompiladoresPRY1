@@ -1,5 +1,5 @@
 package model.compiler.scanner;
-import static model.compiler.scanner.TokenType.*;
+import static model.compiler.scanner.Sym.*;
 import static model.compiler.scanner.Token.*;
 
 %%
@@ -18,94 +18,8 @@ CChar = [^\'\\\n\r] | {EChar}
 SChar = [^\"\\\n\r] | {EChar}
 Exponent = [eE][+-]?{Digit}+
 
-/* KEYWORDS */
-Keyword = 
-"auto" |
-"break" |
-"case" |
-"char" |
-"const" |
-"continue" |
-"default" |
-"do" |
-"double" |
-"else" |
-"enum" |
-"extern" |
-"float" |
-"for" |
-"goto" |
-"if" |
-"int" |
-"long" |
-"register" |
-"return" |
-"short" |
-"signed" |
-"sizeof" |
-"static" |
-"struct" |
-"switch" |
-"typedef" |
-"union" |
-"unsigned" |
-"void" |
-"volatile" |
-"while"
-
-/* OPERATORS */
-Op_Structure = 
-"," |
-";" |
-"?" |
-"=" |
-"(" |
-")" |
-"[" |
-"]" |
-"{" |
-"}" |
-":" |
-"." |
-"->"
-Op_Arithmetic = 
-"++" |
-"--" |
-"+" | 
-"-" | 
-"*" |
-"/" |
-"%" |
-"+=" |
-"-=" |
-"*=" |
-"/=" |
-"%="
-Op_Logical = 
-"==" |
-">=" |
-">" |
-"<" |
-"<=" |
-"!=" |
-"||" |
-"&&" |
-"!" |
-">>" | 
-"<<" |
-"&" | 
-"^" |
-"|" |
-"~" |
-"&=" |
-"^=" |
-"|=" |
-"<<=" |
-">>="
-Operator = {Op_Structure}|{Op_Arithmetic}|{Op_Logical}
-
 %{
-    private Token token(TokenType type, Object value){
+    private Token token(Sym type, Object value){
         return new Token(type, value, yyline);
     }
 %}
@@ -113,7 +27,38 @@ Operator = {Op_Structure}|{Op_Arithmetic}|{Op_Logical}
 %%
 
 /* KEYWORDS */
-{Keyword} {return token(KEYWORD, yytext());}
+"auto" {return token(KEYWORD, yytext());}
+"break" {return token(KEYWORD, yytext());}
+"case" {return token(KEYWORD, yytext());}
+"char" {return token(KEYWORD, yytext());}
+"const" {return token(KEYWORD, yytext());}
+"continue" {return token(KEYWORD, yytext());}
+"default" {return token(KEYWORD, yytext());}
+"do" {return token(KEYWORD, yytext());}
+"double" {return token(KEYWORD, yytext());}
+"else" {return token(KEYWORD, yytext());}
+"enum" {return token(KEYWORD, yytext());}
+"extern" {return token(KEYWORD, yytext());}
+"float" {return token(KEYWORD, yytext());}
+"for" {return token(KEYWORD, yytext());}
+"goto" {return token(KEYWORD, yytext());}
+"if" {return token(KEYWORD, yytext());}
+"int" {return token(KEYWORD, yytext());}
+"long" {return token(KEYWORD, yytext());}
+"register" {return token(KEYWORD, yytext());}
+"return" {return token(KEYWORD, yytext());}
+"short" {return token(KEYWORD, yytext());}
+"signed" {return token(KEYWORD, yytext());}
+"sizeof" {return token(KEYWORD, yytext());}
+"static" {return token(KEYWORD, yytext());}
+"struct" {return token(KEYWORD, yytext());}
+"switch" {return token(KEYWORD, yytext());}
+"typedef" {return token(KEYWORD, yytext());}
+"union" {return token(KEYWORD, yytext());}
+"unsigned" {return token(KEYWORD, yytext());}
+"void" {return token(KEYWORD, yytext());}
+"volatile" {return token(KEYWORD, yytext());}
+"while" {return token(KEYWORD, yytext());}
 
 /* SPACES */
 {Space}+ {/*Ignore*/}
@@ -148,9 +93,53 @@ Operator = {Op_Structure}|{Op_Arithmetic}|{Op_Logical}
 \"{SChar}*\" {return token(STRING, yytext());}
 
 /* OPERATORS */
-{Op_Structure} {return token(OP_STRUCTURE, yytext());}
-{Op_Arithmetic} {return token(OP_ARITHMETIC, yytext());}
-{Op_Logical} {return token(OP_LOGICAL, yytext());}
+"," {return token(OP_STRUCTURE, yytext());}
+";" {return token(OP_STRUCTURE, yytext());}
+"?" {return token(OP_STRUCTURE, yytext());}
+"=" {return token(OP_STRUCTURE, yytext());}
+"(" {return token(OP_STRUCTURE, yytext());}
+")" {return token(OP_STRUCTURE, yytext());}
+"[" {return token(OP_STRUCTURE, yytext());}
+"]" {return token(OP_STRUCTURE, yytext());}
+"{" {return token(OP_STRUCTURE, yytext());}
+"}" {return token(OP_STRUCTURE, yytext());}
+":" {return token(OP_STRUCTURE, yytext());}
+"." {return token(OP_STRUCTURE, yytext());}
+"->" {return token(OP_STRUCTURE, yytext());}
+
+"++" {return token(OP_ARITHMETIC, yytext());}
+"--" {return token(OP_ARITHMETIC, yytext());}
+"+" {return token(OP_ARITHMETIC, yytext());}
+"-" {return token(OP_ARITHMETIC, yytext());}
+"*" {return token(OP_ARITHMETIC, yytext());}
+"/" {return token(OP_ARITHMETIC, yytext());}
+"%" {return token(OP_ARITHMETIC, yytext());}
+"+=" {return token(OP_ARITHMETIC, yytext());}
+"-=" {return token(OP_ARITHMETIC, yytext());}
+"*=" {return token(OP_ARITHMETIC, yytext());}
+"/=" {return token(OP_ARITHMETIC, yytext());}
+"%=" {return token(OP_ARITHMETIC, yytext());}
+
+"==" {return token(OP_LOGICAL, yytext());}
+">=" {return token(OP_LOGICAL, yytext());}
+">" {return token(OP_LOGICAL, yytext());}
+"<" {return token(OP_LOGICAL, yytext());}
+"<=" {return token(OP_LOGICAL, yytext());}
+"!=" {return token(OP_LOGICAL, yytext());}
+"||" {return token(OP_LOGICAL, yytext());}
+"&&" {return token(OP_LOGICAL, yytext());}
+"!" {return token(OP_LOGICAL, yytext());}
+">>" {return token(OP_LOGICAL, yytext());}
+"<<" {return token(OP_LOGICAL, yytext());}
+"&" {return token(OP_LOGICAL, yytext());}
+"^" {return token(OP_LOGICAL, yytext());}
+"|" {return token(OP_LOGICAL, yytext());}
+"~" {return token(OP_LOGICAL, yytext());}
+"&=" {return token(OP_LOGICAL, yytext());}
+"^=" {return token(OP_LOGICAL, yytext());}
+"|=" {return token(OP_LOGICAL, yytext());}
+"<<=" {return token(OP_LOGICAL, yytext());}
+">>=" {return token(OP_LOGICAL, yytext());}
 
 /* ERRORS */
 . {return token(ERROR, yytext());}

@@ -1,7 +1,7 @@
 
 package model.compiler.scanner;
 
-public enum TokenType {
+public enum Sym {
     KEYWORD,
     OP_ARITHMETIC,
     OP_LOGICAL,

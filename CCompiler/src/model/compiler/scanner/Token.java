@@ -4,18 +4,18 @@ package model.compiler.scanner;
 import java.util.ArrayList;
 
 public class Token {
-    private TokenType type;
+    private Sym type;
     private Object value;
     private ArrayList<Integer> lines = new ArrayList<>();
     
-    public Token(TokenType type, Object value, int lineNumber){
+    public Token(Sym type, Object value, int lineNumber){
         this.type = type;
         this.value = value;
         // Line numbers are switched to 1-based
         this.lines.add(lineNumber + 1);
     }
     
-    public TokenType getType(){
+    public Sym getType(){
         return this.type;
     }
     

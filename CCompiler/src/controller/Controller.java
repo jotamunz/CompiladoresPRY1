@@ -8,7 +8,7 @@ import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import model.compiler.Model;
 import model.compiler.scanner.Token;
-import static model.compiler.scanner.TokenType.ERROR;
+import static model.compiler.scanner.Sym.ERROR;
 import view.View;
 
 public class Controller implements ActionListener {
