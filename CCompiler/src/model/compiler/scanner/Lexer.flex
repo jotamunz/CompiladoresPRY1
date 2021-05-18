@@ -21,7 +21,7 @@ Exponent = [eE][+-]?{Digit}+
 
 %{
     private Token token(Sym type, Object value){
-        return new Token(type, value, yyline);
+        return new Token(type, value, yyline, yycolumn);
     }
 %}
 

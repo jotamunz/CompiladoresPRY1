@@ -6,12 +6,14 @@ import java_cup.runtime.*;
 public class Token extends Symbol{
     private Sym name;
     private int lineNum;
+    private int colNum;
     
-    public Token(Sym name, Object value, int lineNumber){
+    public Token(Sym name, Object value, int lineNumber, int colNumber){
         super(name.hashCode(), value);
         this.name = name;
-        // Line numbers are switched to 1-based
+        // Line and column numbers are switched to 1-based
         this.lineNum = lineNumber + 1;
+        this.colNum = colNumber + 1;
     }
     
     public Sym getName(){
@@ -24,6 +26,10 @@ public class Token extends Symbol{
     
     public int getLineNum(){
         return this.lineNum;
+    }
+    
+    public int getColNum(){
+        return this.colNum;
     }
     
     @Override

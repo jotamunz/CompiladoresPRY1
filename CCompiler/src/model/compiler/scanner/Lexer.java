@@ -5,7 +5,6 @@
 package model.compiler.scanner;
 import static model.compiler.scanner.Sym.*;
 import static model.compiler.scanner.Token.*;
-import java_cup.runtime.*;
 
 
 // See https://github.com/jflex-de/jflex/issues/222
@@ -478,7 +477,7 @@ class Lexer {
 
   /* user code: */
     private Token token(Sym type, Object value){
-        return new Token(type, value, yyline);
+        return new Token(type, value, yyline, yycolumn);
     }
 
 
