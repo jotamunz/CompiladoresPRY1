@@ -1,7 +1,6 @@
 package model.compiler.scanner;
 import static model.compiler.scanner.Sym.*;
 import static model.compiler.scanner.Token.*;
-import java_cup.runtime.*;
 
 %%
 

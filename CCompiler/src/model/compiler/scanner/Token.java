@@ -1,65 +1,37 @@
     
 package model.compiler.scanner;
 
-import java.util.ArrayList;
+import java_cup.runtime.*;
 
-public class Token {
-    private Sym type;
-    private Object value;
-    private ArrayList<Integer> lines = new ArrayList<>();
+public class Token extends Symbol{
+    private Sym name;
+    private int lineNum;
     
-    public Token(Sym type, Object value, int lineNumber){
-        this.type = type;
-        this.value = value;
+    public Token(Sym name, Object value, int lineNumber){
+        super(name.hashCode(), value);
+        this.name = name;
         // Line numbers are switched to 1-based
-        this.lines.add(lineNumber + 1);
+        this.lineNum = lineNumber + 1;
     }
     
-    public Sym getType(){
-        return this.type;
+    public Sym getName(){
+        return this.name;
     }
     
     public Object getValue(){
         return this.value;
     }
     
-    public ArrayList<Integer> getLines(){
-        return this.lines;
-    }
-    
-    public String linesToString(){
-        String res = "";
-        int counter = 1;
-        for (int i = 0; i < lines.size(); i++){
-            int line = lines.get(i);
-            // If repeating line increase counter
-            if (i != 0 && lines.get(i-1) == line){
-                counter += 1;
-            }
-            else {
-                // If accumulated counter add (counter) to result
-                if (counter != 1){
-                    res += "(" + String.valueOf(counter) + ")";
-                    counter = 1;
-                }
-                if (i == 0)
-                    res += " " + String.valueOf(line);
-                else
-                    res += ", " + String.valueOf(line);
-            }
-        }
-        // If last element was a repetition add (counter) to result
-        if (counter != 1)
-            res += "(" + String.valueOf(counter) + ")";
-        return res;
+    public int getLineNum(){
+        return this.lineNum;
     }
     
     @Override
     public String toString(){
         String res;  
         res = this.value.toString() + "\t\t";
-        res += this.type.toString() + "\t\t";
-        res += linesToString();
+        res += this.name.toString() + "\t\t";
+        res += String.valueOf(this.lineNum);
         return res;
     } 
 }

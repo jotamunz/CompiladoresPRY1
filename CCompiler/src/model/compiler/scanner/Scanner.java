@@ -4,28 +4,20 @@ package model.compiler.scanner;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Scanner {
     
-    private HashMap<String, Token> uniqueTokens = new HashMap<>();
+    private ArrayList<Token> tokens = new ArrayList<>();
     
     public void scan(String path){
         try {
-            uniqueTokens = new HashMap<>();
+            tokens = new ArrayList<>();
             Lexer lex = new Lexer(new FileReader(path));
             Token newToken;
             // Read tokens
             while ((newToken = lex.nextToken()) != null){
-                String id = newToken.getType().toString() + newToken.getValue().toString();
-                // If first appearance add to hash
-                if (!uniqueTokens.containsKey(id)){
-                    uniqueTokens.put(id, newToken);
-                }
-                // Else add line number to existing token in hash
-                else {
-                    uniqueTokens.get(id).getLines().add(newToken.getLines().get(0));
-                }
+                tokens.add(newToken);
             }
         } catch (FileNotFoundException ex) {
             System.out.println("File Not Found");
@@ -34,15 +26,15 @@ public class Scanner {
         }
     }
     
-    public void printUniqueTokens(){
+    public void printTokens(){
         System.out.println("VALUE\t\tTYPES\t\tLINES");
-        for (Token token : uniqueTokens.values()) {
+        for (Token token : tokens) {
             System.out.println(token.toString());
         }
     }
 
-    public HashMap<String, Token> getUniqueTokens() {
-        return uniqueTokens;
+    public ArrayList<Token> getTokens() {
+        return tokens;
     }
     
     

@@ -3,7 +3,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import model.compiler.Model;
@@ -25,7 +25,7 @@ public class Controller implements ActionListener {
         this.view.btn_scan.addActionListener(this);
         this.view.btn_select.addActionListener(this);
         
-        view.setTitle("C Compiler Scanner");
+        view.setTitle("C Compiler");
         view.setLocationRelativeTo(null);
         view.setVisible(true);
     }
@@ -60,14 +60,14 @@ public class Controller implements ActionListener {
     }
     
     public void scanFile(){
-        HashMap<String, Token> scanResult = model.scanFile();
+        ArrayList<Token> scanResult = model.scanFile();
         DefaultTableModel table = (DefaultTableModel)view.table_scannerResult.getModel();
         table.setRowCount(0);
         DefaultTableModel tableErrors = (DefaultTableModel)view.table_scannerResultErrors.getModel();
         tableErrors.setRowCount(0);
-        for (Token token : scanResult.values()) {
-            String row[] = {token.getValue().toString(),token.getType().name(),token.linesToString()};
-            if (token.getType() == ERROR){
+        for (Token token : scanResult) {
+            String row[] = {token.getValue().toString(),token.getName().name(),String.valueOf(token.getLineNum())};
+            if (token.getName() == ERROR){
                 tableErrors.addRow(row);
             }
             else{

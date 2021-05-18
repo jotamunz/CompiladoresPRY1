@@ -1,9 +1,9 @@
 
 package model.compiler;
 
+import java.util.ArrayList;
 import model.compiler.scanner.Token;
 import model.compiler.scanner.Scanner;
-import java.util.HashMap;
 
 public class Model {
     private String fileName;
@@ -16,13 +16,11 @@ public class Model {
         this.scanner = new Scanner();
     }
     
-    public HashMap<String, Token> scanFile () {
+    public ArrayList<Token> scanFile () {
         scanner.scan(filePath);
-        scanner.printUniqueTokens();
-        return scanner.getUniqueTokens();
+        scanner.printTokens();
+        return scanner.getTokens();
     }
-
-    //Gets and Sets
     
     public String getFileName() {
         return fileName;
