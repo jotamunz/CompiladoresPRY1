@@ -14,7 +14,7 @@ public class SyntacticAnalyzer {
             parser par = new parser(new Lexer(new FileReader(path)));
             par.parse();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(SyntacticAnalyzer.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("File Not Found");
         } catch (Exception ex) {
             Logger.getLogger(SyntacticAnalyzer.class.getName()).log(Level.SEVERE, null, ex);
         }
