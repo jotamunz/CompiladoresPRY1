@@ -3,7 +3,7 @@
 // source: Lexer.flex
 
 package model.compiler.scanner;
-import static model.compiler.scanner.Constants.*;
+import static model.compiler.scanner.TokenNames.*;
 import model.compiler.parser.sym;
 import java_cup.runtime.*;
 

@@ -1,7 +1,7 @@
     
 package model.compiler.scanner;
 
-import static model.compiler.scanner.Constants.*;
+import static model.compiler.scanner.TokenNames.*;
 
 public class Token {
     private int id;

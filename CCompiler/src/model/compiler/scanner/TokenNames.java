@@ -1,7 +1,7 @@
 
 package model.compiler.scanner;
 
-public interface Constants {
+public interface TokenNames {
     public static final int KEY_AUTO = 0;
     public static final int KEY_BREAK = 1;
     public static final int KEY_CASE = 2;   
