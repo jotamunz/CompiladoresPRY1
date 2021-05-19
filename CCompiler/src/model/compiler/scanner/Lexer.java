@@ -3,7 +3,6 @@
 // source: Lexer.flex
 
 package model.compiler.scanner;
-import static model.compiler.scanner.TokenNames.*;
 import model.compiler.parser.sym;
 import java_cup.runtime.*;
 
@@ -892,7 +891,7 @@ public class Lexer implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { return symbol(ERROR, yytext());
+            { return symbol(sym.LEX_ERROR, yytext());
             }
             // fall through
           case 87: break;
@@ -902,422 +901,422 @@ public class Lexer implements java_cup.runtime.Scanner {
             // fall through
           case 88: break;
           case 3:
-            { return symbol(OP_NOT, yytext());
+            { return symbol(sym.OP_NOT, yytext());
             }
             // fall through
           case 89: break;
           case 4:
-            { return symbol(OP_MOD, yytext());
+            { return symbol(sym.OP_MOD, yytext());
             }
             // fall through
           case 90: break;
           case 5:
-            { return symbol(OP_BITAND, yytext());
+            { return symbol(sym.OP_BITAND, yytext());
             }
             // fall through
           case 91: break;
           case 6:
-            { return symbol(OP_PAR_OPEN, yytext());
+            { return symbol(sym.OP_PAR_OPEN, yytext());
             }
             // fall through
           case 92: break;
           case 7:
-            { return symbol(OP_PAR_CLOSE, yytext());
+            { return symbol(sym.OP_PAR_CLOSE, yytext());
             }
             // fall through
           case 93: break;
           case 8:
-            { return symbol(OP_MULT, yytext());
+            { return symbol(sym.OP_MULT, yytext());
             }
             // fall through
           case 94: break;
           case 9:
-            { return symbol(OP_ADD, yytext());
+            { return symbol(sym.OP_ADD, yytext());
             }
             // fall through
           case 95: break;
           case 10:
-            { return symbol(OP_COMA, yytext());
+            { return symbol(sym.OP_COMA, yytext());
             }
             // fall through
           case 96: break;
           case 11:
-            { return symbol(OP_SUB, yytext());
+            { return symbol(sym.OP_SUB, yytext());
             }
             // fall through
           case 97: break;
           case 12:
-            { return symbol(OP_DOT, yytext());
+            { return symbol(sym.OP_DOT, yytext());
             }
             // fall through
           case 98: break;
           case 13:
-            { return symbol(OP_DIV, yytext());
+            { return symbol(sym.OP_DIV, yytext());
             }
             // fall through
           case 99: break;
           case 14:
-            { return symbol(INT, yytext());
+            { return symbol(sym.INT, yytext());
             }
             // fall through
           case 100: break;
           case 15:
-            { return symbol(OP_COLON, yytext());
+            { return symbol(sym.OP_COLON, yytext());
             }
             // fall through
           case 101: break;
           case 16:
-            { return symbol(OP_SEMICOL, yytext());
+            { return symbol(sym.OP_SEMICOL, yytext());
             }
             // fall through
           case 102: break;
           case 17:
-            { return symbol(OP_LESS, yytext());
+            { return symbol(sym.OP_LESS, yytext());
             }
             // fall through
           case 103: break;
           case 18:
-            { return symbol(OP_ASSIGN, yytext());
+            { return symbol(sym.OP_ASSIGN, yytext());
             }
             // fall through
           case 104: break;
           case 19:
-            { return symbol(OP_GREATER, yytext());
+            { return symbol(sym.OP_GREATER, yytext());
             }
             // fall through
           case 105: break;
           case 20:
-            { return symbol(OP_QUEST, yytext());
+            { return symbol(sym.OP_QUEST, yytext());
             }
             // fall through
           case 106: break;
           case 21:
-            { return symbol(ID, yytext());
+            { return symbol(sym.ID, yytext());
             }
             // fall through
           case 107: break;
           case 22:
-            { return symbol(OP_BRACK_OPEN, yytext());
+            { return symbol(sym.OP_BRACK_OPEN, yytext());
             }
             // fall through
           case 108: break;
           case 23:
-            { return symbol(OP_BRACK_CLOSE, yytext());
+            { return symbol(sym.OP_BRACK_CLOSE, yytext());
             }
             // fall through
           case 109: break;
           case 24:
-            { return symbol(OP_BITOREXC, yytext());
+            { return symbol(sym.OP_BITOREXC, yytext());
             }
             // fall through
           case 110: break;
           case 25:
-            { return symbol(OP_BRACE_OPEN, yytext());
+            { return symbol(sym.OP_BRACE_OPEN, yytext());
             }
             // fall through
           case 111: break;
           case 26:
-            { return symbol(OP_BITOR, yytext());
+            { return symbol(sym.OP_BITOR, yytext());
             }
             // fall through
           case 112: break;
           case 27:
-            { return symbol(OP_BRACE_CLOSE, yytext());
+            { return symbol(sym.OP_BRACE_CLOSE, yytext());
             }
             // fall through
           case 113: break;
           case 28:
-            { return symbol(OP_BITCOMPL, yytext());
+            { return symbol(sym.OP_BITCOMPL, yytext());
             }
             // fall through
           case 114: break;
           case 29:
-            { return symbol(OP_NOT_EQ, yytext());
+            { return symbol(sym.OP_NOT_EQ, yytext());
             }
             // fall through
           case 115: break;
           case 30:
-            { return symbol(STRING, yytext());
+            { return symbol(sym.STRING, yytext());
             }
             // fall through
           case 116: break;
           case 31:
-            { return symbol(OP_MOD_ASS, yytext());
+            { return symbol(sym.OP_MOD_ASS, yytext());
             }
             // fall through
           case 117: break;
           case 32:
-            { return symbol(OP_AND, yytext());
+            { return symbol(sym.OP_AND, yytext());
             }
             // fall through
           case 118: break;
           case 33:
-            { return symbol(OP_BITAND_ASS, yytext());
+            { return symbol(sym.OP_BITAND_ASS, yytext());
             }
             // fall through
           case 119: break;
           case 34:
-            { return symbol(OP_MULT_ASS, yytext());
+            { return symbol(sym.OP_MULT_ASS, yytext());
             }
             // fall through
           case 120: break;
           case 35:
-            { return symbol(OP_INC, yytext());
+            { return symbol(sym.OP_INC, yytext());
             }
             // fall through
           case 121: break;
           case 36:
-            { return symbol(OP_ADD_ASS, yytext());
+            { return symbol(sym.OP_ADD_ASS, yytext());
             }
             // fall through
           case 122: break;
           case 37:
-            { return symbol(OP_DEC, yytext());
+            { return symbol(sym.OP_DEC, yytext());
             }
             // fall through
           case 123: break;
           case 38:
-            { return symbol(OP_SUB_ASS, yytext());
+            { return symbol(sym.OP_SUB_ASS, yytext());
             }
             // fall through
           case 124: break;
           case 39:
-            { return symbol(OP_ARROW, yytext());
+            { return symbol(sym.OP_ARROW, yytext());
             }
             // fall through
           case 125: break;
           case 40:
-            { return symbol(FLOAT, yytext());
+            { return symbol(sym.FLOAT, yytext());
             }
             // fall through
           case 126: break;
           case 41:
-            { return symbol(OP_DIV_ASS, yytext());
+            { return symbol(sym.OP_DIV_ASS, yytext());
             }
             // fall through
           case 127: break;
           case 42:
-            { return symbol(OP_LSHIFT, yytext());
+            { return symbol(sym.OP_LSHIFT, yytext());
             }
             // fall through
           case 128: break;
           case 43:
-            { return symbol(OP_LESS_EQ, yytext());
+            { return symbol(sym.OP_LESS_EQ, yytext());
             }
             // fall through
           case 129: break;
           case 44:
-            { return symbol(OP_EQUAL, yytext());
+            { return symbol(sym.OP_EQUAL, yytext());
             }
             // fall through
           case 130: break;
           case 45:
-            { return symbol(OP_GRE_EQ, yytext());
+            { return symbol(sym.OP_GRE_EQ, yytext());
             }
             // fall through
           case 131: break;
           case 46:
-            { return symbol(OP_RSHIFT, yytext());
+            { return symbol(sym.OP_RSHIFT, yytext());
             }
             // fall through
           case 132: break;
           case 47:
-            { return symbol(OP_BITOREXC_ASS, yytext());
+            { return symbol(sym.OP_BITOREXC_ASS, yytext());
             }
             // fall through
           case 133: break;
           case 48:
-            { return symbol(KEY_DO, yytext());
+            { return symbol(sym.KEY_DO, yytext());
             }
             // fall through
           case 134: break;
           case 49:
-            { return symbol(KEY_IF, yytext());
+            { return symbol(sym.KEY_IF, yytext());
             }
             // fall through
           case 135: break;
           case 50:
-            { return symbol(OP_BITOR_ASS, yytext());
+            { return symbol(sym.OP_BITOR_ASS, yytext());
             }
             // fall through
           case 136: break;
           case 51:
-            { return symbol(OP_OR, yytext());
+            { return symbol(sym.OP_OR, yytext());
             }
             // fall through
           case 137: break;
           case 52:
-            { return symbol(CHAR, yytext());
+            { return symbol(sym.CHAR, yytext());
             }
             // fall through
           case 138: break;
           case 53:
-            { return symbol(OP_RSHIFT_ASS, yytext());
+            { return symbol(sym.OP_RSHIFT_ASS, yytext());
             }
             // fall through
           case 139: break;
           case 54:
-            { return symbol(OP_LSHIFT_ASS, yytext());
+            { return symbol(sym.OP_LSHIFT_ASS, yytext());
             }
             // fall through
           case 140: break;
           case 55:
-            { return symbol(KEY_FOR, yytext());
+            { return symbol(sym.KEY_FOR, yytext());
             }
             // fall through
           case 141: break;
           case 56:
-            { return symbol(KEY_INT, yytext());
+            { return symbol(sym.KEY_INT, yytext());
             }
             // fall through
           case 142: break;
           case 57:
-            { return symbol(KEY_AUTO, yytext());
+            { return symbol(sym.KEY_AUTO, yytext());
             }
             // fall through
           case 143: break;
           case 58:
-            { return symbol(KEY_CASE, yytext());
+            { return symbol(sym.KEY_CASE, yytext());
             }
             // fall through
           case 144: break;
           case 59:
-            { return symbol(KEY_CHAR, yytext());
+            { return symbol(sym.KEY_CHAR, yytext());
             }
             // fall through
           case 145: break;
           case 60:
-            { return symbol(KEY_ELSE, yytext());
+            { return symbol(sym.KEY_ELSE, yytext());
             }
             // fall through
           case 146: break;
           case 61:
-            { return symbol(KEY_ENUM, yytext());
+            { return symbol(sym.KEY_ENUM, yytext());
             }
             // fall through
           case 147: break;
           case 62:
-            { return symbol(KEY_GOTO, yytext());
+            { return symbol(sym.KEY_GOTO, yytext());
             }
             // fall through
           case 148: break;
           case 63:
-            { return symbol(KEY_LONG, yytext());
+            { return symbol(sym.KEY_LONG, yytext());
             }
             // fall through
           case 149: break;
           case 64:
-            { return symbol(KEY_READ, yytext());
+            { return symbol(sym.KEY_READ, yytext());
             }
             // fall through
           case 150: break;
           case 65:
-            { return symbol(KEY_VOID, yytext());
+            { return symbol(sym.KEY_VOID, yytext());
             }
             // fall through
           case 151: break;
           case 66:
-            { return symbol(KEY_BREAK, yytext());
+            { return symbol(sym.KEY_BREAK, yytext());
             }
             // fall through
           case 152: break;
           case 67:
-            { return symbol(KEY_CONST, yytext());
+            { return symbol(sym.KEY_CONST, yytext());
             }
             // fall through
           case 153: break;
           case 68:
-            { return symbol(KEY_FLOAT, yytext());
+            { return symbol(sym.KEY_FLOAT, yytext());
             }
             // fall through
           case 154: break;
           case 69:
-            { return symbol(KEY_SHORT, yytext());
+            { return symbol(sym.KEY_SHORT, yytext());
             }
             // fall through
           case 155: break;
           case 70:
-            { return symbol(KEY_UNION, yytext());
+            { return symbol(sym.KEY_UNION, yytext());
             }
             // fall through
           case 156: break;
           case 71:
-            { return symbol(KEY_WHILE, yytext());
+            { return symbol(sym.KEY_WHILE, yytext());
             }
             // fall through
           case 157: break;
           case 72:
-            { return symbol(KEY_WRITE, yytext());
+            { return symbol(sym.KEY_WRITE, yytext());
             }
             // fall through
           case 158: break;
           case 73:
-            { return symbol(KEY_DOUBLE, yytext());
+            { return symbol(sym.KEY_DOUBLE, yytext());
             }
             // fall through
           case 159: break;
           case 74:
-            { return symbol(KEY_EXT, yytext());
+            { return symbol(sym.KEY_EXT, yytext());
             }
             // fall through
           case 160: break;
           case 75:
-            { return symbol(KEY_RET, yytext());
+            { return symbol(sym.KEY_RET, yytext());
             }
             // fall through
           case 161: break;
           case 76:
-            { return symbol(KEY_SIG, yytext());
+            { return symbol(sym.KEY_SIG, yytext());
             }
             // fall through
           case 162: break;
           case 77:
-            { return symbol(KEY_SIZEOF, yytext());
+            { return symbol(sym.KEY_SIZEOF, yytext());
             }
             // fall through
           case 163: break;
           case 78:
-            { return symbol(KEY_STATIC, yytext());
+            { return symbol(sym.KEY_STATIC, yytext());
             }
             // fall through
           case 164: break;
           case 79:
-            { return symbol(KEY_STRUCT, yytext());
+            { return symbol(sym.KEY_STRUCT, yytext());
             }
             // fall through
           case 165: break;
           case 80:
-            { return symbol(KEY_SWITCH, yytext());
+            { return symbol(sym.KEY_SWITCH, yytext());
             }
             // fall through
           case 166: break;
           case 81:
-            { return symbol(KEY_DEF, yytext());
+            { return symbol(sym.KEY_DEF, yytext());
             }
             // fall through
           case 167: break;
           case 82:
-            { return symbol(KEY_TYPEDEF, yytext());
+            { return symbol(sym.KEY_TYPEDEF, yytext());
             }
             // fall through
           case 168: break;
           case 83:
-            { return symbol(KEY_CONT, yytext());
+            { return symbol(sym.KEY_CONT, yytext());
             }
             // fall through
           case 169: break;
           case 84:
-            { return symbol(KEY_REG, yytext());
+            { return symbol(sym.KEY_REG, yytext());
             }
             // fall through
           case 170: break;
           case 85:
-            { return symbol(KEY_UNSIG, yytext());
+            { return symbol(sym.KEY_UNSIG, yytext());
             }
             // fall through
           case 171: break;
           case 86:
-            { return symbol(KEY_VOL, yytext());
+            { return symbol(sym.KEY_VOL, yytext());
             }
             // fall through
           case 172: break;

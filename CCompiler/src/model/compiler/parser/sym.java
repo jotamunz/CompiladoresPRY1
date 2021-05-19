@@ -8,59 +8,97 @@ package model.compiler.parser;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int KEY_CHAR = 4;
-  public static final int OP_ADD_ASS = 36;
-  public static final int CHAR = 23;
-  public static final int OP_GREATER = 42;
-  public static final int KEY_CASE = 3;
-  public static final int OP_PAR_OPEN = 34;
-  public static final int OP_NOT = 48;
-  public static final int OP_AND = 47;
-  public static final int KEY_BREAK = 2;
-  public static final int INT = 22;
-  public static final int OP_INC = 26;
-  public static final int OP_DIV = 32;
-  public static final int OP_BRACE_OPEN = 24;
-  public static final int KEY_DEF = 7;
-  public static final int OP_GRE_EQ = 41;
-  public static final int KEY_DO = 8;
-  public static final int KEY_WHILE = 18;
-  public static final int OP_ADD = 29;
-  public static final int OP_SUB_ASS = 37;
-  public static final int ID = 21;
-  public static final int OP_MOD = 33;
+  public static final int OP_DEC = 55;
+  public static final int KEY_REG = 20;
+  public static final int KEY_GOTO = 16;
+  public static final int KEY_TYPEDEF = 28;
+  public static final int OP_MULT = 58;
+  public static final int OP_MOD = 60;
+  public static final int OP_SUB_ASS = 62;
+  public static final int OP_BITAND = 75;
+  public static final int OP_GREATER = 68;
+  public static final int OP_BITOREXC_ASS = 82;
+  public static final int OP_BITOR_ASS = 78;
+  public static final int KEY_LONG = 19;
+  public static final int KEY_SWITCH = 27;
+  public static final int KEY_CHAR = 5;
+  public static final int OP_DIV_ASS = 64;
+  public static final int KEY_VOL = 32;
+  public static final int OP_COLON = 51;
+  public static final int KEY_VOID = 31;
+  public static final int OP_ADD = 56;
+  public static final int OP_GRE_EQ = 67;
+  public static final int OP_DIV = 59;
+  public static final int KEY_EXT = 13;
+  public static final int KEY_ELSE = 11;
+  public static final int LEX_ERROR = 86;
+  public static final int OP_QUEST = 43;
+  public static final int OP_DOT = 52;
+  public static final int OP_NOT_EQ = 71;
+  public static final int FLOAT = 37;
+  public static final int KEY_SIG = 23;
+  public static final int OP_MULT_ASS = 63;
+  public static final int OP_ADD_ASS = 61;
+  public static final int KEY_SHORT = 22;
+  public static final int OP_BITOREXC = 81;
+  public static final int OP_RSHIFT = 79;
+  public static final int OP_INC = 54;
+  public static final int KEY_CONST = 6;
+  public static final int OP_LESS = 69;
+  public static final int OP_LSHIFT = 80;
+  public static final int OP_BRACK_CLOSE = 48;
+  public static final int KEY_DEF = 8;
+  public static final int OP_ARROW = 53;
+  public static final int CHAR = 39;
+  public static final int KEY_UNSIG = 30;
+  public static final int OP_BITCOMPL = 83;
+  public static final int KEY_DO = 9;
+  public static final int KEY_CASE = 4;
+  public static final int OP_BRACE_CLOSE = 50;
+  public static final int KEY_STATIC = 25;
+  public static final int OP_LSHIFT_ASS = 85;
+  public static final int INT = 38;
+  public static final int OP_PAR_OPEN = 45;
+  public static final int OP_AND = 73;
   public static final int EOF = 0;
-  public static final int OP_PAR_CLOSE = 35;
-  public static final int KEY_RET = 14;
+  public static final int KEY_AUTO = 2;
+  public static final int KEY_FLOAT = 14;
+  public static final int OP_SEMICOL = 42;
+  public static final int KEY_FOR = 15;
   public static final int error = 1;
-  public static final int OP_MULT = 31;
-  public static final int OP_OR = 46;
-  public static final int OP_MULT_ASS = 38;
-  public static final int KEY_VOID = 17;
-  public static final int OP_ASSIGN = 28;
-  public static final int KEY_INT = 12;
-  public static final int ERROR = 49;
-  public static final int KEY_SHORT = 15;
-  public static final int KEY_FOR = 10;
-  public static final int KEY_CONST = 5;
-  public static final int KEY_ELSE = 9;
-  public static final int OP_LESS_EQ = 44;
-  public static final int KEY_READ = 19;
-  public static final int OP_LESS = 43;
-  public static final int OP_DIV_ASS = 39;
-  public static final int OP_BRACE_CLOSE = 25;
-  public static final int OP_DEC = 27;
-  public static final int KEY_IF = 11;
-  public static final int KEY_SWITCH = 16;
-  public static final int KEY_LONG = 13;
-  public static final int OP_SUB = 30;
-  public static final int KEY_WRITE = 20;
-  public static final int OP_NOT_EQ = 45;
-  public static final int OP_EQUAL = 40;
-  public static final int KEY_CONT = 6;
+  public static final int KEY_READ = 34;
+  public static final int KEY_INT = 18;
+  public static final int KEY_DOUBLE = 10;
+  public static final int KEY_IF = 17;
+  public static final int ID = 36;
+  public static final int OP_LESS_EQ = 70;
+  public static final int KEY_WRITE = 35;
+  public static final int KEY_SIZEOF = 24;
+  public static final int OP_PAR_CLOSE = 46;
+  public static final int OP_RSHIFT_ASS = 84;
+  public static final int OP_BRACK_OPEN = 47;
+  public static final int KEY_ENUM = 12;
+  public static final int KEY_WHILE = 33;
+  public static final int KEY_UNION = 29;
+  public static final int KEY_CONT = 7;
+  public static final int OP_ASSIGN = 44;
+  public static final int OP_BRACE_OPEN = 49;
+  public static final int KEY_STRUCT = 26;
+  public static final int OP_BITAND_ASS = 77;
+  public static final int STRING = 40;
+  public static final int OP_EQUAL = 66;
+  public static final int OP_MOD_ASS = 65;
+  public static final int KEY_RET = 21;
+  public static final int KEY_BREAK = 3;
+  public static final int OP_SUB = 57;
+  public static final int OP_COMA = 41;
+  public static final int OP_OR = 72;
+  public static final int OP_NOT = 74;
+  public static final int OP_BITOR = 76;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
+  "KEY_AUTO",
   "KEY_BREAK",
   "KEY_CASE",
   "KEY_CHAR",
@@ -68,37 +106,62 @@ public class sym {
   "KEY_CONT",
   "KEY_DEF",
   "KEY_DO",
+  "KEY_DOUBLE",
   "KEY_ELSE",
+  "KEY_ENUM",
+  "KEY_EXT",
+  "KEY_FLOAT",
   "KEY_FOR",
+  "KEY_GOTO",
   "KEY_IF",
   "KEY_INT",
   "KEY_LONG",
+  "KEY_REG",
   "KEY_RET",
   "KEY_SHORT",
+  "KEY_SIG",
+  "KEY_SIZEOF",
+  "KEY_STATIC",
+  "KEY_STRUCT",
   "KEY_SWITCH",
+  "KEY_TYPEDEF",
+  "KEY_UNION",
+  "KEY_UNSIG",
   "KEY_VOID",
+  "KEY_VOL",
   "KEY_WHILE",
   "KEY_READ",
   "KEY_WRITE",
   "ID",
+  "FLOAT",
   "INT",
   "CHAR",
+  "STRING",
+  "OP_COMA",
+  "OP_SEMICOL",
+  "OP_QUEST",
+  "OP_ASSIGN",
+  "OP_PAR_OPEN",
+  "OP_PAR_CLOSE",
+  "OP_BRACK_OPEN",
+  "OP_BRACK_CLOSE",
   "OP_BRACE_OPEN",
   "OP_BRACE_CLOSE",
+  "OP_COLON",
+  "OP_DOT",
+  "OP_ARROW",
   "OP_INC",
   "OP_DEC",
-  "OP_ASSIGN",
   "OP_ADD",
   "OP_SUB",
   "OP_MULT",
   "OP_DIV",
   "OP_MOD",
-  "OP_PAR_OPEN",
-  "OP_PAR_CLOSE",
   "OP_ADD_ASS",
   "OP_SUB_ASS",
   "OP_MULT_ASS",
   "OP_DIV_ASS",
+  "OP_MOD_ASS",
   "OP_EQUAL",
   "OP_GRE_EQ",
   "OP_GREATER",
@@ -108,7 +171,18 @@ public class sym {
   "OP_OR",
   "OP_AND",
   "OP_NOT",
-  "ERROR"
+  "OP_BITAND",
+  "OP_BITOR",
+  "OP_BITAND_ASS",
+  "OP_BITOR_ASS",
+  "OP_RSHIFT",
+  "OP_LSHIFT",
+  "OP_BITOREXC",
+  "OP_BITOREXC_ASS",
+  "OP_BITCOMPL",
+  "OP_RSHIFT_ASS",
+  "OP_LSHIFT_ASS",
+  "LEX_ERROR"
   };
 }
 

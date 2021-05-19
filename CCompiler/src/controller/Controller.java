@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import model.compiler.Model;
+import static model.compiler.parser.sym.LEX_ERROR;
 import model.compiler.scanner.Token;
-import static model.compiler.scanner.TokenNames.ERROR;
 import view.View;
 
 public class Controller implements ActionListener {
@@ -67,7 +67,7 @@ public class Controller implements ActionListener {
         tableErrors.setRowCount(0);
         for (Token token : scanResult) {
             String row[] = {token.getValue().toString(),token.getName(),String.valueOf(token.getLineNum())};
-            if (token.getId() == ERROR){
+            if (token.getId() == LEX_ERROR){
                 tableErrors.addRow(row);
             }
             else{

@@ -1,7 +1,7 @@
     
 package model.compiler.scanner;
 
-import static model.compiler.scanner.TokenNames.*;
+import static model.compiler.parser.sym.terminalNames;
 
 public class Token {
     private int id;
@@ -12,7 +12,7 @@ public class Token {
     
     public Token(int id, int lineNumber, int colNumber, Object value){
         this.id = id;
-        this.name = symNames[id];
+        this.name = terminalNames[id];
         this.value = value;
         // Line and column numbers are switched to 1-based
         this.lineNum = lineNumber + 1;

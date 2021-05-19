@@ -13,6 +13,7 @@ public class SyntacticAnalyzer {
         try {
             parser par = new parser(new Lexer(new FileReader(path)));
             par.parse();
+            System.out.println("Success");
         } catch (FileNotFoundException ex) {
             System.out.println("File Not Found");
         } catch (Exception ex) {
