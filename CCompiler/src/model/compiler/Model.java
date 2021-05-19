@@ -3,17 +3,17 @@ package model.compiler;
 
 import java.util.ArrayList;
 import model.compiler.scanner.Token;
-import model.compiler.scanner.Scanner;
+import model.compiler.scanner.LexicalAnalyzer;
 
 public class Model {
     private String fileName;
     private String filePath;
-    private Scanner scanner;
+    private LexicalAnalyzer scanner;
 
     public Model() {
         this.fileName = "";
         this.filePath = "";
-        this.scanner = new Scanner();
+        this.scanner = new LexicalAnalyzer();
     }
     
     public ArrayList<Token> scanFile () {

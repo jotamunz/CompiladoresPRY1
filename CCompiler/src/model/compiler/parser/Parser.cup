@@ -1,0 +1,85 @@
+package model.compiler.parser;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+
+:};
+
+terminal     
+    KEY_BREAK,
+    KEY_CASE,
+    KEY_CHAR,
+    KEY_CONST,
+    KEY_CONT,
+    KEY_DEF,
+    KEY_DO,
+    KEY_ELSE,
+    KEY_FOR,
+    KEY_IF,
+    KEY_INT,
+    KEY_LONG,
+    KEY_RET,
+    KEY_SHORT,
+    KEY_SWITCH,
+    KEY_VOID,
+    KEY_WHILE,
+    KEY_READ,
+    KEY_WRITE,
+    ID,
+    INT,
+    CHAR,
+    OP_BRACE_OPEN,
+    OP_BRACE_CLOSE,
+    OP_INC,
+    OP_DEC,
+    OP_ASSIGN,
+    OP_ADD,
+    OP_SUB,
+    OP_MULT,
+    OP_DIV,
+    OP_MOD,
+    OP_PAR_OPEN,
+    OP_PAR_CLOSE,
+    OP_ADD_ASS,
+    OP_SUB_ASS,
+    OP_MULT_ASS,
+    OP_DIV_ASS,
+    OP_EQUAL,
+    OP_GRE_EQ,
+    OP_GREATER,
+    OP_LESS,
+    OP_LESS_EQ,
+    OP_NOT_EQ,
+    OP_OR,
+    OP_AND,
+    OP_NOT,
+    ERROR
+;
+
+non terminal
+    innit,
+    key_types,
+    statement
+;
+
+start with innit;
+
+key_types ::=
+    KEY_INT |
+    KEY_VOID |
+    KEY_CHAR |
+    KEY_LONG |
+    KEY_SHORT
+;  
+
+innit ::= 
+    key_types ID OP_PAR_OPEN OP_PAR_CLOSE OP_BRACE_OPEN statement OP_BRACE_CLOSE
+;
+
+statement ::= 
+    INT
+;
+
+

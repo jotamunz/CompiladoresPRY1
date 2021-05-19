@@ -5,8 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java_cup.runtime.Symbol;
+import static model.compiler.parser.sym.EOF;
 
-public class Scanner {
+public class LexicalAnalyzer {
     
     private ArrayList<Token> tokens = new ArrayList<>();
     
@@ -14,10 +16,10 @@ public class Scanner {
         try {
             tokens = new ArrayList<>();
             Lexer lex = new Lexer(new FileReader(path));
-            Token newToken;
+            Symbol nextSym;
             // Read tokens
-            while ((newToken = lex.nextToken()) != null){
-                tokens.add(newToken);
+            while ((nextSym = lex.next_token()).sym != EOF){
+                tokens.add(new Token(nextSym.sym, nextSym.left, nextSym.right, nextSym.value));
             }
         } catch (FileNotFoundException ex) {
             System.out.println("File Not Found");

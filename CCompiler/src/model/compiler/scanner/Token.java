@@ -1,22 +1,29 @@
     
 package model.compiler.scanner;
 
-import java_cup.runtime.*;
+import static model.compiler.scanner.Constants.*;
 
-public class Token extends Symbol{
-    private Sym name;
+public class Token {
+    private int id;
+    private String name;
+    private Object value;
     private int lineNum;
     private int colNum;
     
-    public Token(Sym name, Object value, int lineNumber, int colNumber){
-        super(name.hashCode(), value);
-        this.name = name;
+    public Token(int id, int lineNumber, int colNumber, Object value){
+        this.id = id;
+        this.name = symNames[id];
+        this.value = value;
         // Line and column numbers are switched to 1-based
         this.lineNum = lineNumber + 1;
         this.colNum = colNumber + 1;
     }
     
-    public Sym getName(){
+    public int getId(){
+        return this.id;
+    }
+    
+    public String getName(){
         return this.name;
     }
     
@@ -36,7 +43,7 @@ public class Token extends Symbol{
     public String toString(){
         String res;  
         res = this.value.toString() + "\t\t";
-        res += this.name.toString() + "\t\t";
+        res += this.name + "\t\t";
         res += String.valueOf(this.lineNum);
         return res;
     } 

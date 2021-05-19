@@ -1,7 +1,7 @@
 
 package model.compiler.scanner;
 
-public enum Sym {
+public enum SymEnum {
     KEY_AUTO,
     KEY_BREAK,
     KEY_CASE,
@@ -34,6 +34,8 @@ public enum Sym {
     KEY_VOID,
     KEY_VOL,
     KEY_WHILE,
+    KEY_READ,
+    KEY_WRITE,
     ID,
     FLOAT,
     INT,

@@ -8,7 +8,7 @@ import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import model.compiler.Model;
 import model.compiler.scanner.Token;
-import static model.compiler.scanner.Sym.ERROR;
+import static model.compiler.scanner.Constants.ERROR;
 import view.View;
 
 public class Controller implements ActionListener {
@@ -66,8 +66,8 @@ public class Controller implements ActionListener {
         DefaultTableModel tableErrors = (DefaultTableModel)view.table_scannerResultErrors.getModel();
         tableErrors.setRowCount(0);
         for (Token token : scanResult) {
-            String row[] = {token.getValue().toString(),token.getName().name(),String.valueOf(token.getLineNum())};
-            if (token.getName() == ERROR){
+            String row[] = {token.getValue().toString(),token.getName(),String.valueOf(token.getLineNum())};
+            if (token.getId() == ERROR){
                 tableErrors.addRow(row);
             }
             else{
