@@ -4,7 +4,9 @@ import java_cup.runtime.Symbol;
 
 parser code
 {:
-
+    public void syntax_error(Symbol cur_token){
+	System.err.println("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+    }
 :};
 
 terminal     
@@ -98,25 +100,97 @@ terminal
 non terminal
     innit,
     key_types,
-    statement
+    statement,
+    declaration,
+    expression,
+    operator,
+    operand,
+    assignment_expression,
+    assignment_operator,
+    assignment_operand
 ;
+
+precedence left OP_OR;
+precedence left OP_AND;
+precedence left OP_EQUAL, OP_NOT_EQ;
+precedence left OP_GRE_EQ, OP_GREATER, OP_LESS, OP_LESS_EQ;
+precedence left OP_ADD, OP_SUB;
+precedence left OP_MULT, OP_DIV, OP_MOD;
+precedence right OP_NOT;
 
 start with innit;
 
 key_types ::=
-    KEY_INT |
-    KEY_VOID |
-    KEY_CHAR |
-    KEY_LONG |
-    KEY_SHORT
+    KEY_INT
+    | KEY_VOID
+    | KEY_CHAR
+    | KEY_LONG
+    | KEY_SHORT
+    | KEY_FLOAT
 ;  
 
 innit ::=
     key_types ID OP_PAR_OPEN OP_PAR_CLOSE OP_BRACE_OPEN statement OP_BRACE_CLOSE
+    | error 
 ;
 
+
 statement ::=
-    INT
+    declaration OP_SEMICOL statement
+    | expression OP_SEMICOL statement 
+    | assignment_expression OP_SEMICOL statement
+    |
 ;
+
+declaration ::=
+    key_types ID OP_ASSIGN expression
+;
+
+expression ::=
+    expression operator expression
+    | OP_PAR_OPEN expression OP_PAR_CLOSE
+    | operand
+;
+
+operand ::=
+    ID
+    | INT
+    | FLOAT
+    | CHAR
+    | STRING
+;
+
+operator ::=
+    OP_ADD             
+    | OP_SUB             
+    | OP_MULT             
+    | OP_DIV             
+    | OP_MOD
+    | OP_EQUAL
+    | OP_GRE_EQ
+    | OP_GREATER
+    | OP_LESS
+    | OP_LESS_EQ
+    | OP_NOT_EQ 
+;
+
+postfix_operator ::=
+
+;
+
+assignment_expression ::=
+    ID assignment_operator expression
+;
+
+assignment_operator ::=
+    OP_ADD_ASS             
+    | OP_SUB_ASS             
+    | OP_MULT_ASS             
+    | OP_DIV_ASS             
+    | OP_MOD_ASS
+    | OP_ASSIGN
+;
+
+
 
 
