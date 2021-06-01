@@ -107,7 +107,8 @@ non terminal
     operand,
     assignment_expression,
     assignment_operator,
-    assignment_operand
+    postfix_operator,
+    unary_operator
 ;
 
 precedence left OP_OR;
@@ -116,7 +117,8 @@ precedence left OP_EQUAL, OP_NOT_EQ;
 precedence left OP_GRE_EQ, OP_GREATER, OP_LESS, OP_LESS_EQ;
 precedence left OP_ADD, OP_SUB;
 precedence left OP_MULT, OP_DIV, OP_MOD;
-precedence right OP_NOT;
+precedence right OP_NOT, OP_ADD, OP_SUB, OP_DEC, OP_INC;
+precedence left OP_INC, OP_DEC;
 
 start with innit;
 
@@ -149,6 +151,9 @@ declaration ::=
 expression ::=
     expression operator expression
     | OP_PAR_OPEN expression OP_PAR_CLOSE
+    | ID postfix_operator 
+    | postfix_operator ID
+    | unary_operator expression
     | operand
 ;
 
@@ -175,7 +180,14 @@ operator ::=
 ;
 
 postfix_operator ::=
+    OP_INC
+    | OP_DEC
+;
 
+unary_operator ::=
+    OP_NOT
+    | OP_ADD
+    | OP_SUB
 ;
 
 assignment_expression ::=
