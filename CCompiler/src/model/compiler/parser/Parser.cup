@@ -113,7 +113,8 @@ non terminal
     else_statement,
     block_statement,
     for_statement,
-    while_statement
+    while_statement,
+    switch_statement
 ;
 
 precedence left OP_OR;
@@ -146,7 +147,7 @@ block_statement ::=
     expression_statement OP_SEMICOL block_statement
     | if_statement block_statement
     | for_statement block_statement
-    | while_statement
+    | while_statement block_statement
     |
 ;
 
@@ -243,5 +244,8 @@ while_statement ::=
 ;
 
 
+//switch_statement ::=
+//    KEY_SWITCH OP_PAR_OPEN OP_PAR_CLOSE
+//;
 
 
