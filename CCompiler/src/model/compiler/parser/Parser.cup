@@ -112,7 +112,8 @@ non terminal
     if_statement,
     else_statement,
     block_statement,
-    for_statement
+    for_statement,
+    while_statement
 ;
 
 precedence left OP_OR;
@@ -145,6 +146,7 @@ block_statement ::=
     expression_statement OP_SEMICOL block_statement
     | if_statement block_statement
     | for_statement block_statement
+    | while_statement
     |
 ;
 
@@ -214,6 +216,10 @@ assignment_operator ::=
 ;
 
 
+//Breaks y Continue en estructuras for,while y switch
+//Invertir Columnas y Filas 
+
+
 if_statement ::=
     KEY_IF OP_PAR_OPEN expression OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
 ;
@@ -224,7 +230,6 @@ else_statement ::=
     |
 ;
 
-//Breaks y Continue en estructuras for,while y switch
 
 for_statement ::= 
     KEY_FOR OP_PAR_OPEN expression_statement OP_SEMICOL expression_statement OP_SEMICOL expression_statement OP_PAR_CLOSE 
@@ -232,6 +237,10 @@ for_statement ::=
 ;
 
 
+while_statement ::= 
+    KEY_WHILE OP_PAR_OPEN expression_statement OP_PAR_CLOSE 
+        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
+;
 
 
 
