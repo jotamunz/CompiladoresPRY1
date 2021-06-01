@@ -108,7 +108,10 @@ non terminal
     assignment_expression,
     assignment_operator,
     postfix_operator,
-    unary_operator
+    unary_operator,
+    if_statement,
+    else_statement,
+    block_statement
 ;
 
 precedence left OP_OR;
@@ -132,16 +135,21 @@ key_types ::=
 ;  
 
 innit ::=
-    key_types ID OP_PAR_OPEN OP_PAR_CLOSE OP_BRACE_OPEN statement OP_BRACE_CLOSE
+    key_types ID OP_PAR_OPEN OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
     | error 
 ;
 
 
-statement ::=
-    declaration OP_SEMICOL statement
-    | expression OP_SEMICOL statement 
-    | assignment_expression OP_SEMICOL statement
+block_statement ::=
+    statement block_statement
     |
+;
+
+statement ::=
+      declaration OP_SEMICOL 
+    | expression OP_SEMICOL 
+    | assignment_expression OP_SEMICOL 
+    | if_statement 
 ;
 
 declaration ::=
@@ -202,6 +210,18 @@ assignment_operator ::=
     | OP_MOD_ASS
     | OP_ASSIGN
 ;
+
+
+if_statement ::=
+    KEY_IF OP_PAR_OPEN expression OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
+;
+
+
+else_statement ::= 
+    KEY_ELSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
+    |
+;
+
 
 
 
