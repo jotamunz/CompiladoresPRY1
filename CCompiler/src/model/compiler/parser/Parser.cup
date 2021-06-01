@@ -100,7 +100,7 @@ terminal
 non terminal
     innit,
     key_types,
-    statement,
+    expression_statement,
     declaration,
     expression,
     operator,
@@ -111,7 +111,8 @@ non terminal
     unary_operator,
     if_statement,
     else_statement,
-    block_statement
+    block_statement,
+    for_statement
 ;
 
 precedence left OP_OR;
@@ -141,15 +142,16 @@ innit ::=
 
 
 block_statement ::=
-    statement block_statement
+    expression_statement OP_SEMICOL block_statement
+    | if_statement block_statement
+    | for_statement block_statement
     |
 ;
 
-statement ::=
-      declaration OP_SEMICOL 
-    | expression OP_SEMICOL 
-    | assignment_expression OP_SEMICOL 
-    | if_statement 
+expression_statement ::=
+      declaration
+    | expression
+    | assignment_expression  
 ;
 
 declaration ::=
@@ -221,6 +223,14 @@ else_statement ::=
     KEY_ELSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
     |
 ;
+
+//Breaks y Continue en estructuras for,while y switch
+
+for_statement ::= 
+    KEY_FOR OP_PAR_OPEN expression_statement OP_SEMICOL expression_statement OP_SEMICOL expression_statement OP_PAR_CLOSE 
+        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
+;
+
 
 
 
