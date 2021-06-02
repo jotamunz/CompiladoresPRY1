@@ -4,7 +4,7 @@ int main () {
 
 	ma = !++c + -b++ + 34 + 3 * 34;
 
-	float ds = a + a - b;
+	long ds = a + a - b;
 
 	int c = 1+3 > 2* "3";
 
@@ -13,10 +13,10 @@ int main () {
 		int c = 1+3 > 2* "3";
 
 		if(1+3){
-			float ds = a + a - b;
+			long ds = a + a - b;
 		}
 		else{
-			float ds = a + a - b;
+			long ds = a + a - b;
 		}
 		int c = 1+3 > 2* "3";
 
@@ -42,6 +42,14 @@ int main () {
 		int c = 1+3 > 2* "3";
 	}
 	
+	
+	switch(b) {
+      case 4 :
+      	break;
+         int c = (6*2/ (2+1 * 2/3 + 6) + 8 * (8/4));
+      default :
+         int c = (6*2/ (2+1 * 2/3 + 6) + 8 * (8/4));
+   }
 
 
 	

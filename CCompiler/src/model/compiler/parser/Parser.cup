@@ -115,7 +115,10 @@ non terminal
     block_statement,
     for_statement,
     while_statement,
-    switch_statement
+    switch_statement,
+    case_blocks,
+    case,
+    default
 ;
 
 precedence left OP_OR;
@@ -149,13 +152,16 @@ block_statement ::=
     | if_statement block_statement
     | for_statement block_statement
     | while_statement block_statement
+    | switch_statement block_statement
     |
 ;
 
 expression_statement ::=
       declaration
     | expression
-    | assignment_expression  
+    | assignment_expression 
+    | KEY_BREAK
+    | KEY_CONT
 ;
 
 declaration ::=
@@ -175,7 +181,6 @@ expression ::=
 operand ::=
     ID
     | INT
-    | FLOAT
     | CHAR
     | STRING
 ;
@@ -249,8 +254,22 @@ while_statement ::=
 ;
 
 
-//switch_statement ::=
-//    KEY_SWITCH OP_PAR_OPEN OP_PAR_CLOSE
-//;
+switch_statement ::=
+    KEY_SWITCH OP_PAR_OPEN ID OP_PAR_CLOSE
+        OP_BRACE_OPEN case_blocks OP_BRACE_CLOSE  
+;
 
 
+case_blocks ::=
+    case case_blocks
+    | default 
+    | 
+;
+
+case ::=
+    KEY_CASE INT OP_COLON block_statement
+;
+
+default ::=
+    KEY_DEF OP_COLON block_statement
+;
