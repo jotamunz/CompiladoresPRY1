@@ -481,7 +481,7 @@ public class Lexer implements java_cup.runtime.Scanner {
 
   /* user code: */
     private Symbol symbol(int type, Object value){
-        return new Symbol(type, yyline, yycolumn, value);
+        return new Symbol(type, yycolumn, yyline, value);
     }
 
 

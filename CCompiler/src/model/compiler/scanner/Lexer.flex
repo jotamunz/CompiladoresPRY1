@@ -22,7 +22,7 @@ Exponent = [eE][+-]?{Digit}+
 
 %{
     private Symbol symbol(int type, Object value){
-        return new Symbol(type, yyline, yycolumn, value);
+        return new Symbol(type, yycolumn, yyline, value);
     }
 %}
 

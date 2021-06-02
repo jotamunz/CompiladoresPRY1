@@ -695,11 +695,11 @@ public class parser extends java_cup.runtime.lr_parser {
 
 
     public void syntax_error(Symbol cur_token){
-	System.err.println("Syntax error at line: " + (cur_token.left+1) + " at column: " + (cur_token.right+1) + " on: " + cur_token.value);
+	System.err.println("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
     }
 
     public void unrecovered_syntax_error(Symbol cur_token){
-    	System.err.println("Fatal error - line: " + (cur_token.left+1) + " at column: " + (cur_token.right+1) + " on: " + cur_token.value);
+    	System.err.println("Fatal error - line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
     }
 
 
