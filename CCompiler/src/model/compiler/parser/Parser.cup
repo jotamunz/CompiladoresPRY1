@@ -103,7 +103,8 @@ non terminal
     expression_statement,
     declaration,
     expression,
-    operator,
+    arithmetic_operator,
+    logic_operator,
     operand,
     assignment_expression,
     assignment_operator,
@@ -162,7 +163,8 @@ declaration ::=
 ;
 
 expression ::=
-    expression operator expression
+    expression arithmetic_operator expression
+    | expression logic_operator expression
     | OP_PAR_OPEN expression OP_PAR_CLOSE
     | ID postfix_operator 
     | postfix_operator ID
@@ -178,13 +180,16 @@ operand ::=
     | STRING
 ;
 
-operator ::=
+arithmetic_operator ::=
     OP_ADD             
     | OP_SUB             
     | OP_MULT             
     | OP_DIV             
     | OP_MOD
-    | OP_EQUAL
+;
+
+logic_operator ::=
+     OP_EQUAL
     | OP_GRE_EQ
     | OP_GREATER
     | OP_LESS
