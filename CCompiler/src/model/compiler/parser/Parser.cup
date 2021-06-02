@@ -122,7 +122,11 @@ non terminal
     function_statement,
     parameter,
     parameters,
-    parameters_list
+    parameters_list,
+    read_statement,
+    write_statement,
+    write_parameters,
+    write_parameters_list
 ;
 
 precedence left OP_OR;
@@ -152,6 +156,8 @@ innit ::=
 
 block_statement ::=
     expression_statement OP_SEMICOL block_statement
+    | read_statement OP_SEMICOL block_statement
+    | write_statement OP_SEMICOL block_statement
     | if_statement block_statement
     | for_statement block_statement
     | while_statement block_statement
@@ -233,6 +239,10 @@ assignment_operator ::=
 
 //Preguntar declaración/asignación en funciones
 //Invertir Columnas y Filas 
+//Parametros en el write
+//do?
+//read y write
+
 
 
 if_statement ::=
@@ -295,4 +305,23 @@ parameters ::=
 parameters_list ::=
     OP_COMA parameter parameters_list
     |
+;
+
+read_statement ::=
+    KEY_READ OP_PAR_OPEN ID OP_PAR_CLOSE
+    | KEY_READ OP_PAR_OPEN OP_PAR_CLOSE
+;
+
+
+write_statement ::=
+    KEY_WRITE OP_PAR_OPEN write_parameters OP_PAR_CLOSE
+;
+
+write_parameters ::=
+    expression write_parameters_list
+; 
+
+write_parameters_list ::=
+    OP_COMA expression write_parameters_list
+    | 
 ;

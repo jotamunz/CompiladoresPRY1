@@ -53,6 +53,8 @@
    	int a(int b, int c){
 		int c = (6*2/ (2+1 * 2/3 + 6) + 8 * (8/4));
    	}
+   	read(a);
+   	write(a+3,-4,c);
 
 
 	
