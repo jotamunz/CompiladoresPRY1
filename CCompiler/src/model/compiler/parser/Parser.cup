@@ -143,6 +143,7 @@ precedence left OP_ADD, OP_SUB;
 precedence left OP_MULT, OP_DIV, OP_MOD;
 precedence right OP_NOT, OP_ADD, OP_SUB, OP_DEC, OP_INC;
 precedence left OP_INC, OP_DEC;
+precedence left KEY_ELSE;
 
 start with innit;
 
@@ -263,18 +264,21 @@ assignment_operator ::=
 //read y write
 //Anidar funciones
 //Switch ID
-
+// long y short int
 
 
 if_statement ::=
     KEY_IF OP_PAR_OPEN expression OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
-    | KEY_IF OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement 
+    | KEY_IF OP_PAR_OPEN expression OP_PAR_CLOSE statement else_statement
+    | KEY_IF OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
+    | KEY_IF OP_PAR_OPEN error OP_PAR_CLOSE statement else_statement 
     | KEY_IF OP_PAR_OPEN expression OP_PAR_CLOSE error block_statement OP_BRACE_CLOSE else_statement
 ;
 
 
 else_statement ::= 
     KEY_ELSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
+    | KEY_ELSE statement
     |
 ;
 
