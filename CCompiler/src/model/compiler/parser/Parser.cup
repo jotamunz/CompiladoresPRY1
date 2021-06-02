@@ -118,7 +118,11 @@ non terminal
     switch_statement,
     case_blocks,
     case,
-    default
+    default,
+    function_statement,
+    parameter,
+    parameters,
+    parameters_list
 ;
 
 precedence left OP_OR;
@@ -142,8 +146,7 @@ key_types ::=
 ;  
 
 innit ::=
-    key_types ID OP_PAR_OPEN OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
-    | error 
+     block_statement
 ;
 
 
@@ -153,6 +156,7 @@ block_statement ::=
     | for_statement block_statement
     | while_statement block_statement
     | switch_statement block_statement
+    | function_statement block_statement
     |
 ;
 
@@ -272,4 +276,23 @@ case ::=
 
 default ::=
     KEY_DEF OP_COLON block_statement
+;
+
+function_statement ::=
+    key_types ID OP_PAR_OPEN parameters OP_PAR_CLOSE
+        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE 
+;
+
+parameter ::=
+    key_types ID
+;
+
+parameters ::=
+    parameter parameters_list
+    | 
+; 
+
+parameters_list ::=
+    OP_COMA parameter parameters_list
+    |
 ;
