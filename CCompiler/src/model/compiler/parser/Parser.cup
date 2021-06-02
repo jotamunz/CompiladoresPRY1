@@ -9,7 +9,7 @@ parser code
     }
 
     public void unrecovered_syntax_error(Symbol cur_token){
-    	System.err.println("Fatal error - line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+    	System.err.println("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
     }
 :};
 
@@ -163,8 +163,8 @@ innit ::=
 
 block_statement ::=
     statement block_statement
-    | error:e OP_SEMICOL block_statement
-    | error:e OP_BRACE_CLOSE block_statement
+    | error OP_SEMICOL block_statement
+    | error OP_BRACE_CLOSE block_statement
     |
 ;
 
@@ -263,7 +263,7 @@ assignment_operator ::=
 //read y write
 //Anidar funciones
 //Switch ID
-// long y short int
+//long y short int
 
 
 if_statement ::=
