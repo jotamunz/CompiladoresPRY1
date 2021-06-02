@@ -166,6 +166,7 @@ expression_statement ::=
 
 declaration ::=
     key_types ID OP_ASSIGN expression
+    | KEY_CONST key_types ID OP_ASSIGN expression
 ;
 
 expression ::=
@@ -182,7 +183,6 @@ operand ::=
     ID
     | INT
     | CHAR
-    | STRING
 ;
 
 arithmetic_operator ::=
@@ -227,7 +227,7 @@ assignment_operator ::=
 ;
 
 
-//Breaks y Continue en estructuras for,while y switch
+//Preguntar declaración/asignación en funciones
 //Invertir Columnas y Filas 
 
 
