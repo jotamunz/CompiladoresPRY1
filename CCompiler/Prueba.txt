@@ -37,38 +37,9 @@
 		int c = 1+3 > 2* '3';
 	}
 
-	while(i 3){
-		int c = 1+3 > 2 '3';
-	}
-	
-	
-	switch(b) {
-      case "s" :
-      	break;
-         int c = (6*2/ (2+1 * 2/3 + 6 + 8 * (8/4));
-      default :
-         int c = (6*2/ (2+1 * 2/3 + 6) + 8 * (8/4));
-   	}
-
-   	int a(int b, int c){
-		int c = (6*2/ (2+1 * 2/3 + 6) + 8 * (8/4));
-   	}
-
-	int max(int num1, int ){
-
-   		int result;
- 
-  		if (num1 > num2){
-      			result = num1;
-		}
-   		else{
-      			result = 1 2;
- 		}
-   		return ;
-	}
 	
    	read(a);
-   	write(a+3 1-1);
+   	write(a+3,1-1);
 
 
 	

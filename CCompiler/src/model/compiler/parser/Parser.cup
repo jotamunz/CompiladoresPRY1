@@ -117,6 +117,7 @@ non terminal
     if_statement,
     else_statement,
     block_statement,
+    statement,
     for_statement,
     while_statement,
     switch_statement,
@@ -160,18 +161,22 @@ innit ::=
 
 
 block_statement ::=
-    expression_statement OP_SEMICOL block_statement
-    | read_statement OP_SEMICOL block_statement
-    | write_statement OP_SEMICOL block_statement
-    | if_statement block_statement
-    | for_statement block_statement
-    | while_statement block_statement
-    | switch_statement block_statement
-    | function_statement block_statement
-    | return_statement OP_SEMICOL
+    statement block_statement
     | error:e OP_SEMICOL block_statement
     | error:e OP_BRACE_CLOSE block_statement
     |
+;
+
+statement ::=
+    expression_statement OP_SEMICOL
+    | read_statement OP_SEMICOL 
+    | write_statement OP_SEMICOL 
+    | if_statement 
+    | for_statement
+    | while_statement
+    | switch_statement
+    | function_statement
+    | return_statement OP_SEMICOL
 ;
 
 expression_statement ::=
@@ -254,8 +259,10 @@ assignment_operator ::=
 //Preguntar declaración/asignación en funciones
 //Invertir Columnas y Filas 
 //Parametros en el write
-//do?
+//do? do while?
 //read y write
+//Anidar funciones
+//Switch ID
 
 
 
