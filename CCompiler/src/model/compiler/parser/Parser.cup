@@ -104,7 +104,6 @@ terminal
 non terminal
     innit,
     key_types,
-    declarations_block,
     const_declaration,
     variable_declaration,
     declaration,
@@ -173,12 +172,8 @@ innit ::=
 
 body ::=
     declaration OP_SEMICOL body
+    | error OP_SEMICOL body
     | functions_block
-;
-
-declarations_block ::=
-    declaration OP_SEMICOL declarations_block
-    |
 ;
 
 declaration ::=
@@ -206,7 +201,8 @@ functions_block ::=
 
 function_statement ::=
     key_types ID OP_PAR_OPEN parameters OP_PAR_CLOSE
-        OP_BRACE_OPEN function_body  OP_BRACE_CLOSE 
+        OP_BRACE_OPEN function_body  OP_BRACE_CLOSE
+    | key_types ID OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN function_body  OP_BRACE_CLOSE
 ;
 
 function_body ::= 
@@ -290,11 +286,13 @@ statement ::=
     | for_statement
     | while_statement
     | switch_statement
+    | error OP_SEMICOL
+    | error OP_BRACE_CLOSE
 ;
 
 expression_statement ::=
     expression
-    | assignment_expression 
+    | assignment_expression
 ;
 
 assignment_expression ::=
@@ -313,10 +311,12 @@ assignment_operator ::=
 read_statement ::=
     KEY_READ OP_PAR_OPEN ID OP_PAR_CLOSE
     | KEY_READ OP_PAR_OPEN OP_PAR_CLOSE
+    | KEY_READ OP_PAR_OPEN error OP_PAR_CLOSE
 ;
 
 write_statement ::=
     KEY_WRITE OP_PAR_OPEN write_parameters OP_PAR_CLOSE
+    | KEY_WRITE OP_PAR_OPEN error OP_PAR_CLOSE
 ;
 
 write_parameters ::=
@@ -333,6 +333,7 @@ write_parameters_list ::=
 
 if_statement ::=
     KEY_IF OP_PAR_OPEN expression_statement OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
+    | KEY_IF OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
 ;
 
 else_statement ::= 
@@ -343,6 +344,10 @@ else_statement ::=
 for_statement ::= 
     KEY_FOR OP_PAR_OPEN for_expression_statement OP_SEMICOL for_expression_statement OP_SEMICOL for_expression_statement OP_PAR_CLOSE 
         OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
+    | KEY_FOR OP_PAR_OPEN error OP_PAR_CLOSE 
+        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
+
+
 ;
 
 for_expression_statement ::=
@@ -354,10 +359,14 @@ for_expression_statement ::=
 while_statement ::= 
     KEY_WHILE OP_PAR_OPEN expression_statement OP_PAR_CLOSE 
         OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
+    | KEY_WHILE OP_PAR_OPEN error OP_PAR_CLOSE 
+        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
 ;
 
 switch_statement ::=
     KEY_SWITCH OP_PAR_OPEN ID OP_PAR_CLOSE
+        OP_BRACE_OPEN case_blocks OP_BRACE_CLOSE
+    | KEY_SWITCH OP_PAR_OPEN error OP_PAR_CLOSE
         OP_BRACE_OPEN case_blocks OP_BRACE_CLOSE
 ;
 
@@ -369,10 +378,12 @@ case_blocks ::=
 
 case ::=
     KEY_CASE INT OP_COLON block_statement
+    | KEY_CASE error OP_COLON block_statement
 ;
 
 default ::=
     KEY_DEF OP_COLON block_statement
+    | KEY_DEF error OP_COLON block_statement
 ;
 
 return_statement ::= 
@@ -382,6 +393,7 @@ return_statement ::=
 
 call_function_satatement ::=
     ID OP_PAR_OPEN input_parameters OP_PAR_CLOSE
+    | ID OP_PAR_OPEN error OP_PAR_CLOSE
 ;
 
 input_parameters ::=
