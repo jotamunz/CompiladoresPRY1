@@ -320,17 +320,19 @@ write_statement ::=
 ;
 
 write_parameters ::=
-    expression write_parameters_list
+    expression_statement write_parameters_list
+    | call_function_satatement write_parameters_list
 ; 
 
 write_parameters_list ::=
-    OP_COMA expression write_parameters_list
-    | 
+    OP_COMA expression_statement write_parameters_list
+    | OP_COMA call_function_satatement write_parameters_list
+    |
 ;
 
 
 if_statement ::=
-    KEY_IF OP_PAR_OPEN expression OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
+    KEY_IF OP_PAR_OPEN expression_statement OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
 ;
 
 else_statement ::= 
@@ -344,8 +346,7 @@ for_statement ::=
 ;
 
 for_expression_statement ::=
-    expression
-    | assignment_expression
+    expression_statement
     | key_types ID OP_ASSIGN expression         //declaracion y asignacion de variable
     |
 ;
@@ -375,8 +376,7 @@ default ::=
 ;
 
 return_statement ::= 
-    KEY_RET expression
-    | KEY_RET assignment_expression
+    KEY_RET expression_statement
     | KEY_RET
 ;
 

@@ -13,8 +13,8 @@ int a(int a,int b, long c){
 	1+5;
 	b=3;
 	read(a);
-	write(a,b,1);
-	if(a){
+	write(a,b,1,a(b),i=3);
+	if(3+5+x){
 		1+5;
 		b=3;
 		read(a);
@@ -72,5 +72,7 @@ int a(int a,int b, long c){
     		b=3;
 
     }
-
+    return i=3;
 }
+
+
