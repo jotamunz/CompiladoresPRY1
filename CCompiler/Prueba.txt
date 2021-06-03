@@ -25,12 +25,12 @@ int a(int ,int b, long){
 			print(a(),'h',5  3,i=5);
 		}
 	}
-	else{
-		for (int i 0; i  3; i++) {
+	else
+		for (int i 0; i  3; --i++)
 			1+5;
 			
 				b=3(2);
-		v = 1(22)(
+		v = 1(22);
 			read();
 			if(b){
 				switch(a){
@@ -59,16 +59,16 @@ int a(int ,int b, long){
 		}
     }
     
-    while(6+a 3+e){
+    while(6+a 3+e)
     	b=3;
-	    if(b){;
+	    if(b)
 			b= ++233--;
 		}
     }
 
-    switch(a){
+    switch(a{
     	case 0: 
-    		b=3;
+    		b=3 1;
     		b=5;
     	case 1:
     		b=3;
@@ -76,8 +76,8 @@ int a(int ,int b, long){
     		b=3;
 
     }
-    return i1 3;
-    int c = 2 2;	
+    return i 2;
+    b = 2 * )32;
 }
 
 

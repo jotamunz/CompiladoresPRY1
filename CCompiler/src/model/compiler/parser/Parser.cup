@@ -203,6 +203,8 @@ function_statement ::=
     key_types ID OP_PAR_OPEN parameters OP_PAR_CLOSE
         OP_BRACE_OPEN function_body  OP_BRACE_CLOSE
     | key_types ID OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN function_body  OP_BRACE_CLOSE
+    | key_types ID OP_PAR_OPEN error OP_BRACE_OPEN function_body  OP_BRACE_CLOSE
+    | key_types ID OP_PAR_OPEN error function_body  OP_BRACE_CLOSE
 ;
 
 function_body ::= 
@@ -334,10 +336,13 @@ write_parameters_list ::=
 if_statement ::=
     KEY_IF OP_PAR_OPEN expression_statement OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
     | KEY_IF OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
+    | KEY_IF OP_PAR_OPEN error OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
+    | KEY_IF OP_PAR_OPEN error block_statement OP_BRACE_CLOSE else_statement
 ;
 
 else_statement ::= 
     KEY_ELSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
+    | KEY_ELSE error block_statement OP_BRACE_CLOSE
     |
 ;
 
@@ -346,6 +351,9 @@ for_statement ::=
         OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
     | KEY_FOR OP_PAR_OPEN error OP_PAR_CLOSE 
         OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
+    | KEY_FOR OP_PAR_OPEN error OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
+    | KEY_FOR OP_PAR_OPEN error block_statement OP_BRACE_CLOSE
+
 
 
 ;
@@ -360,7 +368,9 @@ while_statement ::=
     KEY_WHILE OP_PAR_OPEN expression_statement OP_PAR_CLOSE 
         OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
     | KEY_WHILE OP_PAR_OPEN error OP_PAR_CLOSE 
-        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
+        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
+    | KEY_WHILE OP_PAR_OPEN error OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
+    | KEY_WHILE OP_PAR_OPEN error block_statement OP_BRACE_CLOSE
 ;
 
 switch_statement ::=
@@ -368,6 +378,8 @@ switch_statement ::=
         OP_BRACE_OPEN case_blocks OP_BRACE_CLOSE
     | KEY_SWITCH OP_PAR_OPEN error OP_PAR_CLOSE
         OP_BRACE_OPEN case_blocks OP_BRACE_CLOSE
+    | KEY_SWITCH OP_PAR_OPEN error OP_BRACE_OPEN case_blocks OP_BRACE_CLOSE
+    | KEY_SWITCH OP_PAR_OPEN error case_blocks OP_BRACE_CLOSE
 ;
 
 case_blocks ::=
