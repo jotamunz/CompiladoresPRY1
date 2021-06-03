@@ -288,8 +288,6 @@ statement ::=
     | for_statement
     | while_statement
     | switch_statement
-    | error OP_SEMICOL
-    | error OP_BRACE_CLOSE
 ;
 
 expression_statement ::=
@@ -353,8 +351,6 @@ for_statement ::=
         OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
     | KEY_FOR OP_PAR_OPEN error OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
     | KEY_FOR OP_PAR_OPEN error block_statement OP_BRACE_CLOSE
-
-
 
 ;
 

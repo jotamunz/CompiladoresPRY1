@@ -1,4 +1,4 @@
-int i;
+int ;
 const int i = 3  1;
 const int Z = 3  2;
 
@@ -17,20 +17,21 @@ int a(int ,int b, long){
 	b=3;
 	read(a);
 	write(a,b,1,a(b),i=3);
-	if(3+5+x){
+	if(3+5+x + )
 		1 5;
-		b=3;
+		b=3 2;
 		read(a);
 		if(){
 			print(a(),'h',5  3,i=5);
 		}
 	}
 	else
+		b = 3 32;
 		for (int i 0; i  3; --i++)
-			1+5;
-			
-				b=3(2);
-		v = 1(22);
+			b = 1 5;
+			b = 1 4;
+			b=3(2);
+			v = 1(22);
 			read();
 			if(b){
 				switch(a){
