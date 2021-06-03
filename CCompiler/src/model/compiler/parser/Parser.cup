@@ -104,35 +104,47 @@ terminal
 non terminal
     innit,
     key_types,
-    expression_statement,
+    declarations_block,
+    const_declaration,
+    variable_declaration,
     declaration,
+    functions_block,
+    add_function,
+    function_statement,
+    parameter,
+    parameters,
+    add_parameter,
     expression,
     arithmetic_operator,
     logic_operator,
     operand,
-    assignment_expression,
-    assignment_operator,
     postfix_operator,
-    unary_operator,
-    if_statement,
-    else_statement,
+    unary_operator ,
+    body,
     block_statement,
     statement,
+    expression_statement,
+    assignment_expression,
+    assignment_operator,
+    function_body,
+    read_statement,
+    write_statement,
+    write_parameters,
+    write_parameters_list,
+    if_statement,
+    else_statement,
     for_statement,
+    for_expression_statement,
     while_statement,
     switch_statement,
     case_blocks,
     case,
     default,
-    function_statement,
-    parameter,
-    parameters,
-    parameters_list,
-    read_statement,
-    write_statement,
-    write_parameters,
-    write_parameters_list,
-    return_statement
+    return_statement,
+    add_id,
+    call_function_satatement,
+    input_parameters,
+    add_input_parameter
 ;
 
 precedence left OP_OR;
@@ -156,45 +168,64 @@ key_types ::=
 ;  
 
 innit ::=
-     block_statement
+    body
 ;
 
+body ::=
+    declaration OP_SEMICOL body
+    | functions_block
+;
 
-block_statement ::=
-    statement block_statement
-    | error OP_SEMICOL block_statement
-    | error OP_BRACE_CLOSE block_statement
+declarations_block ::=
+    declaration OP_SEMICOL declarations_block
     |
 ;
 
-statement ::=
-    expression_statement OP_SEMICOL
-    | read_statement OP_SEMICOL 
-    | write_statement OP_SEMICOL 
-    | if_statement 
-    | for_statement
-    | while_statement
-    | switch_statement
-    | function_statement
-    | return_statement OP_SEMICOL
-;
-
-expression_statement ::=
-      declaration
-    | expression
-    | assignment_expression 
-    | KEY_BREAK
-    | KEY_CONT
-    | OP_PAR_OPEN error OP_PAR_CLOSE
-;
-
 declaration ::=
-    key_types ID OP_ASSIGN expression
-    | key_types ID
-    | KEY_CONST key_types ID OP_ASSIGN expression
-    | key_types ID error expression
-    | key_types error OP_ASSIGN expression
-    | error OP_ASSIGN expression
+    variable_declaration
+    | const_declaration
+;
+
+variable_declaration ::=
+    key_types ID add_id
+;
+
+add_id ::=
+    OP_COMA ID add_id
+    |
+;
+
+const_declaration::=
+    KEY_CONST key_types ID add_id OP_ASSIGN expression
+;
+
+functions_block ::=
+    function_statement 
+    | function_statement functions_block
+;
+
+function_statement ::=
+    key_types ID OP_PAR_OPEN parameters OP_PAR_CLOSE
+        OP_BRACE_OPEN function_body  OP_BRACE_CLOSE 
+;
+
+function_body ::= 
+    declaration OP_SEMICOL function_body
+    | block_statement
+;
+
+parameter ::=
+    key_types ID
+;
+
+parameters ::=
+    parameter add_parameter
+    | 
+; 
+
+add_parameter ::=
+    OP_COMA parameter add_parameter
+    |
 ;
 
 expression ::=
@@ -241,9 +272,33 @@ unary_operator ::=
     | OP_SUB
 ;
 
+
+block_statement ::=
+    statement block_statement
+    |
+;
+
+statement ::=
+    expression_statement OP_SEMICOL
+    | read_statement OP_SEMICOL 
+    | write_statement OP_SEMICOL 
+    | KEY_BREAK OP_SEMICOL
+    | KEY_CONT OP_SEMICOL
+    | return_statement OP_SEMICOL
+    | call_function_satatement OP_SEMICOL
+    | if_statement 
+    | for_statement
+    | while_statement
+    | switch_statement
+;
+
+expression_statement ::=
+    expression
+    | assignment_expression 
+;
+
 assignment_expression ::=
     ID assignment_operator expression
-    | ID error expression
 ;
 
 assignment_operator ::=
@@ -255,93 +310,10 @@ assignment_operator ::=
     | OP_ASSIGN
 ;
 
-
-//Preguntar declaración/asignación en funciones
-//Parametros en el write
-//read y write
-//Anidar funciones
-
-
-if_statement ::=
-    KEY_IF OP_PAR_OPEN expression OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
-    | KEY_IF OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
-    | KEY_IF OP_PAR_OPEN expression OP_PAR_CLOSE error block_statement OP_BRACE_CLOSE else_statement
-;
-
-
-else_statement ::= 
-    KEY_ELSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
-    |
-;
-
-
-for_statement ::= 
-    KEY_FOR OP_PAR_OPEN expression_statement OP_SEMICOL expression_statement OP_SEMICOL expression_statement OP_PAR_CLOSE 
-        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
-    | KEY_FOR OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
-;
-
-
-while_statement ::= 
-    KEY_WHILE OP_PAR_OPEN expression_statement OP_PAR_CLOSE 
-        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
-    | KEY_WHILE OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE 
-;
-
-
-switch_statement ::=
-    KEY_SWITCH OP_PAR_OPEN ID OP_PAR_CLOSE
-        OP_BRACE_OPEN case_blocks OP_BRACE_CLOSE
-    | KEY_SWITCH OP_PAR_OPEN error OP_PAR_CLOSE
-        OP_BRACE_OPEN case_blocks OP_BRACE_CLOSE
-;
-
-
-case_blocks ::=
-    case case_blocks
-    | default 
-    | 
-;
-
-case ::=
-    KEY_CASE INT OP_COLON block_statement
-    | KEY_CASE error OP_COLON block_statement
-;
-
-default ::=
-    KEY_DEF OP_COLON block_statement
-;
-
-function_statement ::=
-    key_types ID OP_PAR_OPEN parameters OP_PAR_CLOSE
-        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE 
-    | key_types ID OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE 
-;
-
-return_statement ::= 
-    KEY_RET expression
-    | KEY_RET assignment_expression
-;
-
-parameter ::=
-    key_types ID
-;
-
-parameters ::=
-    parameter parameters_list
-    | 
-; 
-
-parameters_list ::=
-    OP_COMA parameter parameters_list
-    |
-;
-
 read_statement ::=
     KEY_READ OP_PAR_OPEN ID OP_PAR_CLOSE
     | KEY_READ OP_PAR_OPEN OP_PAR_CLOSE
 ;
-
 
 write_statement ::=
     KEY_WRITE OP_PAR_OPEN write_parameters OP_PAR_CLOSE
@@ -355,3 +327,72 @@ write_parameters_list ::=
     OP_COMA expression write_parameters_list
     | 
 ;
+
+
+if_statement ::=
+    KEY_IF OP_PAR_OPEN expression OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
+;
+
+else_statement ::= 
+    KEY_ELSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
+    |
+;
+
+for_statement ::= 
+    KEY_FOR OP_PAR_OPEN for_expression_statement OP_SEMICOL for_expression_statement OP_SEMICOL for_expression_statement OP_PAR_CLOSE 
+        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
+;
+
+for_expression_statement ::=
+    expression
+    | assignment_expression
+    | key_types ID OP_ASSIGN expression         //declaracion y asignacion de variable
+    |
+;
+
+while_statement ::= 
+    KEY_WHILE OP_PAR_OPEN expression_statement OP_PAR_CLOSE 
+        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
+;
+
+switch_statement ::=
+    KEY_SWITCH OP_PAR_OPEN ID OP_PAR_CLOSE
+        OP_BRACE_OPEN case_blocks OP_BRACE_CLOSE
+;
+
+case_blocks ::=
+    case case_blocks
+    | default 
+    | 
+;
+
+case ::=
+    KEY_CASE INT OP_COLON block_statement
+;
+
+default ::=
+    KEY_DEF OP_COLON block_statement
+;
+
+return_statement ::= 
+    KEY_RET expression
+    | KEY_RET assignment_expression
+    | KEY_RET
+;
+
+call_function_satatement ::=
+    ID OP_PAR_OPEN input_parameters OP_PAR_CLOSE
+;
+
+input_parameters ::=
+    expression_statement add_input_parameter
+    | call_function_satatement add_input_parameter
+    | 
+; 
+
+add_input_parameter ::=
+    OP_COMA expression_statement add_input_parameter
+    | OP_COMA call_function_satatement add_input_parameter
+    |
+;
+
