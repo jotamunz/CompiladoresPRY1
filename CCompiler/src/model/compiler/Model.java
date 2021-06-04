@@ -2,6 +2,7 @@
 package model.compiler;
 
 import java.util.ArrayList;
+import model.compiler.parser.SyntacticAnalyzer;
 import model.compiler.scanner.Token;
 import model.compiler.scanner.LexicalAnalyzer;
 
@@ -9,17 +10,25 @@ public class Model {
     private String fileName;
     private String filePath;
     private LexicalAnalyzer scanner;
+    private SyntacticAnalyzer parser;
 
     public Model() {
         this.fileName = "";
         this.filePath = "";
         this.scanner = new LexicalAnalyzer();
+        this.parser = new SyntacticAnalyzer();
     }
     
-    public ArrayList<Token> scanFile () {
+    public ArrayList<Token> scanFile() {
         scanner.scan(filePath);
-        scanner.printTokens();
+        scanner.printErrorTokens();
         return scanner.getTokens();
+    }
+    
+    public ArrayList<Token> parseFile() {
+        parser.parse(filePath);
+        parser.printErrorTokens();
+        return parser.getErrorTokens();
     }
     
     public String getFileName() {

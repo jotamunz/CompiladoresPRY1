@@ -29,22 +29,64 @@ public class View extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lb_title = new javax.swing.JLabel();
-        txtf_fileName = new javax.swing.JTextField();
-        btn_select = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table_scannerResult = new javax.swing.JTable();
-        btn_scan = new javax.swing.JButton();
+        table_scannerErrors = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         lb_title1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        table_scannerResultErrors = new javax.swing.JTable();
+        table_parserErrors = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        txtf_fileName = new javax.swing.JTextField();
+        btn_select = new javax.swing.JButton();
+        btn_compile = new javax.swing.JButton();
+        lb_title2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lb_title.setFont(new java.awt.Font("Consolas", 1, 48)); // NOI18N
         lb_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb_title.setText("C Compiler - Scanner");
+        lb_title.setText("C Compiler");
+
+        table_scannerErrors.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        table_scannerErrors.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Token Value", "Line", "Column"
+            }
+        ));
+        table_scannerErrors.setToolTipText("");
+        table_scannerErrors.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table_scannerErrors.setColumnSelectionAllowed(true);
+        table_scannerErrors.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        table_scannerErrors.setRowHeight(22);
+        jScrollPane1.setViewportView(table_scannerErrors);
+        table_scannerErrors.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        lb_title1.setFont(new java.awt.Font("Consolas", 1, 36)); // NOI18N
+        lb_title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_title1.setText("Parser Errors");
+
+        table_parserErrors.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        table_parserErrors.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Token Value", "Line", "Column"
+            }
+        ));
+        table_parserErrors.setToolTipText("");
+        table_parserErrors.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table_parserErrors.setColumnSelectionAllowed(true);
+        table_parserErrors.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        table_parserErrors.setRowHeight(22);
+        jScrollPane2.setViewportView(table_parserErrors);
+        table_parserErrors.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        jLabel2.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
+        jLabel2.setText("By JoalG, TURQ & JOQUINYD");
 
         txtf_fileName.setEditable(false);
         txtf_fileName.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
@@ -63,49 +105,9 @@ public class View extends javax.swing.JFrame {
             }
         });
 
-        table_scannerResult.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        table_scannerResult.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Token Value", "Token Type", "Lines"
-            }
-        ));
-        table_scannerResult.setToolTipText("");
-        table_scannerResult.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        table_scannerResult.setColumnSelectionAllowed(true);
-        table_scannerResult.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        table_scannerResult.setRowHeight(22);
-        jScrollPane1.setViewportView(table_scannerResult);
-        table_scannerResult.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-
-        btn_scan.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
-        btn_scan.setText("Scan");
-        btn_scan.setEnabled(false);
-
-        lb_title1.setFont(new java.awt.Font("Consolas", 1, 48)); // NOI18N
-        lb_title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb_title1.setText("Errors");
-
-        table_scannerResultErrors.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        table_scannerResultErrors.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Token Value", "Token Type", "Lines"
-            }
-        ));
-        table_scannerResultErrors.setToolTipText("");
-        table_scannerResultErrors.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        table_scannerResultErrors.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        table_scannerResultErrors.setRowHeight(22);
-        jScrollPane2.setViewportView(table_scannerResultErrors);
-        table_scannerResultErrors.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-
-        jLabel2.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
-        jLabel2.setText("By JoalG, TURQ & JOQUINYD");
+        btn_compile.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
+        btn_compile.setText("Scan & Parse");
+        btn_compile.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -117,22 +119,42 @@ public class View extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(170, 170, 170))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lb_title1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(txtf_fileName, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btn_select)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btn_compile, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lb_title1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE))))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtf_fileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_compile)
+                    .addComponent(btn_select))
+                .addGap(30, 30, 30)
                 .addComponent(lb_title1)
-                .addGap(84, 84, 84)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addContainerGap())
         );
+
+        txtf_fileName.getAccessibleContext().setAccessibleDescription("");
+        btn_select.getAccessibleContext().setAccessibleDescription("");
+        btn_compile.getAccessibleContext().setAccessibleDescription("");
+
+        lb_title2.setFont(new java.awt.Font("Consolas", 1, 36)); // NOI18N
+        lb_title2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_title2.setText("Scanner Errors");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,15 +162,11 @@ public class View extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtf_fileName, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_select)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_scan, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lb_title, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lb_title2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -156,22 +174,15 @@ public class View extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(48, 48, 48)
                 .addComponent(lb_title)
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtf_fileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_scan)
-                    .addComponent(btn_select))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(lb_title2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        txtf_fileName.getAccessibleContext().setAccessibleDescription("");
-        btn_select.getAccessibleContext().setAccessibleDescription("");
-        btn_scan.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,7 +212,7 @@ public class View extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btn_scan;
+    public javax.swing.JButton btn_compile;
     public javax.swing.JButton btn_select;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -210,8 +221,9 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lb_title;
     private javax.swing.JLabel lb_title1;
-    public javax.swing.JTable table_scannerResult;
-    public javax.swing.JTable table_scannerResultErrors;
+    private javax.swing.JLabel lb_title2;
+    public javax.swing.JTable table_parserErrors;
+    public javax.swing.JTable table_scannerErrors;
     public javax.swing.JTextField txtf_fileName;
     // End of variables declaration//GEN-END:variables
 }

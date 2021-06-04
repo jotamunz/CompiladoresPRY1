@@ -1,4 +1,4 @@
-int ;
+int 0a;
 const int i = 3  1;
 const int Z = 3  2;
 

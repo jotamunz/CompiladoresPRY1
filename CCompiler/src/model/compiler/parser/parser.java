@@ -6,6 +6,8 @@
 package model.compiler.parser;
 
 import java_cup.runtime.Symbol;
+import java.util.ArrayList;
+import model.compiler.scanner.Token;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -708,12 +710,17 @@ public class parser extends java_cup.runtime.lr_parser {
 
 
 
+
+    public ArrayList<Token> errors = new ArrayList<>();
+
     public void syntax_error(Symbol cur_token){
-	System.err.println("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+        errors.add(new Token(cur_token.sym, cur_token.right, cur_token.left, cur_token.value));
+	//System.err.println("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
     }
 
     public void unrecovered_syntax_error(Symbol cur_token){
-    	System.err.println("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+        errors.add(new Token(cur_token.sym, cur_token.right, cur_token.left, cur_token.value));
+    	//System.err.println("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
     }
 
 

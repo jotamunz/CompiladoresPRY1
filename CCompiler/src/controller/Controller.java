@@ -22,7 +22,7 @@ public class Controller implements ActionListener {
     
     public void start(){
         //Action listeners
-        this.view.btn_scan.addActionListener(this);
+        this.view.btn_compile.addActionListener(this);
         this.view.btn_select.addActionListener(this);
         
         view.setTitle("C Compiler");
@@ -35,7 +35,7 @@ public class Controller implements ActionListener {
         if (e.getSource() == view.btn_select) {
             selectFile();
         }
-        else if (e.getSource() == view.btn_scan) {
+        else if (e.getSource() == view.btn_compile) {
             scanFile();
         }
     }
@@ -55,24 +55,26 @@ public class Controller implements ActionListener {
             model.setFileName(fileName);
 
             view.txtf_fileName.setText(model.getFileName());
-            view.btn_scan.setEnabled(true);
+            view.btn_compile.setEnabled(true);
         }
     }
     
     public void scanFile(){
-        ArrayList<Token> scanResult = model.scanFile();
-        DefaultTableModel table = (DefaultTableModel)view.table_scannerResult.getModel();
-        table.setRowCount(0);
-        DefaultTableModel tableErrors = (DefaultTableModel)view.table_scannerResultErrors.getModel();
-        tableErrors.setRowCount(0);
-        for (Token token : scanResult) {
-            String row[] = {token.getValue().toString(),token.getName(),String.valueOf(token.getLineNum())};
+        ArrayList<Token> result = model.scanFile();
+        DefaultTableModel tableScanner= (DefaultTableModel)view.table_scannerErrors.getModel();
+        tableScanner.setRowCount(0);
+        DefaultTableModel tableParser = (DefaultTableModel)view.table_parserErrors.getModel();
+        tableParser.setRowCount(0);
+        for (Token token : result) {
+            String row[] = {token.getValue().toString(),String.valueOf(token.getLineNum()),String.valueOf(token.getColNum())};
             if (token.getId() == LEX_ERROR){
-                tableErrors.addRow(row);
+                tableScanner.addRow(row);
             }
-            else{
-                table.addRow(row);
-            }
-        } 
+        }
+        result = model.parseFile();
+        for (Token token : result){
+            String row[] = {token.getValue().toString(),String.valueOf(token.getLineNum()),String.valueOf(token.getColNum())};
+            tableParser.addRow(row);
+        }
     }
 }
