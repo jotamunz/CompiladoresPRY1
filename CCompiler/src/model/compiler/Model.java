@@ -21,13 +21,13 @@ public class Model {
     
     public ArrayList<Token> scanFile() {
         scanner.scan(filePath);
-        scanner.printErrorTokens();
+        //scanner.printErrorTokens();
         return scanner.getTokens();
     }
     
     public ArrayList<Token> parseFile() {
         parser.parse(filePath);
-        parser.printErrorTokens();
+        //parser.printErrorTokens();
         return parser.getErrorTokens();
     }
     

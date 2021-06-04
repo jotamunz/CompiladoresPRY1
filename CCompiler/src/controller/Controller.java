@@ -73,8 +73,10 @@ public class Controller implements ActionListener {
         }
         result = model.parseFile();
         for (Token token : result){
-            String row[] = {token.getValue().toString(),String.valueOf(token.getLineNum()),String.valueOf(token.getColNum())};
-            tableParser.addRow(row);
+            if (token.getValue() != null){
+                String row[] = {token.getValue().toString(),String.valueOf(token.getLineNum()),String.valueOf(token.getColNum())};
+                tableParser.addRow(row);
+            }
         }
     }
 }

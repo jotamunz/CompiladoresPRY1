@@ -11,12 +11,12 @@ parser code
 
     public void syntax_error(Symbol cur_token){
         errors.add(new Token(cur_token.sym, cur_token.right, cur_token.left, cur_token.value));
-	//System.err.println("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+	System.err.println("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
     }
 
     public void unrecovered_syntax_error(Symbol cur_token){
         errors.add(new Token(cur_token.sym, cur_token.right, cur_token.left, cur_token.value));
-    	//System.err.println("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+    	System.err.println("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
     }
 :};
 
@@ -207,11 +207,10 @@ functions_block ::=
 ;
 
 function_statement ::=
-    key_types ID OP_PAR_OPEN parameters OP_PAR_CLOSE
-        OP_BRACE_OPEN function_body  OP_BRACE_CLOSE
+    key_types ID OP_PAR_OPEN parameters OP_PAR_CLOSE OP_BRACE_OPEN function_body  OP_BRACE_CLOSE
     | key_types ID OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN function_body  OP_BRACE_CLOSE
     | key_types ID OP_PAR_OPEN error OP_BRACE_OPEN function_body  OP_BRACE_CLOSE
-    | key_types ID OP_PAR_OPEN error function_body  OP_BRACE_CLOSE
+    | key_types ID OP_PAR_OPEN error:e function_body  OP_BRACE_CLOSE {: System.out.println("yes"); :}
 ;
 
 function_body ::= 
@@ -354,8 +353,7 @@ else_statement ::=
 for_statement ::= 
     KEY_FOR OP_PAR_OPEN for_expression_statement OP_SEMICOL for_expression_statement OP_SEMICOL for_expression_statement OP_PAR_CLOSE 
         OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
-    | KEY_FOR OP_PAR_OPEN error OP_PAR_CLOSE 
-        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
+    | KEY_FOR OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
     | KEY_FOR OP_PAR_OPEN error OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
     | KEY_FOR OP_PAR_OPEN error block_statement OP_BRACE_CLOSE
 
@@ -363,24 +361,20 @@ for_statement ::=
 
 for_expression_statement ::=
     expression_statement
-    | key_types ID OP_ASSIGN expression         //declaracion y asignacion de variable
+    | key_types ID OP_ASSIGN expression         
     |
 ;
 
 while_statement ::= 
-    KEY_WHILE OP_PAR_OPEN expression_statement OP_PAR_CLOSE 
-        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
-    | KEY_WHILE OP_PAR_OPEN error OP_PAR_CLOSE 
-        OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
+    KEY_WHILE OP_PAR_OPEN expression_statement OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
+    | KEY_WHILE OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
     | KEY_WHILE OP_PAR_OPEN error OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
     | KEY_WHILE OP_PAR_OPEN error block_statement OP_BRACE_CLOSE
 ;
 
 switch_statement ::=
-    KEY_SWITCH OP_PAR_OPEN ID OP_PAR_CLOSE
-        OP_BRACE_OPEN case_blocks OP_BRACE_CLOSE
-    | KEY_SWITCH OP_PAR_OPEN error OP_PAR_CLOSE
-        OP_BRACE_OPEN case_blocks OP_BRACE_CLOSE
+    KEY_SWITCH OP_PAR_OPEN ID OP_PAR_CLOSE OP_BRACE_OPEN case_blocks OP_BRACE_CLOSE
+    | KEY_SWITCH OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN case_blocks OP_BRACE_CLOSE
     | KEY_SWITCH OP_PAR_OPEN error OP_BRACE_OPEN case_blocks OP_BRACE_CLOSE
     | KEY_SWITCH OP_PAR_OPEN error case_blocks OP_BRACE_CLOSE
 ;
@@ -393,12 +387,16 @@ case_blocks ::=
 
 case ::=
     KEY_CASE INT OP_COLON block_statement
+    | KEY_CASE INT OP_COLON OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
     | KEY_CASE error OP_COLON block_statement
+    | KEY_CASE error OP_COLON OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
 ;
 
 default ::=
     KEY_DEF OP_COLON block_statement
+    | KEY_DEF OP_COLON OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
     | KEY_DEF error OP_COLON block_statement
+    | KEY_DEF error OP_COLON OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
 ;
 
 return_statement ::= 

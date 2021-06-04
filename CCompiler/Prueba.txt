@@ -1,84 +1,18 @@
-int 0a;
-const int i = 3  1;
-const int Z = 3  2;
+int a;
+int b;
+int c = 10;
 
-
-int a(int ,int b, long){
-	const int b,c,d,f,g = 6;
-	const int c = 5;
-	return 1 1;
-	
-	j = 4 2;
-	a = 4 * (1+);
-	d = 4;
-	break;
-	continue;
-	1 5;
-	b=3;
-	read(a);
-	write(a,b,1,a(b),i=3);
-	if(3+5+x + )
-		1 5;
-		b=3 2;
-		read(a);
-		if(){
-			print(a(),'h',5  3,i=5);
-		}
-	}
-	else
-		b = 3 32;
-		for (int i 0; i  3; --i++)
-			b = 1 5;
-			b = 1 4;
-			b=3(2);
-			v = 1(22);
-			read();
-			if(b){
-				switch(a){
-			    	case 0: 
-			    		b=3;
-			    		b=5;
-			    	case 1:
-			    		b=3;
-			    	default:
-			    		b=3;
-
-			    }
-
-			}
-	    }
-		b=3;
-	}
-	
-	for (int i = 0; i < 3; i++) {
-		1+5;
-		
-			b=3;
-		read(a);
-		if(b){
-
-		}
-    }
-    
-    while(6+a 3+e)
-    	b=3;
-	    if(b)
-			b= ++233--;
-		}
-    }
-
-    switch(a{
-    	case 0: 
-    		b=3 1;
-    		b=5;
-    	case 1:
-    		b=3;
-    	default:
-    		b=3;
-
-    }
-    return i 2;
-    b = 2 * )32;
+void func()
+  b  3;
+  for (int i; i<4; i++)
+    b 3;
+  }
+  d 5
 }
 
-
+void func(){
+  if (a === b) 
+    b = 3;
+  }
+  c 4
+}
