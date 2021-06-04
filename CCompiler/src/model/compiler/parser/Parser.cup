@@ -207,10 +207,10 @@ functions_block ::=
 ;
 
 function_statement ::=
-    key_types ID OP_PAR_OPEN parameters OP_PAR_CLOSE OP_BRACE_OPEN function_body  OP_BRACE_CLOSE
-    | key_types ID OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN function_body  OP_BRACE_CLOSE
-    | key_types ID OP_PAR_OPEN error OP_BRACE_OPEN function_body  OP_BRACE_CLOSE
-    | key_types ID OP_PAR_OPEN error:e function_body  OP_BRACE_CLOSE {: System.out.println("yes"); :}
+    key_types ID OP_PAR_OPEN parameters OP_PAR_CLOSE OP_BRACE_OPEN function_body OP_BRACE_CLOSE
+    | key_types ID OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN function_body OP_BRACE_CLOSE
+    | key_types ID OP_PAR_OPEN error OP_BRACE_OPEN function_body OP_BRACE_CLOSE
+    | key_types ID OP_PAR_OPEN error function_body OP_BRACE_CLOSE
 ;
 
 function_body ::= 

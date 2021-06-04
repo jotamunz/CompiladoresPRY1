@@ -1,9 +1,0 @@
-no se recupera en el ; para un segundo error
-    b = ;
-    c = ;
-
-if:
-si la expresion viene con error y falta la llave inicial
-no detecta errores dentro del bloque
-
-

@@ -1,41 +1,29 @@
 int a;
-
 char b, c f; //falta coma
 long b, c, f;
-
 a= 3;  // Error fuera de  lugar
 
-void funcion3( x, y){ 
-	 // error porque no hay tipo de funciones
-
+void funcion3( x, y){ // error porque no hay tipo de funciones
 	if (x<7){
 	  x= g+6;
 	}
-
 } 
 
-
-int funcion1( int x 
-{  // falta parentesis
-
+int funcion1( int x {  // falta parentesis
   while (x && y){ 
     x++;
   }
-
 }  
 
-
-
 int funcionBuena(int x, int y) { 
-
-  if if (X< 3) {
+  if if (X< 3) { //deberia dar error por doble if
 	a= a + b;
   }
   else {
     break;
     a = a * c  //falta punto y coma
     a = a * c + 55 - funcion(8);
-  } //deberia dar error por doble if
+  } 
         
   if (y>=0) {
      x= a+b; 
@@ -51,24 +39,18 @@ int funcionBuena(int x, int y) {
       continue; 
    }  
 
-  if (x==4){                  //deberia aceptar estructuras anidadas y cualquier tipo de expresion dentro de ( )
+  if (x==4){  //deberia aceptar estructuras anidadas dentro de ( )
       while ((!f)||(x<2)) { 
-
-	x= a+b; 
+	    x= a+b; 
 	}  //aceptarlo correctamente
   }else{ 		
       x = f(x);	
     }  
 
-   while (x<2)  
-
+   while (x<2)  //falta corchetes
 	x= a+b; 
-	}  //falta corchetes
-
-	
-
+	}  
+} 
 } 
 
 
-
-} 
