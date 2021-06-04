@@ -148,7 +148,7 @@ non terminal
     default,
     return_statement,
     add_id,
-    call_function_satatement,
+    call_function_statement,
     input_parameters,
     add_input_parameter
 ;
@@ -246,6 +246,7 @@ operand ::=
     ID
     | INT
     | CHAR
+    | call_function_statement
 ;
 
 arithmetic_operator ::=
@@ -263,6 +264,8 @@ logic_operator ::=
     | OP_LESS
     | OP_LESS_EQ
     | OP_NOT_EQ 
+    | OP_OR            
+    | OP_AND
 ;
 
 postfix_operator ::=
@@ -289,7 +292,6 @@ statement ::=
     | KEY_BREAK OP_SEMICOL
     | KEY_CONT OP_SEMICOL
     | return_statement OP_SEMICOL
-    | call_function_satatement OP_SEMICOL
     | if_statement 
     | for_statement
     | while_statement
@@ -310,7 +312,6 @@ assignment_operator ::=
     | OP_SUB_ASS             
     | OP_MULT_ASS             
     | OP_DIV_ASS             
-    | OP_MOD_ASS
     | OP_ASSIGN
 ;
 
@@ -327,12 +328,10 @@ write_statement ::=
 
 write_parameters ::=
     expression_statement write_parameters_list
-    | call_function_satatement write_parameters_list
 ; 
 
 write_parameters_list ::=
     OP_COMA expression_statement write_parameters_list
-    | OP_COMA call_function_satatement write_parameters_list
     |
 ;
 
@@ -404,20 +403,18 @@ return_statement ::=
     | KEY_RET
 ;
 
-call_function_satatement ::=
+call_function_statement ::=
     ID OP_PAR_OPEN input_parameters OP_PAR_CLOSE
     | ID OP_PAR_OPEN error OP_PAR_CLOSE
 ;
 
 input_parameters ::=
     expression_statement add_input_parameter
-    | call_function_satatement add_input_parameter
     | 
 ; 
 
 add_input_parameter ::=
     OP_COMA expression_statement add_input_parameter
-    | OP_COMA call_function_satatement add_input_parameter
     |
 ;
 
