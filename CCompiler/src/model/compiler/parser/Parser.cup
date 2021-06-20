@@ -3,11 +3,13 @@ package model.compiler.parser;
 import java_cup.runtime.Symbol;
 import java.util.ArrayList;
 import model.compiler.scanner.Token;
+import model.compiler.translator.Translator;
 
 parser code
 {:
 
     public ArrayList<Token> errors = new ArrayList<>();
+    public Translator translator = new Translator();
 
     public void syntax_error(Symbol cur_token){
         errors.add(new Token(cur_token.sym, cur_token.right, cur_token.left, cur_token.value));
