@@ -15,12 +15,22 @@ public class SemanticStack {
         return null;
     }
     
+    public Register peek(){
+        if (!stack.isEmpty())
+            return stack.get(stack.size()-1);
+        return null;
+    }
+    
     public void push(Register rs){
         stack.add(rs);
     }
     
-    public Register findNearest(String rsName){
-        //todo
+    public Register findNearest(Class rsClass){
+        for (Register register : stack) {
+            if (register.getClass().equals(rsClass)) { 
+                return register;
+            }
+        }
         return null;
     }
 }

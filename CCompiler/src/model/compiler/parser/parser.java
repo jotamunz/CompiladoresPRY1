@@ -8,6 +8,7 @@ package model.compiler.parser;
 import java_cup.runtime.Symbol;
 import java.util.ArrayList;
 import model.compiler.scanner.Token;
+import model.compiler.translator.Translator;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -744,6 +745,7 @@ public class parser extends java_cup.runtime.lr_parser {
 
 
     public ArrayList<Token> errors = new ArrayList<>();
+    public Translator translator = new Translator();
 
     public void syntax_error(Symbol cur_token){
         errors.add(new Token(cur_token.sym, cur_token.right, cur_token.left, cur_token.value));

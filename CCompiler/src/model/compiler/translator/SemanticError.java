@@ -13,6 +13,11 @@ public class SemanticError {
         this.tokenValue = tokenValue;
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "Error in token \"" + tokenValue +"\" "+ message +" in line: "+ lineNumber + " col: " + colNumber;
+    }
     
     
 }
