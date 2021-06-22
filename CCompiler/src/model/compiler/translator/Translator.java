@@ -3,8 +3,7 @@ package model.compiler.translator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import model.compiler.translator.SemanticRegisters.RsId;
-import model.compiler.translator.SemanticRegisters.RsType;
+import model.compiler.translator.SemanticRegisters.*;
 import model.compiler.translator.Symbols.IdentifierData;
 import model.compiler.translator.Symbols.VariableData;
 
@@ -48,7 +47,43 @@ public class Translator {
         stack.pop(); 
     }
 
-
-
+    public void rememberConst(String value, int line, int column){
+        RsDO rs = new RsDO("Const", value, line, column); // No se si el tipo es "Const"
+        stack.push(rs);
+    }
     
+    public void rememberOperator(String operator, int line, int column){
+        RsOp rs = new RsOp(operator, line, column);
+        stack.push(rs);
+    }    
+    
+    public void rememberVariable(String value, int line, int column){
+        RsDO rs = new RsDO("Address", value, line, column); // No se si el tipo es "Address"
+        if(!symbolTable.containsKey(rs.value)){
+            VariableData variableData = new VariableData("Unknown", rs.value); // Si no está declarada no sabemos el tipo
+            variableData.addError(); 
+            symbolTable.put(rs.value, variableData);
+            
+            // Agregar el error
+            String errorMessage =  "Variable undeclared";  //deberiamos definir los errores
+            SemanticError error = new SemanticError(rs.line, rs.col, rs.value, errorMessage);     
+            semanticErrors.add(error); //insertar al inicio para que queden en orden            
+        }
+        stack.push(rs);
+    }
+    
+    public void evalBinary(){
+        RsDO rsDO1 = (RsDO) stack.pop();
+        RsOp rsOperator = (RsOp) stack.pop();
+        RsDO rsDO2 = (RsDO) stack.pop();
+        if(rsDO1.type == "Const" && rsDO2.type == "Const"){
+            // calcular el resultado dependiendo de operador
+            // crear RsDO tipo Const con el resultado calculado
+        }
+        else{
+            // generar código para la operación
+            // crear RsDO tipo Address
+        }
+        // hacer push al RsDO creado en el if o else
+    }
 }
