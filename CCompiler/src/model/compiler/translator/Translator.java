@@ -17,28 +17,31 @@ public class Translator {
         return semanticErrors;
     }
     
+    public HashMap<String, IdentifierData> getSymbolTable() {
+        return symbolTable;
+    }
+    
     //Variable declaration
 
-    public void rememberType(String type,int line, int col){
-        RsType rs = new RsType(type,line,col);
+    public void rememberType(Object type, int line, int col){
+        RsType rs = new RsType(String.valueOf(type), line, col);
         stack.push(rs);    
     }
     
-    public void rememberId(String id, int line, int col){
-        RsId rs = new RsId(id,line,col);
+    public void rememberId(Object id, int line, int col){
+        RsId rs = new RsId(String.valueOf(id), line, col);
         stack.push(rs);
     }
     
-    
     // int x,y,x; da el error en la primera x porque en la pila está primero la segunda.
-    public void insertTS(){
-        RsType rsType = (RsType)stack.findNearest(RsType.class);
+    public void insertSymbolTable(){
+        RsType rsType = (RsType) stack.findNearest(RsType.class);
         while (!stack.peek().getClass().equals(RsType.class)) {            
             RsId rsId = (RsId) stack.pop();
-            if(! symbolTable.containsKey(rsId.name)){
+            if (!symbolTable.containsKey(rsId.name)){
                VariableData variableData = new VariableData(rsType.type, rsId.name);
                symbolTable.put(rsId.name, variableData);
-            } else if(!symbolTable.get(rsId.name).hasError()){
+            } else if (!symbolTable.get(rsId.name).hasError()){
                symbolTable.get(rsId.name).addError();
                String errorMessage =  "variable already declared";  //deberiamos definir los errores
                SemanticError error = new SemanticError(rsId.line, rsId.col, rsId.name, errorMessage);     
