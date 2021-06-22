@@ -42,7 +42,7 @@ public class Translator {
                symbolTable.get(rsId.name).addError();
                String errorMessage =  "variable already declared";  //deberiamos definir los errores
                SemanticError error = new SemanticError(rsId.line, rsId.col, rsId.name, errorMessage);     
-               semanticErrors.add(0, error); //insertar al inicio para que queden en orden
+               semanticErrors.add(error); //insertar al inicio para que queden en orden
             } 
         }
         stack.pop(); 
