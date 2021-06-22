@@ -16,7 +16,7 @@ public class SemanticError {
 
     @Override
     public String toString() {
-        return "Error in token \"" + tokenValue +"\" "+ message +" in line: "+ lineNumber + " col: " + colNumber;
+        return "Semantic error " + message + " at line: " + lineNumber + " at column: " + colNumber + " on: " + tokenValue;
     }
     
     

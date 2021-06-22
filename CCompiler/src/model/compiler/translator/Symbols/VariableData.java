@@ -21,4 +21,9 @@ public class VariableData implements IdentifierData {
     public boolean hasError() {
         return error;
     }
+    
+    @Override
+    public String toString(){
+        return type + " " + name + " ERROR: " + error;
+    }
 }

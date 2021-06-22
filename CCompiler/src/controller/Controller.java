@@ -71,7 +71,7 @@ public class Controller implements ActionListener {
                 tableScanner.addRow(row);
             }
         }
-        result = model.parseFile();
+        result = model.parseAndTranslateFile();
         for (Token token : result){
             if (token.getValue() != null){
                 String row[] = {token.getValue().toString(),String.valueOf(token.getLineNum()),String.valueOf(token.getColNum())};

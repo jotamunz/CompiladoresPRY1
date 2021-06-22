@@ -9,7 +9,7 @@ parser code
 {:
 
     public ArrayList<Token> errors = new ArrayList<>();
-    public Translator translator = new Translator();
+    public Translator tl = new Translator();
 
     public void syntax_error(Symbol cur_token){
         errors.add(new Token(cur_token.sym, cur_token.right, cur_token.left, cur_token.value));
@@ -117,7 +117,6 @@ non terminal
     variable_declaration,
     declaration,
     functions_block,
-    add_function,
     function_statement,
     parameter,
     parameters,
@@ -167,12 +166,12 @@ precedence left OP_INC, OP_DEC;
 start with innit;
 
 key_types ::=
-    KEY_INT
-    | KEY_VOID
-    | KEY_CHAR
-    | KEY_LONG
-    | KEY_SHORT
-    | KEY_FLOAT
+    KEY_INT:e {:tl.rememberType(e, eright, eleft);:}
+    | KEY_VOID:e {:tl.rememberType(e, eright, eleft);:}
+    | KEY_CHAR:e {:tl.rememberType(e, eright, eleft);:}
+    | KEY_LONG:e {:tl.rememberType(e, eright, eleft);:}
+    | KEY_SHORT:e {:tl.rememberType(e, eright, eleft);:}
+    | KEY_FLOAT:e {:tl.rememberType(e, eright, eleft);:}
 ;  
 
 innit ::=
@@ -191,11 +190,11 @@ declaration ::=
 ;
 
 variable_declaration ::=
-    key_types ID add_id
+    key_types ID:e {:tl.rememberId(e, eright, eleft);:} add_id {:tl.insertSymbolTable();:}
 ;
 
 add_id ::=
-    OP_COMA ID add_id
+    OP_COMA ID:e {:tl.rememberId(e, eright, eleft);:} add_id
     |
 ;
 

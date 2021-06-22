@@ -25,10 +25,12 @@ public class Model {
         return scanner.getTokens();
     }
     
-    public ArrayList<Token> parseFile() {
-        parser.parse(filePath);
-        //parser.printErrorTokens();
-        return parser.getErrorTokens();
+    public ArrayList<Token> parseAndTranslateFile() {
+        parser.parseAndTranslate(filePath);
+        //parser.printSyntaxErrors();
+        parser.printSemanticErrors();
+        parser.printSymbolTable();
+        return parser.getSyntaxErrors();
     }
     
     public String getFileName() {

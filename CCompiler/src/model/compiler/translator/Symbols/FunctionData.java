@@ -34,4 +34,16 @@ public class FunctionData implements IdentifierData {
     public boolean hasError() {
         return error;
     }
+    
+    @Override
+    public String toString(){
+        String result = type + " " + name + "(";
+        for (int i = 0; i < parameterAmount; i++){
+            if (i == parameterAmount - 1)
+                result += parameterData.get(i).type + ")";
+            else
+                result += parameterData.get(i).type + ",";
+        }
+        return result + " ERROR: " + error;
+    }
 }
