@@ -4,6 +4,7 @@ int main(int a, char b) {
     read(n);
     originalN = n;
     reversedN = 0;
+    hola = 0;
 
     // reversed integer is stored in reversedN
     while (n != 0) {

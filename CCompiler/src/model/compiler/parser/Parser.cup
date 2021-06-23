@@ -305,7 +305,7 @@ expression_statement ::=
 ;
 
 assignment_expression ::=
-    ID assignment_operator expression
+    ID:e {:tl.rememberVar(e, eright, eleft);:} assignment_operator expression
 ;
 
 assignment_operator ::=

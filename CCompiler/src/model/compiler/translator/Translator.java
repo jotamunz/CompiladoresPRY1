@@ -72,42 +72,40 @@ public class Translator {
         }
         RsId rsId = (RsId) stack.pop();
         RsType rsType = (RsType) stack.pop();
-        if (isNewId(rsId)){
+        if (isNewId(rsId)){ // discriminar por cantidad de parametros
             FunctionData funcData = new FunctionData(rsType.type, rsId.name, parameters);
             symbolTable.put(rsId.name, funcData);
         }
     }
 
-    public void rememberConst(String value, int line, int column){
-        RsDO rs = new RsDO("Const", value, line, column); // No se si el tipo es "Const"
+    public void rememberConst(Object value, int line, int col){
+        RsDO rs = new RsDO("constant", String.valueOf(value), line, col);
         stack.push(rs);
     }
     
-    public void rememberOperator(String operator, int line, int column){
-        RsOp rs = new RsOp(operator, line, column);
+    public void rememberOp(Object operator, int line, int col){
+        RsOp rs = new RsOp(String.valueOf(operator), line, col);
         stack.push(rs);
     }    
     
-    public void rememberVariable(String value, int line, int column){
-        RsDO rs = new RsDO("Address", value, line, column); // No se si el tipo es "Address"
+    public void rememberVar(Object id, int line, int col){
+        RsDO rs = new RsDO("address", String.valueOf(id), line, col);
         if(!symbolTable.containsKey(rs.value)){
             VariableData variableData = new VariableData("Unknown", rs.value); // Si no está declarada no sabemos el tipo
             variableData.addError(); 
             symbolTable.put(rs.value, variableData);
-            
-            // Agregar el error
-            String errorMessage =  "Variable undeclared";  //deberiamos definir los errores
+            String errorMessage = "variable undeclared";  //deberiamos definir los errores
             SemanticError error = new SemanticError(rs.line, rs.col, rs.value, errorMessage);     
-            semanticErrors.add(error); //insertar al inicio para que queden en orden            
+            semanticErrors.add(error);        
         }
         stack.push(rs);
     }
     
     public void evalBinary(){
         RsDO rsDO1 = (RsDO) stack.pop();
-        RsOp rsOperator = (RsOp) stack.pop();
+        RsOp rsOp = (RsOp) stack.pop();
         RsDO rsDO2 = (RsDO) stack.pop();
-        if(rsDO1.type == "Const" && rsDO2.type == "Const"){
+        if("Const".equals(rsDO1.type) && "Const".equals(rsDO2.type)){
             // calcular el resultado dependiendo de operador
             // crear RsDO tipo Const con el resultado calculado
         }
@@ -116,5 +114,10 @@ public class Translator {
             // crear RsDO tipo Address
         }
         // hacer push al RsDO creado en el if o else
+    }
+    
+    public void rememberFunc(Object id, int line, int col){
+        // validar que existe en la tabla de simbolos
+        // Corroborar cantidad y tipo de parámetros
     }
 }
