@@ -199,7 +199,7 @@ add_id ::=
 ;
 
 const_declaration::=
-    KEY_CONST key_types ID add_id OP_ASSIGN expression
+    KEY_CONST key_types ID:e {:tl.rememberId(e, eright, eleft);:} add_id {:tl.insertSymbolTable();:} OP_ASSIGN expression
 ;
 
 functions_block ::=

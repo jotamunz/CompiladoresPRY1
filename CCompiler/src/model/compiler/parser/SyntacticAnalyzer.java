@@ -4,9 +4,11 @@ package model.compiler.parser;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import model.compiler.scanner.Lexer;
 import model.compiler.scanner.Token;
 import model.compiler.translator.SemanticError;
+import model.compiler.translator.Symbols.IdentifierData;
 import model.compiler.translator.Translator;
 
 public class SyntacticAnalyzer {
@@ -53,6 +55,10 @@ public class SyntacticAnalyzer {
         for (String key: translator.getSymbolTable().keySet()){  
                 System.out.println(translator.getSymbolTable().get(key).toString());
         } 
+    }
+    
+    public HashMap<String, IdentifierData> getSymbolTable() {
+        return translator.getSymbolTable();
     }
 }
  

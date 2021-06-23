@@ -1,7 +1,6 @@
 
 int main() {
-    int n, reversedN, remainder, originalN, n;
-    int remainder;
+    int n, reversedN, remainder, originalN;
     read(n);
     originalN = n;
     reversedN = 0;
