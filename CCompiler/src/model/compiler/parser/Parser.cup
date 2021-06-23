@@ -190,16 +190,16 @@ declaration ::=
 ;
 
 variable_declaration ::=
-    key_types ID:e {:tl.rememberId(e, eright, eleft);:} add_id {:tl.insertSymbolTable();:}
+    key_types ID:e {:tl.rememberIdVar(e, eright, eleft);:} add_id {:tl.insertTableVar();:}
 ;
 
 add_id ::=
-    OP_COMA ID:e {:tl.rememberId(e, eright, eleft);:} add_id
+    OP_COMA ID:e {:tl.rememberIdVar(e, eright, eleft);:} add_id
     |
 ;
 
 const_declaration::=
-    KEY_CONST key_types ID:e {:tl.rememberId(e, eright, eleft);:} add_id {:tl.insertSymbolTable();:} OP_ASSIGN expression
+    KEY_CONST key_types ID:e {:tl.rememberIdVar(e, eright, eleft);:} add_id {:tl.insertTableVar();:} OP_ASSIGN expression
 ;
 
 functions_block ::=
@@ -208,7 +208,7 @@ functions_block ::=
 ;
 
 function_statement ::=
-    key_types ID OP_PAR_OPEN parameters OP_PAR_CLOSE OP_BRACE_OPEN function_body OP_BRACE_CLOSE
+    key_types ID:e OP_PAR_OPEN {:tl.rememberIdFunc(e, eright, eleft);:} parameters OP_PAR_CLOSE {:tl.insertTableFunc();:} OP_BRACE_OPEN function_body OP_BRACE_CLOSE
     | key_types ID OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN function_body OP_BRACE_CLOSE
     | key_types ID OP_PAR_OPEN error OP_BRACE_OPEN function_body OP_BRACE_CLOSE
     | key_types ID OP_PAR_OPEN error function_body OP_BRACE_CLOSE
@@ -220,7 +220,7 @@ function_body ::=
 ;
 
 parameter ::=
-    key_types ID
+    key_types ID:e {:tl.rememberIdVar(e, eright, eleft);:}
 ;
 
 parameters ::=

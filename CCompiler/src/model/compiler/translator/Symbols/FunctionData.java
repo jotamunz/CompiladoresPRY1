@@ -18,13 +18,6 @@ public class FunctionData implements IdentifierData {
         this.error = false;
     }
     
-    public FunctionData(String type, String name) {
-        this.type = type;
-        this.name = name;
-        this.parameterAmount = 0;
-        this.error = false;
-    }
-    
     @Override
     public void addError(){
         this.error = true;
@@ -42,7 +35,7 @@ public class FunctionData implements IdentifierData {
             if (i == parameterAmount - 1)
                 result += parameterData.get(i).type + ")";
             else
-                result += parameterData.get(i).type + ",";
+                result += parameterData.get(i).type + ", ";
         }
         return result + " ERROR: " + error;
     }

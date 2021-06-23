@@ -1,5 +1,5 @@
 
-int main() {
+int main(int a, char b) {
     int n, reversedN, remainder, originalN;
     read(n);
     originalN = n;
