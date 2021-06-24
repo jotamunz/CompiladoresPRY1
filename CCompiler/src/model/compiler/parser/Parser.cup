@@ -237,9 +237,9 @@ expression ::=
     expression arithmetic_operator expression {:tl.evalBinary();:}
     | expression logic_operator expression {:tl.evalBinary();:}
     | OP_PAR_OPEN expression OP_PAR_CLOSE
-    | ID:e {:tl.rememberVar(e, eright, eleft);:} postfix_operator 
-    | postfix_operator ID:e {:tl.rememberVar(e, eright, eleft);:}
-    | unary_operator expression
+    | ID:e {:tl.rememberVar(e, eright, eleft);:} postfix_operator {:tl.evalUnary(true);:}
+    | postfix_operator ID:e {:tl.rememberVar(e, eright, eleft);tl.evalUnary(false);:}
+    | unary_operator expression {:tl.evalUnary(false);:}
     | operand
 ;
 

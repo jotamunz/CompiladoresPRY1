@@ -107,10 +107,9 @@ public class Translator {
         RsDO rsDO2 = (RsDO) stack.pop();
         RsDO rsDOresult;
         if("constant".equals(rsDO1.type) && "constant".equals(rsDO2.type)){
-            int value = constantFold(rsDO2.value, rsOp.operator, rsDO1.value);
+            int value = constFoldBinary(rsDO2.value, rsOp.operator, rsDO1.value);
             rsDOresult = new RsDO("constant", String.valueOf(value), rsDO2.line, rsDO2.col);
-        }
-        else{
+        } else{
             // generar código para la operación
             rsDOresult = new RsDO("address", "register", rsDO2.line, rsDO2.col);
         }
@@ -118,11 +117,29 @@ public class Translator {
         stack.push(rsDOresult);
     }
     
-    public void evalUnary() {
-        // mismo que el de arriba pero para ++, --
+    public void evalUnary(boolean isPostfix) {
+        RsDO rsDO;
+        RsOp rsOp;
+        RsDO rsDOresult;
+        if (isPostfix){
+            rsOp = (RsOp) stack.pop();
+            rsDO = (RsDO) stack.pop();
+        } else {
+            rsDO = (RsDO) stack.pop();
+            rsOp = (RsOp) stack.pop();
+        }
+        if ("constant".equals(rsDO.type)){
+            int value = constFoldUnary(rsDO.value, rsOp.operator, isPostfix);
+            rsDOresult = new RsDO("constant", String.valueOf(value), rsDO.line, rsDO.col);
+        } else {
+            // generar codigo para la operacion
+            rsDOresult = new RsDO("address", "register", rsDO.line, rsDO.col);
+        }
+        System.out.println(rsDOresult);
+        stack.push(rsDOresult);
     }
     
-    private int constantFold(String value1, String op, String value2) { // al tomar el valor del string, cual tamano usar Ej. Integer.valueOf()
+    private int constFoldBinary(String value1, String op, String value2) { // al tomar el valor del string, cual tamano usar Ej. Integer.valueOf()
         int operand1 = Integer.valueOf(value1);
         int operand2 = Integer.valueOf(value2);
         switch (op){
@@ -168,6 +185,30 @@ public class Translator {
                 if (operand1 != 0 || operand2 != 0)
                     return 1;
                 break;
+        }
+        return 0;
+    }
+    
+    private int constFoldUnary(String value, String op, boolean isPostfix){
+        int operand = Integer.valueOf(value);
+        switch (op){
+            case "++":
+                if (isPostfix)
+                    return operand++;
+                else
+                    return ++operand;
+            case "--":
+                if (isPostfix)
+                    return operand--;
+                else
+                    return --operand;
+            case "!":
+                if (operand == 0)
+                    return 1;
+            case "+":
+                return +operand;
+            case "-":
+                return -operand;
         }
         return 0;
     }

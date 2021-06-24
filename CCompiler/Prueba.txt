@@ -1,7 +1,7 @@
 
 int main(){
-    int var1, var2;
-    int hola;
-    hola = ((5 * 5) - 25) || 1;
+int x;
+x = -6;
+++x == 7;
 }
 
