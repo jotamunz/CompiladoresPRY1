@@ -1,0 +1,7 @@
+
+int main(){
+    int var1, var2;
+    int hola;
+    hola = 5 * 5 + 5;
+}
+

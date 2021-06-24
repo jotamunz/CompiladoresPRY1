@@ -234,50 +234,50 @@ add_parameter ::=
 ;
 
 expression ::=
-    expression arithmetic_operator expression
-    | expression logic_operator expression
+    expression arithmetic_operator expression {:tl.evalBinary();:}
+    | expression logic_operator expression {:tl.evalBinary();:}
     | OP_PAR_OPEN expression OP_PAR_CLOSE
-    | ID postfix_operator 
-    | postfix_operator ID
+    | ID:e {:tl.rememberVar(e, eright, eleft);:} postfix_operator 
+    | postfix_operator ID:e {:tl.rememberVar(e, eright, eleft);:}
     | unary_operator expression
     | operand
 ;
 
 operand ::=
-    ID
-    | INT
-    | CHAR
+    ID:e {:tl.rememberVar(e, eright, eleft);:}
+    | INT:e {:tl.rememberConst(e, eright, eleft);:} 
+    | CHAR:e {:tl.rememberConst(e, eright, eleft);:}
     | call_function_statement
 ;
 
 arithmetic_operator ::=
-    OP_ADD             
-    | OP_SUB             
-    | OP_MULT             
-    | OP_DIV             
-    | OP_MOD
+    OP_ADD:e {:tl.rememberOp(e, eright, eleft);:}              
+    | OP_SUB:e {:tl.rememberOp(e, eright, eleft);:}             
+    | OP_MULT:e {:tl.rememberOp(e, eright, eleft);:}             
+    | OP_DIV:e {:tl.rememberOp(e, eright, eleft);:}             
+    | OP_MOD:e {:tl.rememberOp(e, eright, eleft);:}
 ;
 
 logic_operator ::=
-     OP_EQUAL
-    | OP_GRE_EQ
-    | OP_GREATER
-    | OP_LESS
-    | OP_LESS_EQ
-    | OP_NOT_EQ 
-    | OP_OR            
-    | OP_AND
+     OP_EQUAL:e {:tl.rememberOp(e, eright, eleft);:}
+    | OP_GRE_EQ:e {:tl.rememberOp(e, eright, eleft);:}
+    | OP_GREATER:e {:tl.rememberOp(e, eright, eleft);:}
+    | OP_LESS:e {:tl.rememberOp(e, eright, eleft);:}
+    | OP_LESS_EQ:e {:tl.rememberOp(e, eright, eleft);:}
+    | OP_NOT_EQ:e {:tl.rememberOp(e, eright, eleft);:} 
+    | OP_OR:e {:tl.rememberOp(e, eright, eleft);:}            
+    | OP_AND:e {:tl.rememberOp(e, eright, eleft);:}
 ;
 
 postfix_operator ::=
-    OP_INC
-    | OP_DEC
+    OP_INC:e {:tl.rememberOp(e, eright, eleft);:}
+    | OP_DEC:e {:tl.rememberOp(e, eright, eleft);:}
 ;
 
 unary_operator ::=
-    OP_NOT
-    | OP_ADD
-    | OP_SUB
+    OP_NOT:e {:tl.rememberOp(e, eright, eleft);:}
+    | OP_ADD:e {:tl.rememberOp(e, eright, eleft);:}
+    | OP_SUB:e {:tl.rememberOp(e, eright, eleft);:}
 ;
 
 
@@ -305,15 +305,15 @@ expression_statement ::=
 ;
 
 assignment_expression ::=
-    ID:e {:tl.rememberVar(e, eright, eleft);:} assignment_operator expression
+    ID:e {:tl.rememberVar(e, eright, eleft);:} assignment_operator expression {:tl.assign();:}
 ;
 
 assignment_operator ::=
-    OP_ADD_ASS             
-    | OP_SUB_ASS             
-    | OP_MULT_ASS             
-    | OP_DIV_ASS             
-    | OP_ASSIGN
+    OP_ADD_ASS:e {:tl.rememberOp(e, eright, eleft);:}             
+    | OP_SUB_ASS:e {:tl.rememberOp(e, eright, eleft);:}             
+    | OP_MULT_ASS:e {:tl.rememberOp(e, eright, eleft);:}             
+    | OP_DIV_ASS:e {:tl.rememberOp(e, eright, eleft);:}             
+    | OP_ASSIGN:e {:tl.rememberOp(e, eright, eleft);:}
 ;
 
 read_statement ::=

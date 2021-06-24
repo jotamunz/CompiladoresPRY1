@@ -105,15 +105,51 @@ public class Translator {
         RsDO rsDO1 = (RsDO) stack.pop();
         RsOp rsOp = (RsOp) stack.pop();
         RsDO rsDO2 = (RsDO) stack.pop();
-        if("Const".equals(rsDO1.type) && "Const".equals(rsDO2.type)){
-            // calcular el resultado dependiendo de operador
-            // crear RsDO tipo Const con el resultado calculado
+        RsDO rsDOresult;
+        if("constant".equals(rsDO1.type) && "constant".equals(rsDO2.type)){
+            int value = constantFold(rsDO2.value, rsOp.operator, rsDO1.value);
+            rsDOresult = new RsDO("constant", String.valueOf(value), rsDO2.line, rsDO2.col);
         }
         else{
             // generar código para la operación
-            // crear RsDO tipo Address
+            rsDOresult = new RsDO("address", "register", rsDO2.line, rsDO2.col);
         }
-        // hacer push al RsDO creado en el if o else
+        System.out.println(rsDOresult);
+        stack.push(rsDOresult);
+    }
+    
+    public void evalUnary() {
+        // mismo que el de arriba pero para ++, --
+    }
+    
+    public void assign(){
+        RsDO rsDO1 = (RsDO) stack.pop();
+        RsOp rsOp = (RsOp) stack.pop();
+        RsDO rsDO2 = (RsDO) stack.pop();
+        // generar código para la operación
+    }
+    
+    private int constantFold(String value1, String op, String value2) { // al tomar el valor del string, cual tamano usar Ej. Integer.valueOf()
+        int operand1 = Integer.valueOf(value1);
+        int operand2 = Integer.valueOf(value2);
+        switch (op){
+            case "+":
+                return operand1 + operand2;
+            case "-":
+                return operand1 - operand2;
+            case "*":
+                return operand1 * operand2;
+            case "/":
+                return operand1 / operand2;
+            case "%":
+                return operand1 % operand2;
+            case "==":
+                if (operand1 == operand2)
+                    return 1;
+                return 0;
+            default:
+                return 0;
+        }
     }
     
     public void rememberFunc(Object id, int line, int col){

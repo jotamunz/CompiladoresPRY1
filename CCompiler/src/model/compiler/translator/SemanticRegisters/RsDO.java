@@ -9,5 +9,11 @@ public class RsDO extends Register{
         super(line, col);
         this.type = type;
         this.value = value;
-    }    
+    }
+
+    @Override
+    public String toString() {
+        return "RsDO{" + "type=" + type + ", value=" + value + '}';
+    }
+    
 }

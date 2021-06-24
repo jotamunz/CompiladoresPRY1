@@ -33,10 +33,11 @@ public class FunctionData implements IdentifierData {
         String result = type + " " + name + "(";
         for (int i = 0; i < parameterAmount; i++){
             if (i == parameterAmount - 1)
-                result += parameterData.get(i).type + ")";
+                result += parameterData.get(i).type;
             else
                 result += parameterData.get(i).type + ", ";
         }
+        result += ")";
         return result + " ERROR: " + error;
     }
 }
