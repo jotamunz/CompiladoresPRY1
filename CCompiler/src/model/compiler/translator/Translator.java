@@ -122,13 +122,6 @@ public class Translator {
         // mismo que el de arriba pero para ++, --
     }
     
-    public void assign(){
-        RsDO rsDO1 = (RsDO) stack.pop();
-        RsOp rsOp = (RsOp) stack.pop();
-        RsDO rsDO2 = (RsDO) stack.pop();
-        // generar código para la operación
-    }
-    
     private int constantFold(String value1, String op, String value2) { // al tomar el valor del string, cual tamano usar Ej. Integer.valueOf()
         int operand1 = Integer.valueOf(value1);
         int operand2 = Integer.valueOf(value2);
@@ -146,10 +139,44 @@ public class Translator {
             case "==":
                 if (operand1 == operand2)
                     return 1;
-                return 0;
-            default:
-                return 0;
+                break;
+            case ">=":
+                if (operand1 >= operand2)
+                    return 1;
+                break;
+            case ">":
+                if (operand1 > operand2)
+                    return 1;
+                break;
+            case "<=":
+                if (operand1 <= operand2)
+                    return 1;
+                break;
+            case "<":
+                if (operand1 < operand2)
+                    return 1;
+                break;
+            case "!=":
+                if (operand1 != operand2)
+                    return 1;
+                break;
+            case "&&":
+                if (operand1 != 0 && operand2 != 0)
+                    return 1;
+                break;
+            case "||":
+                if (operand1 != 0 || operand2 != 0)
+                    return 1;
+                break;
         }
+        return 0;
+    }
+    
+    public void assign(){
+        RsDO rsDO1 = (RsDO) stack.pop();
+        RsOp rsOp = (RsOp) stack.pop();
+        RsDO rsDO2 = (RsDO) stack.pop();
+        // generar código para la asignacion
     }
     
     public void rememberFunc(Object id, int line, int col){
