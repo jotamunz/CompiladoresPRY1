@@ -1683,10 +1683,7 @@ tl.rememberVar(e, eright, eleft);
           case 82: // assignment_operator ::= OP_ADD_ASS 
             {
               Object RESULT =null;
-		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
-		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Object e = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		tl.rememberOp(e, eright, eleft);
+
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",21, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1695,10 +1692,7 @@ tl.rememberVar(e, eright, eleft);
           case 83: // assignment_operator ::= OP_SUB_ASS 
             {
               Object RESULT =null;
-		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
-		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Object e = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		tl.rememberOp(e, eright, eleft);
+
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",21, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1707,10 +1701,7 @@ tl.rememberVar(e, eright, eleft);
           case 84: // assignment_operator ::= OP_MULT_ASS 
             {
               Object RESULT =null;
-		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
-		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Object e = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		tl.rememberOp(e, eright, eleft);
+
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",21, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1719,10 +1710,7 @@ tl.rememberVar(e, eright, eleft);
           case 85: // assignment_operator ::= OP_DIV_ASS 
             {
               Object RESULT =null;
-		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
-		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Object e = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		tl.rememberOp(e, eright, eleft);
+
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",21, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

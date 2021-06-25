@@ -309,10 +309,10 @@ assignment_expression ::=
 ;
 
 assignment_operator ::=
-    OP_ADD_ASS:e {:tl.rememberOp(e, eright, eleft);:}             
-    | OP_SUB_ASS:e {:tl.rememberOp(e, eright, eleft);:}             
-    | OP_MULT_ASS:e {:tl.rememberOp(e, eright, eleft);:}             
-    | OP_DIV_ASS:e {:tl.rememberOp(e, eright, eleft);:}             
+    OP_ADD_ASS           
+    | OP_SUB_ASS            
+    | OP_MULT_ASS            
+    | OP_DIV_ASS       
     | OP_ASSIGN:e {:tl.rememberOp(e, eright, eleft);:}
 ;
 

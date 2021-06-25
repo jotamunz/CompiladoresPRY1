@@ -72,7 +72,7 @@ public class Translator {
         }
         RsId rsId = (RsId) stack.pop();
         RsType rsType = (RsType) stack.pop();
-        if (isNewId(rsId)){ // discriminar por cantidad de parametros
+        if (isNewId(rsId)){
             FunctionData funcData = new FunctionData(rsType.type, rsId.name, parameters);
             symbolTable.put(rsId.name, funcData);
         }
