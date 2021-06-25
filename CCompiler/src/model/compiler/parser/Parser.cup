@@ -171,7 +171,6 @@ key_types ::=
     | KEY_CHAR:e {:tl.rememberType(e, eright, eleft);:}
     | KEY_LONG:e {:tl.rememberType(e, eright, eleft);:}
     | KEY_SHORT:e {:tl.rememberType(e, eright, eleft);:}
-    | KEY_FLOAT:e {:tl.rememberType(e, eright, eleft);:}
 ;  
 
 innit ::=
@@ -336,18 +335,17 @@ write_parameters_list ::=
     |
 ;
 
-
 if_statement ::=
-    KEY_IF OP_PAR_OPEN expression_statement OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
+    KEY_IF:e OP_PAR_OPEN {:tl.startIf(eright, eleft);:} expression_statement OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
     | KEY_IF OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
     | KEY_IF OP_PAR_OPEN error OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
     | KEY_IF OP_PAR_OPEN error block_statement OP_BRACE_CLOSE else_statement
 ;
 
 else_statement ::= 
-    KEY_ELSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
+    KEY_ELSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE {:tl.endIf();:}
     | KEY_ELSE error block_statement OP_BRACE_CLOSE
-    |
+    | {:tl.endIf();:}
 ;
 
 for_statement ::= 
@@ -366,7 +364,7 @@ for_expression_statement ::=
 ;
 
 while_statement ::= 
-    KEY_WHILE OP_PAR_OPEN expression_statement OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
+    KEY_WHILE:e OP_PAR_OPEN {:tl.startWhile(eright, eleft);:} expression_statement OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE {:tl.endWhile();:}
     | KEY_WHILE OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
     | KEY_WHILE OP_PAR_OPEN error OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
     | KEY_WHILE OP_PAR_OPEN error block_statement OP_BRACE_CLOSE

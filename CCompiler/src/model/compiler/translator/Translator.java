@@ -224,4 +224,34 @@ public class Translator {
         // validar que existe en la tabla de simbolos
         // Corroborar cantidad y tipo de parámetros
     }
+    
+    public void startIf(int line, int col){
+        RsIf rs = new RsIf(stack.ifCounter, line, col);
+        stack.ifCounter++;
+        stack.push(rs);
+    }
+    
+    public void endIf(){
+        // Generar RS_IF.exit_label + “:”
+        while (!stack.peek().getClass().equals(RsIf.class)){
+            stack.pop();
+        }
+        stack.pop();
+    }
+    
+    public void startWhile(int line, int col){
+        RsWhile rs = new RsWhile(stack.whileCounter, line, col);
+        stack.whileCounter++;
+        // Generar RS_WHILE.while_label + “:”
+        stack.push(rs);
+    }
+
+    public void endWhile(){
+        // Generar “JUMP” + RS_WHILE.while_label
+        // Generar RS_WHILE.exit_label + “:”
+        while (!stack.peek().getClass().equals(RsWhile.class)){
+            stack.pop();
+        }
+        stack.pop();
+    }
 }
