@@ -223,6 +223,15 @@ public class Translator {
     public void rememberFunc(Object id, int line, int col){
         // validar que existe en la tabla de simbolos
         // Corroborar cantidad y tipo de parámetros
+        // insetar a la pila como variables
+    }
+    
+    public void validateBreakContinue(Object value, int line, int col){
+        if (stack.findNearest(RsWhile.class) == null){
+            String errorMessage = "no loop found";  //deberiamos definir los errores
+            SemanticError error = new SemanticError(line+1, col+1, String.valueOf(value), errorMessage);     
+            semanticErrors.add(error);   
+        }
     }
     
     public void startIf(int line, int col){

@@ -26,9 +26,11 @@ public class SemanticStack {
     }
     
     public Register findNearest(Class rsClass){
-        for (Register register : stack) {
-            if (register.getClass().equals(rsClass)) { 
-                return register;
+        if (!stack.isEmpty()) {
+            for (int i = stack.size()-1; i >= 0; i--) {
+                if (stack.get(i).getClass().equals(rsClass)) { 
+                    return stack.get(i);
+                }
             }
         }
         return null;

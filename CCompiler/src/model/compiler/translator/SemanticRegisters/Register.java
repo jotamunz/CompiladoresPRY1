@@ -6,8 +6,8 @@ public abstract class Register {
     public int col;
 
     public Register(int line, int col) {
-        this.line = line;
-        this.col = col;
+        this.line = line + 1;
+        this.col = col + 1;
     }
     
     

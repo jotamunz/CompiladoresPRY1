@@ -1,12 +1,17 @@
 
 int main(){
+    break;
     if (0){
-        return 0;
+        while (1) {
+            break;
+        }
     } else {
-        return 1;
+        continue;
     }
     while (1){
-        return 1;
+        if (1) {
+            break;
+        }
     }
 }
 

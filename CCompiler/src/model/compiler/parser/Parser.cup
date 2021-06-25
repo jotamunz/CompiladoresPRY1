@@ -289,8 +289,8 @@ statement ::=
     expression_statement OP_SEMICOL
     | read_statement OP_SEMICOL 
     | write_statement OP_SEMICOL 
-    | KEY_BREAK OP_SEMICOL
-    | KEY_CONT OP_SEMICOL
+    | KEY_BREAK:e {:tl.validateBreakContinue(e, eright, eleft);:} OP_SEMICOL
+    | KEY_CONT:e {:tl.validateBreakContinue(e, eright, eleft);:} OP_SEMICOL
     | return_statement OP_SEMICOL
     | if_statement 
     | for_statement
