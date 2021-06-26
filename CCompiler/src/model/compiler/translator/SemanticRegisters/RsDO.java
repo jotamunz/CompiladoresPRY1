@@ -13,7 +13,7 @@ public class RsDO extends Register{
 
     @Override
     public String toString() {
-        return "RsDO{" + "type=" + type + ", value=" + value + '}';
+        return "RsDO{" + "type = " + type + ", value = " + value + '}';
     }
     
 }
