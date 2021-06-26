@@ -12,6 +12,11 @@ public class Translator {
     private ArrayList<SemanticError> semanticErrors = new ArrayList<>();
     private HashMap<String, IdentifierData> symbolTable = new HashMap<>();
     private SemanticStack stack = new SemanticStack();
+    private NasmConverter nasmConverter = new NasmConverter();
+    
+    public void printNasmCode(){
+        this.nasmConverter.print();
+    }
         
     public ArrayList<SemanticError> getSemanticErrors() {
         return semanticErrors;
@@ -28,6 +33,7 @@ public class Translator {
     
     public void rememberIdVar(Object id, int line, int col){
         RsId rs = new RsId(String.valueOf(id), false, line, col);
+        this.nasmConverter.declareVariable(String.valueOf(id));        
         stack.push(rs);
     }
     
@@ -110,8 +116,9 @@ public class Translator {
             int value = constFoldBinary(rsDO2.value, rsOp.operator, rsDO1.value);
             rsDOresult = new RsDO("constant", String.valueOf(value), rsDO2.line, rsDO2.col);
         } else{
+            this.nasmConverter.doExpressionBinary(rsDO2, rsDO1, rsOp.operator);
             // generar código para la operación
-            rsDOresult = new RsDO("address", "register", rsDO2.line, rsDO2.col);
+            rsDOresult = new RsDO("asmRegister", "EAX", rsDO2.line, rsDO2.col); // Lo último siempre quedara en el registro EAX
         }
         System.out.println(rsDOresult);
         stack.push(rsDOresult);
@@ -218,6 +225,7 @@ public class Translator {
         RsOp rsOp = (RsOp) stack.pop();
         RsDO rsDO2 = (RsDO) stack.pop();
         // generar código para la asignacion
+        this.nasmConverter.assign(rsDO2, rsDO1);
     }
     
     public void rememberFunc(Object id, int line, int col){
