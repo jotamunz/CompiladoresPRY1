@@ -271,4 +271,8 @@ public class Translator {
         }
         stack.pop();
     }
+    
+    public void endNasmCode(){
+        this.nasmConverter.endOfCode();
+    }
 }

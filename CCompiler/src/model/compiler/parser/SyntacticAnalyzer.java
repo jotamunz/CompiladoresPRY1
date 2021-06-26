@@ -23,6 +23,7 @@ public class SyntacticAnalyzer {
             translator = par.tl;
             errorTokens = par.errors;
             System.out.println("Finished Parse");
+            this.translator.endNasmCode();
         } catch (FileNotFoundException ex) {
             System.out.println("File Not Found");
         } catch (Exception ex) {
@@ -44,6 +45,10 @@ public class SyntacticAnalyzer {
         for (SemanticError error : translator.getSemanticErrors()){
             System.err.println(error.toString());
         }
+    }
+    
+    public void printNasmCode(){
+        this.translator.printNasmCode();
     }
     
     public ArrayList<SemanticError> getSemanticErrors() {

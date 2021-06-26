@@ -42,14 +42,79 @@ public class NasmConverter {
             this.initCode();
         }
         if("address".equals(rsDO1.type) && "address".equals(rsDO2.type)){
-            // sd
+            switch (op){
+                    case "+":
+                        this.nasmCode += "\tmov EAX, [" + operand1 + "] \n";
+                        this.nasmCode += "\tmov EBX, [" + operand2 + "] \n";
+                        this.nasmCode += "\tadd EAX,EBX\n\n";
+                        break;
+                    case "-":
+                        this.nasmCode += "\tmov EAX, [" + operand1 + "] \n";
+                        this.nasmCode += "\tmov EBX, [" + operand2 + "] \n";
+                        this.nasmCode += "\tsub EAX, EBX\n\n";
+                        break;
+                    case "*":
+                        this.nasmCode += "\tmov EAX, [" + operand1 + "] \n";
+                        this.nasmCode += "\tmov ECX, [" + operand2 + "] \n";
+                        this.nasmCode += "\tmul ECX \n\n";
+                        break;
+                    case "/":
+                        this.nasmCode += "\tmov EAX, [" + operand1 + "] \n";
+                        this.nasmCode += "\tmov EDX, 0\n";
+                        this.nasmCode += "\tmov ECX, [" + operand2 + "]\n";
+                        this.nasmCode += "\tdiv ECX \n\n";
+                        break;
+                    case "%":
+                        this.nasmCode += "\tmov EAX, [" + operand1 + "] \n";
+                        this.nasmCode += "\tmov EDX, 0\n";
+                        this.nasmCode += "\tmov ECX, " + operand2 + "\n";
+                        this.nasmCode += "\tdiv ECX \n";
+                        this.nasmCode += "\tmov EAX,EDX \n\n";
+                        break;
+                    case "==":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tcmp EAX, EBX \n";
+                        this.nasmCode += "\tcall equals \n\n";
+                        break;
+                    case ">=":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tcmp EAX, EBX \n";
+                        this.nasmCode += "\tcall greaterEqualThan \n\n";
+                        break;
+                    case ">":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tcmp EAX, EBX \n";
+                        this.nasmCode += "\tcall greaterThan \n\n";
+                        break;
+                    case "<=":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tcmp EAX, EBX \n";
+                        this.nasmCode += "\tcall lessEqualThan \n\n";
+                        break;
+                    case "<":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tcmp EAX, EBX \n";
+                        this.nasmCode += "\tcall lessThan \n\n";
+                        break;
+                    case "!=":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tcmp EAX, EBX \n";
+                        this.nasmCode += "\tcall notEquals \n\n";
+                        break;
+                }
         }
         else{
             if("address".equals(rsDO1.type)){
                 switch (op){
                     case "+":
                         this.nasmCode += "\tmov EAX, [" + operand1 + "] \n";
-                        this.nasmCode += "\tadd EAX, " + operand2 + "\n";
+                        this.nasmCode += "\tadd EAX, " + operand2 + "\n\n";
                         break;
                     case "-":
                         this.nasmCode += "\tmov EAX, [" + operand1 + "] \n";
@@ -72,6 +137,36 @@ public class NasmConverter {
                         this.nasmCode += "\tmov ECX, " + operand2 + "\n";
                         this.nasmCode += "\tdiv ECX \n";
                         this.nasmCode += "\tmov EAX,EDX \n\n";
+                        break;
+                    case "==":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tcmp EAX, " + operand2 + "\n";
+                        this.nasmCode += "\tcall equals \n\n";
+                        break;
+                    case ">=":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tcmp EAX, " + operand2 + "\n";
+                        this.nasmCode += "\tcall greaterEqualThan \n\n";
+                        break;
+                    case ">":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tcmp EAX, " + operand2 + "\n";
+                        this.nasmCode += "\tcall greaterThan \n\n";
+                        break;
+                    case "<=":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tcmp EAX, " + operand2 + "\n";
+                        this.nasmCode += "\tcall lessEqualThan \n\n";
+                        break;
+                    case "<":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tcmp EAX, " + operand2 + "\n";
+                        this.nasmCode += "\tcall lessThan \n\n";
+                        break;
+                    case "!=":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tcmp EAX, " + operand2 + "\n";
+                        this.nasmCode += "\tcall notEquals \n\n";
                         break;
                 }        
             }
@@ -104,6 +199,42 @@ public class NasmConverter {
                         this.nasmCode += "\tdiv ECX \n";
                         this.nasmCode += "\tmov EAX,EDX \n\n";
                         break;
+                    case "==":
+                        this.nasmCode += "\tmov EAX, " + operand1 + "\n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tcmp EAX, EBX \n";
+                        this.nasmCode += "\tcall equals \n\n";
+                        break;
+                    case ">=":
+                        this.nasmCode += "\tmov EAX, " + operand1 + "\n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tcmp EAX, EBX \n";
+                        this.nasmCode += "\tcall greaterEqualThan \n\n";
+                        break;
+                    case ">":
+                        this.nasmCode += "\tmov EAX, " + operand1 + "\n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tcmp EAX, EBX \n";
+                        this.nasmCode += "\tcall greaterThan \n\n";
+                        break;
+                    case "<=":
+                        this.nasmCode += "\tmov EAX, " + operand1 + "\n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tcmp EAX, EBX \n";
+                        this.nasmCode += "\tcall lessEqualThan \n\n";
+                        break;
+                    case "<":
+                        this.nasmCode += "\tmov EAX, " + operand1 + "\n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tcmp EAX, EBX \n";
+                        this.nasmCode += "\tcall lessThan \n\n";
+                        break;
+                    case "!=":
+                        this.nasmCode += "\tmov EAX, " + operand1 + "\n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tcmp EAX, EBX \n";
+                        this.nasmCode += "\tcall notEquals \n\n";
+                        break;
                 } 
             }
         }
@@ -113,16 +244,16 @@ public class NasmConverter {
         
         switch(value.type){
             case "asmRegister":
-                this.nasmCode += "\tmov dword[" + var.value + "], EAX \n\n";
+                this.nasmCode += "\tmov dword[" + var.value + "], EAX \n";
                 break;
             case "constant":
-                this.nasmCode += "\tmov dword[" + var.value + "]," +  value.value + "\n\n";
+                this.nasmCode += "\tmov dword[" + var.value + "]," +  value.value + "\n";
                 break;
             case "address":
-                this.nasmCode += "\tmov EAX, [" + value.type + "] \n";
-                this.nasmCode += "\tmov dword[" + var.value + "], EAX \n\n";
+                this.nasmCode += "\tmov EAX, [" + value.value + "] \n";
+                this.nasmCode += "\tmov dword[" + var.value + "], EAX \n";
         }
-        this.nasmCode += "\tsub EAX,EAX";
+        this.nasmCode += "\tsub EAX,EAX \n\n";
     }
     
     public void print(){
@@ -130,4 +261,40 @@ public class NasmConverter {
         System.out.println(this.nasmCode);
     }
     
+    public void endOfCode(){
+        this.nasmCode += "\t.EXIT \n\n";
+        this.nasmCode += "equals:\n" +
+                        "    je  isTrue\n" +
+                        "    mov EAX,0\n" +
+                        "    ret\n" +
+                        "\n" +
+                        "greaterEqualThan\n" +
+                        "    jge isTrue\n" +
+                        "    mov EAX,0\n" +
+                        "    ret\n" +
+                        "\n" +
+                        "greaterThan:\n" +
+                        "    jg  isTrue\n" +
+                        "    mov EAX,0\n" +
+                        "    ret\n" +
+                        "\n" +
+                        "lessEqualThan:\n" +
+                        "    jle isTrue\n" +
+                        "    mov EAX,0\n" +
+                        "    ret    \n" +
+                        "\n" +
+                        "lessThan:\n" +
+                        "    jl isTrue\n" +
+                        "    mov EAX,0\n" +
+                        "    ret  \n" +
+                        "\n" +
+                        "notEquals:\n" +
+                        "    jne isTrue\n" +
+                        "    mov EAX,0\n" +
+                        "    ret\n" +
+                        "\n" +
+                        "isTrue:\n" +
+                        "    mov EAX,1\n" +
+                        "    ret";
+    }
 }
