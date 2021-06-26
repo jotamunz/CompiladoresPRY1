@@ -139,8 +139,8 @@ public class Translator {
             int value = constFoldUnary(rsDO.value, rsOp.operator, isPostfix);
             rsDOresult = new RsDO("constant", String.valueOf(value), rsDO.line, rsDO.col);
         } else {
-            // generar codigo para la operacion
-            rsDOresult = new RsDO("address", "register", rsDO.line, rsDO.col);
+            this.nasmConverter.doExpressionUnary(rsDO, rsOp.operator, isPostfix);
+            rsDOresult = new RsDO("asmRegister", "EAX", rsDO.line, rsDO.col);
         }
         System.out.println(rsDOresult);
         stack.push(rsDOresult);
@@ -246,6 +246,10 @@ public class Translator {
         RsIf rs = new RsIf(stack.ifCounter, line, col);
         stack.ifCounter++;
         stack.push(rs);
+    }
+    
+    public void testIf(){
+        
     }
     
     public void endIf(){

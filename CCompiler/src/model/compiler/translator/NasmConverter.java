@@ -107,6 +107,16 @@ public class NasmConverter {
                         this.nasmCode += "\tcmp EAX, EBX \n";
                         this.nasmCode += "\tcall notEquals \n\n";
                         break;
+                    case "&&":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tand EAX, EBX \n";
+                        break;
+                    case "||":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tor EAX, EBX \n";
+                        break;
                 }
         }
         else{
@@ -167,6 +177,14 @@ public class NasmConverter {
                         this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
                         this.nasmCode += "\tcmp EAX, " + operand2 + "\n";
                         this.nasmCode += "\tcall notEquals \n\n";
+                        break;
+                    case "&&":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tand EAX, " + operand2 + "\n";
+                        break;
+                    case "||":
+                        this.nasmCode += "\tmov EAX,[" + operand1 + "] \n";
+                        this.nasmCode += "\tor EAX, " + operand2 + "\n";
                         break;
                 }        
             }
@@ -235,6 +253,16 @@ public class NasmConverter {
                         this.nasmCode += "\tcmp EAX, EBX \n";
                         this.nasmCode += "\tcall notEquals \n\n";
                         break;
+                    case "&&":
+                        this.nasmCode += "\tmov EAX, " + operand1 + "\n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tand EAX, EBX \n";
+                        break;
+                    case "||":
+                        this.nasmCode += "\tmov EAX, " + operand1 + "\n";
+                        this.nasmCode += "\tmov EBX,[" + operand2 + "] \n";
+                        this.nasmCode += "\tor EAX, EBX \n";
+                        break;
                 } 
             }
         }
@@ -252,8 +280,74 @@ public class NasmConverter {
             case "address":
                 this.nasmCode += "\tmov EAX, [" + value.value + "] \n";
                 this.nasmCode += "\tmov dword[" + var.value + "], EAX \n";
+                break;
         }
         this.nasmCode += "\tsub EAX,EAX \n\n";
+    }
+    
+    public void doExpressionUnary(RsDO operand, String op, boolean isPostfix){
+        switch(operand.type){
+            case "asmRegister":
+                switch(op){
+                    case "!":
+                        this.nasmCode += "\tcmp EAX, 0 \n";
+                        this.nasmCode += "\tcall equals \n\n";
+                        break;
+
+                    case "+":
+                        this.nasmCode += "\tmov EAX, [" + operand.value + "] \n";
+                        break;
+                    case "-":
+                        this.nasmCode += "\tmov EBX, EAX \n";
+                        this.nasmCode += "\tmov EAX, 0 \n";
+                        this.nasmCode += "\tsub EAX,EBX \n\n";
+                        break;
+                }
+                break;
+            case "address":
+                switch (op){
+                    case "++":
+                        if (isPostfix){
+                            this.nasmCode += "\tmov EAX, [" + operand.value + "] \n";
+                            this.nasmCode += "\tinc dword[" + operand.value + "] \n\n";
+                            break;
+                        }
+                        else{
+                            this.nasmCode += "\tinc dword[" + operand.value + "] \n";
+                            this.nasmCode += "\tmov EAX, [" + operand.value + "] \n\n";
+                            break;
+                        }
+                    case "--":
+                        if (isPostfix){
+                            this.nasmCode += "\tmov EAX, [" + operand.value + "] \n";
+                            this.nasmCode += "\tdec dword[" + operand.value + "] \n\n";
+                            break;
+                        }
+                        else{
+                            this.nasmCode += "\tdec dword[" + operand.value + "] \n";
+                            this.nasmCode += "\tmov EAX, [" + operand.value + "] \n\n";
+                            break;
+                        }
+                    case "!":
+                        this.nasmCode += "\tmov EAX, [" + operand.value + "] \n";
+                        this.nasmCode += "\tcmp EAX, 0 \n";
+                        this.nasmCode += "\tcall equals \n\n";
+                        break;
+
+                    case "+":
+                        this.nasmCode += "\tmov EAX, [" + operand.value + "] \n";
+                        break;
+                    case "-":
+                        this.nasmCode += "\tmov EBX, [" + operand.value + "] \n";
+                        this.nasmCode += "\tmov EAX, 0 \n";
+                        this.nasmCode += "\tsub EAX,EBX \n\n";
+                        break;
+
+                }
+                break;
+        }
+        
+        
     }
     
     public void print(){
@@ -268,7 +362,7 @@ public class NasmConverter {
                         "    mov EAX,0\n" +
                         "    ret\n" +
                         "\n" +
-                        "greaterEqualThan\n" +
+                        "greaterEqualThan:\n" +
                         "    jge isTrue\n" +
                         "    mov EAX,0\n" +
                         "    ret\n" +
@@ -296,5 +390,9 @@ public class NasmConverter {
                         "isTrue:\n" +
                         "    mov EAX,1\n" +
                         "    ret";
+    }
+    
+    public void testIf(){
+        
     }
 }
