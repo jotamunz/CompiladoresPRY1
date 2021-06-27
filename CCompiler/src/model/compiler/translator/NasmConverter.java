@@ -23,6 +23,10 @@ public class NasmConverter {
                 "out_msg\t db \"Results: \",0 \n\n" + 
                 ".UDATA \n";
     }
+
+    public String getNasmCode() {
+        return nasmCode;
+    }
     
     public void declareVariable(String var){
         nasmCode += var + "\t resd \t 1 \n";

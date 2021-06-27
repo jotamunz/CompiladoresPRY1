@@ -3,6 +3,8 @@ package model.compiler.parser;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import model.compiler.scanner.Lexer;
@@ -24,6 +26,7 @@ public class SyntacticAnalyzer {
             errorTokens = par.errors;
             System.out.println("Finished Parse");
             this.translator.endNasmCode();
+            writeFile((path.substring(0,path.lastIndexOf('.')))+".asm",this.translator.getNasmConverter().getNasmCode());
         } catch (FileNotFoundException ex) {
             System.out.println("File Not Found");
         } catch (Exception ex) {
@@ -64,6 +67,17 @@ public class SyntacticAnalyzer {
     
     public HashMap<String, IdentifierData> getSymbolTable() {
         return translator.getSymbolTable();
+    }
+    
+    
+    public void writeFile(String absolutePath, String file){
+        try(FileWriter fileWriter = new FileWriter(absolutePath)) {
+            String fileContent = file;
+            fileWriter.write(fileContent);
+            fileWriter.close();
+        } catch (IOException e) {
+            // Cxception handling
+        }
     }
 }
  

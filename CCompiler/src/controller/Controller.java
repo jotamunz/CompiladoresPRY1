@@ -71,12 +71,17 @@ public class Controller implements ActionListener {
                 tableScanner.addRow(row);
             }
         }
-        result = model.parseAndTranslateFile();
+        model.parseAndTranslateFile();
+        result = model.getSyntaxErrors();
         for (Token token : result){
             if (token.getValue() != null){
                 String row[] = {token.getValue().toString(),String.valueOf(token.getLineNum()),String.valueOf(token.getColNum())};
                 tableParser.addRow(row);
             }
         }
+        
+        
+        
+        
     }
 }

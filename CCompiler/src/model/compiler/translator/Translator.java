@@ -17,7 +17,11 @@ public class Translator {
     public void printNasmCode(){
         this.nasmConverter.print();
     }
-        
+
+    public NasmConverter getNasmConverter() {
+        return nasmConverter;
+    }
+   
     public ArrayList<SemanticError> getSemanticErrors() {
         return semanticErrors;
     }
@@ -291,7 +295,6 @@ public class Translator {
     public void testIf(){
         RsDO rsDO = (RsDO) stack.pop();
         RsIf rsIf = (RsIf) stack.findNearest(RsIf.class);
-        System.out.println(rsDO.toString() + " " + rsIf.toString());
         this.nasmConverter.testIf(rsDO, rsIf.elseLabel);
     }
     
