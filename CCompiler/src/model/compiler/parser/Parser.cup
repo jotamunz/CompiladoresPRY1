@@ -316,7 +316,7 @@ assignment_operator ::=
 ;
 
 read_statement ::=
-    KEY_READ OP_PAR_OPEN ID:e OP_PAR_CLOSE {: tl.rememberVar(e, eright, eleft); tl.read(); :}
+    KEY_READ OP_PAR_OPEN ID:e OP_PAR_CLOSE {:tl.rememberVar(e, eright, eleft);tl.read();:}
     | KEY_READ OP_PAR_OPEN OP_PAR_CLOSE
     | KEY_READ OP_PAR_OPEN error OP_PAR_CLOSE
 ;
