@@ -342,15 +342,19 @@ public class Translator {
     }
     
     public void endWrite(){
+        ArrayList<RsDO> params = new ArrayList<>();
         while(!stack.peek().getClass().equals(RsWrite.class)){
             RsDO rsDO = (RsDO) stack.pop();
-            if ("constant".equals(rsDO.type)){
-               this.nasmConverter.write(rsDO, getConstType(rsDO));
-            } else if ("address".equals(rsDO.type)){
-                VariableData paramData = (VariableData) symbolTable.get(rsDO.value);
-                this.nasmConverter.write(rsDO, paramData.type);
+            params.add(0, rsDO);
+        }
+        for (RsDO rs : params){
+            if ("constant".equals(rs.type)){
+               this.nasmConverter.write(rs, getConstType(rs));
+            } else if ("address".equals(rs.type)){
+                VariableData paramData = (VariableData) symbolTable.get(rs.value);
+                this.nasmConverter.write(rs, paramData.type);
             } else {
-                this.nasmConverter.write(rsDO,"int");
+                this.nasmConverter.write(rs,"int");
             }
         }
         stack.pop();
