@@ -293,10 +293,6 @@ public class NasmConverter {
                         this.nasmCode += "\tcmp EAX, 0 \n";
                         this.nasmCode += "\tcall equals \n\n";
                         break;
-
-                    case "+":
-                        this.nasmCode += "\tmov EAX, [" + operand.value + "] \n";
-                        break;
                     case "-":
                         this.nasmCode += "\tmov EBX, EAX \n";
                         this.nasmCode += "\tmov EAX, 0 \n";
@@ -346,8 +342,44 @@ public class NasmConverter {
                 }
                 break;
         }
-        
-        
+    }
+    
+    public void doSingleOperandExp(RsDO operand){
+        switch(operand.type){
+            case "address":
+                this.nasmCode += "\tmov EAX, [" + operand.value + "] \n";
+                break;
+            case "constant":
+                this.nasmCode += "\tmov EAX, " + operand.value + " \n";
+                break;
+        }
+    }
+    
+    public void testIf(String elseLabel){
+        this.nasmCode += "\tcmp EAX, 0 \n";
+        this.nasmCode += "\tje " + elseLabel + "\n\n";
+    }
+    
+    public void startElse(String elseLabel){
+        this.nasmCode += elseLabel + ":\n\n";
+    }
+    
+    public void endIf(String exitLabel){
+        this.nasmCode += exitLabel + ":\n\n";
+    }
+    
+    public void startWhile(String whileLabel){
+        this.nasmCode += whileLabel + ":\n\n";
+    }
+    
+    public void testWhile(String exitLabel){
+        this.nasmCode += "\tcmp EAX, 0 \n";
+        this.nasmCode += "\tje " + exitLabel + "\n\n";
+    }
+    
+    public void endWhile(String whileLabel, String exitLabel){
+        this.nasmCode += "\tjmp " + whileLabel + "\n";
+        this.nasmCode += exitLabel + ":\n\n";
     }
     
     public void print(){
@@ -391,8 +423,5 @@ public class NasmConverter {
                         "    mov EAX,1\n" +
                         "    ret";
     }
-    
-    public void testIf(){
-        
-    }
+   
 }
