@@ -120,7 +120,6 @@ public class Translator {
             // generar código para la operación
             rsDOresult = new RsDO("asmRegister", "EAX", rsDO2.line, rsDO2.col); // Lo último siempre quedara en el registro EAX
         }
-        System.out.println(rsDOresult);
         stack.push(rsDOresult);
     }
     
@@ -142,7 +141,6 @@ public class Translator {
             this.nasmConverter.doExpressionUnary(rsDO, rsOp.operator, isPostfix);
             rsDOresult = new RsDO("asmRegister", "EAX", rsDO.line, rsDO.col);
         }
-        System.out.println(rsDOresult);
         stack.push(rsDOresult);
     }
     
@@ -219,6 +217,50 @@ public class Translator {
         }
         return 0;
     }
+     
+    public void rememberFunc(Object id, int line, int col){
+        RsDO rs = new RsDO("function", String.valueOf(id), line, col);
+        if(!symbolTable.containsKey(rs.value)){
+            FunctionData functionData = new FunctionData("Unknown", rs.value, new ArrayList<>()); // Si no está declarada no sabemos el tipo
+            functionData.addError();
+            symbolTable.put(rs.value, functionData);
+            String errorMessage = "function undeclared";  //deberiamos definir los errores
+            SemanticError error = new SemanticError(rs.line, rs.col, rs.value, errorMessage);     
+            semanticErrors.add(error);        
+        }
+        stack.push(rs);
+    }
+    
+    public void validateParams(){ // no aguanta asignaciones, otras funciones o operaciones con variables en los parametros
+        ArrayList<RsDO> params = new ArrayList<>();
+        while(!"function".equals(((RsDO) stack.peek()).type)){
+            RsDO param = (RsDO) stack.pop();
+            params.add(0, param);
+        }
+        RsDO rsFunc = (RsDO) stack.peek();
+        FunctionData functionData = (FunctionData) symbolTable.get(rsFunc.value);
+        if (!functionData.hasError()){
+            if (functionData.parameterAmount != params.size()){
+                String errorMessage = "incorrect parameter amount; expected: " + functionData.parameterAmount;  //deberiamos definir los errores
+                SemanticError error = new SemanticError(rsFunc.line, rsFunc.col, rsFunc.value, errorMessage);     
+                semanticErrors.add(error);   
+            } else {
+                for (int i = 0; i < functionData.parameterAmount; i++){
+                    RsDO rsParam = params.get(i);
+                    if ("constant".equals(rsParam.type)) {
+                        // TO DO
+                    } else {
+                        VariableData paramData = (VariableData) symbolTable.get(rsParam.value);
+                        if (!paramData.hasError() && functionData.parameterData.get(i).type.equals(paramData.type)) {
+                            String errorMessage = "incorrect parameter type; expected: " + functionData.parameterData.get(i).type;  //deberiamos definir los errores
+                            SemanticError error = new SemanticError(rsParam.line, rsParam.col, rsParam.value, errorMessage);     
+                            semanticErrors.add(error);   
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     public void assign(){
         RsDO rsDO1 = (RsDO) stack.pop();
@@ -226,12 +268,6 @@ public class Translator {
         RsDO rsDO2 = (RsDO) stack.pop();
         // generar código para la asignacion
         this.nasmConverter.assign(rsDO2, rsDO1);
-    }
-    
-    public void rememberFunc(Object id, int line, int col){
-        // validar que existe en la tabla de simbolos
-        // Corroborar cantidad y tipo de parámetros
-        // insetar a la pila como variables
     }
     
     public void validateBreakContinue(Object value, int line, int col){

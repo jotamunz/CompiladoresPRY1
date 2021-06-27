@@ -403,7 +403,7 @@ return_statement ::=
 ;
 
 call_function_statement ::=
-    ID OP_PAR_OPEN input_parameters OP_PAR_CLOSE
+    ID:e OP_PAR_OPEN {:tl.rememberFunc(e, eright, eleft);:} input_parameters OP_PAR_CLOSE {:tl.validateParams();:}
     | ID OP_PAR_OPEN error OP_PAR_CLOSE
 ;
 
