@@ -1,0 +1,25 @@
+
+int x;
+int y;
+int a, b,c;
+ 
+int main(){
+
+	if (x) { 
+		x= x - 2;
+		y = -2;
+		b = y + x;
+	}
+	if('c'){
+
+	}
+	else{
+		x++;
+		++x;	
+	}
+
+	while ( x != 10) {
+	  y= x + 1;
+	  x++; 
+	}
+}

@@ -285,11 +285,20 @@ public class Translator {
     }
     
     public void testIf(){
-        
+        RsDO rsDO = (RsDO) stack.pop();
+        RsIf rsIf = (RsIf) stack.findNearest(RsIf.class);
+        this.nasmConverter.testIf(rsDO, rsIf.elseLabel);
+    }
+    
+    public void startElse(){
+        RsIf rsIf = (RsIf) stack.findNearest(RsIf.class);
+        this.nasmConverter.startElse(rsIf.elseLabel, rsIf.exitLabel);
     }
     
     public void endIf(){
-        // Generar RS_IF.exit_label + “:”
+        RsIf rsIf = (RsIf) stack.findNearest(RsIf.class);
+        this.nasmConverter.endIf(rsIf.exitLabel);
+        
         while (!stack.peek().getClass().equals(RsIf.class)){
             stack.pop();
         }

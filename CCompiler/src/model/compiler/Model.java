@@ -30,6 +30,7 @@ public class Model {
         //parser.printSyntaxErrors();
         parser.printSemanticErrors();
         parser.printSymbolTable();
+        parser.printNasmCode();
         return parser.getSyntaxErrors();
     }
     

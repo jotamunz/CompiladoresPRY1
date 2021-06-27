@@ -336,16 +336,16 @@ write_parameters_list ::=
 ;
 
 if_statement ::=
-    KEY_IF:e OP_PAR_OPEN {:tl.startIf(eright, eleft);:} expression_statement OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
+    KEY_IF:e OP_PAR_OPEN {:tl.startIf(eright, eleft);:} expression_statement OP_PAR_CLOSE {: tl.testIf(); :} OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
     | KEY_IF OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
     | KEY_IF OP_PAR_OPEN error OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
     | KEY_IF OP_PAR_OPEN error block_statement OP_BRACE_CLOSE else_statement
 ;
 
 else_statement ::= 
-    KEY_ELSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE {:tl.endIf();:}
+    KEY_ELSE {: tl.startElse(); :} OP_BRACE_OPEN block_statement OP_BRACE_CLOSE {:tl.endIf();:}
     | KEY_ELSE error block_statement OP_BRACE_CLOSE
-    | {:tl.endIf();:}
+    | {:tl.startElse(); tl.endIf();:}
 ;
 
 for_statement ::= 

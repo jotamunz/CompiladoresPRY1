@@ -355,12 +355,21 @@ public class NasmConverter {
         }
     }
     
-    public void testIf(String elseLabel){
+    public void testIf(RsDO rsDO, String elseLabel){
+        switch(rsDO.type){
+            case "address":
+                this.nasmCode += "\tmov EAX, [" + rsDO.value + "] \n";
+                break;
+            case "constant":
+                this.nasmCode += "\tmov EAX, " + rsDO.value + " \n";
+                break;
+        }
         this.nasmCode += "\tcmp EAX, 0 \n";
         this.nasmCode += "\tje " + elseLabel + "\n\n";
     }
     
-    public void startElse(String elseLabel){
+    public void startElse(String elseLabel, String exitLabel){
+        this.nasmCode += "\tjmp " + exitLabel + "\n";
         this.nasmCode += elseLabel + ":\n\n";
     }
     
