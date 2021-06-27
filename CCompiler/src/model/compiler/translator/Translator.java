@@ -345,12 +345,12 @@ public class Translator {
         while(!stack.peek().getClass().equals(RsWrite.class)){
             RsDO rsDO = (RsDO) stack.pop();
             if ("constant".equals(rsDO.type)){
-                // write rsDO, getConstType(rsDO)
+               this.nasmConverter.write(rsDO, getConstType(rsDO));
             } else if ("address".equals(rsDO.type)){
                 VariableData paramData = (VariableData) symbolTable.get(rsDO.value);
-                // write rsDO, paramData.type
+                this.nasmConverter.write(rsDO, paramData.type);
             } else {
-               // write ASMregister 
+                this.nasmConverter.write(rsDO,"int");
             }
         }
         stack.pop();

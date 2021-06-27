@@ -20,24 +20,46 @@ c	 resd 	 1
 	sub EAX, 2
 
 	mov dword[x], EAX 
-	sub EAX,EAX 
+	xor EAX,EAX 
 
 	mov dword[y],-2
-	sub EAX,EAX 
+	xor EAX,EAX 
 
 	mov EAX, [y] 
 	mov EBX, [x] 
 	add EAX,EBX
 
 	mov dword[b], EAX 
-	sub EAX,EAX 
+	xor EAX,EAX 
+
+	mov EAX, [x] 
+	add EAX, 2
+
+	PutLInt EAX 
+	xor EAX,EAX 
+
+	mov EAX, 'c' 
+	PutCh AL 
+	xor EAX,EAX 
+
+	mov EAX, 1 
+	PutLInt EAX 
+	xor EAX,EAX 
+
+	mov EAX, [y] 
+	PutLInt EAX 
+	xor EAX,EAX 
+
+	mov EAX, [x] 
+	PutLInt EAX 
+	xor EAX,EAX 
 
 	jmp exitIf0
 else0:
 
 	mov EAX, [x] 
 	mov dword[x], EAX 
-	sub EAX,EAX 
+	xor EAX,EAX 
 
 exitIf0:
 
@@ -66,7 +88,7 @@ while0:
 	add EAX, 1
 
 	mov dword[y], EAX 
-	sub EAX,EAX 
+	xor EAX,EAX 
 
 	mov EAX, [x] 
 	inc dword[x] 

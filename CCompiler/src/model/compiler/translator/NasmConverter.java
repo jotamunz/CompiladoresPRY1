@@ -285,7 +285,7 @@ public class NasmConverter {
                 this.nasmCode += "\tmov dword[" + var.value + "], EAX \n";
                 break;
         }
-        this.nasmCode += "\tsub EAX,EAX \n\n";
+        this.nasmCode += "\txor EAX,EAX \n\n";
     }
     
     public void doExpressionUnary(RsDO operand, String op, boolean isPostfix){
@@ -442,6 +442,26 @@ public class NasmConverter {
                         "isTrue:\n" +
                         "    mov EAX,1\n" +
                         "    ret";
+    }
+    
+    public void write(RsDO rsDO, String type){
+        switch(rsDO.type){
+            case "address":
+                this.nasmCode += "\tmov EAX, [" + rsDO.value + "] \n";
+                break;
+            case "constant":
+                this.nasmCode += "\tmov EAX, " + rsDO.value + " \n";
+                break;
+        }
+        switch(type){
+            case "int":
+                this.nasmCode += "\tPutLInt EAX \n";
+                break;
+            case "char":
+                this.nasmCode += "\tPutCh AL \n";
+                break;
+        }
+        this.nasmCode += "\txor EAX,EAX \n\n";
     }
    
 }
