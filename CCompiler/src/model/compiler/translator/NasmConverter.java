@@ -29,18 +29,17 @@ public class NasmConverter {
     }
     
     public void initCode(){
-        nasmCode += 
+        if(!this.isInCodeSection){
+            this.isInCodeSection = true;
+            this.nasmCode += 
                 "\n.CODE \n" +
                 "\t.STARTUP \n";
+        }
     }
     
     public void doExpressionBinary(RsDO rsDO1, RsDO rsDO2, String op){
         String operand1 = rsDO1.value;
         String operand2 = rsDO2.value;
-        if(!this.isInCodeSection){
-            this.isInCodeSection = true;
-            this.initCode();
-        }
         if("address".equals(rsDO1.type) && "address".equals(rsDO2.type)){
             switch (op){
                     case "+":
@@ -381,7 +380,15 @@ public class NasmConverter {
         this.nasmCode += whileLabel + ":\n\n";
     }
     
-    public void testWhile(String exitLabel){
+    public void testWhile(RsDO rsDO, String exitLabel){
+        switch(rsDO.type){
+            case "address":
+                this.nasmCode += "\tmov EAX, [" + rsDO.value + "] \n";
+                break;
+            case "constant":
+                this.nasmCode += "\tmov EAX, " + rsDO.value + " \n";
+                break;
+        }
         this.nasmCode += "\tcmp EAX, 0 \n";
         this.nasmCode += "\tje " + exitLabel + "\n\n";
     }

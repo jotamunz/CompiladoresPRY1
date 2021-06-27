@@ -178,7 +178,7 @@ innit ::=
 ;
 
 body ::=
-    declaration OP_SEMICOL body
+    declaration OP_SEMICOL body 
     | error OP_SEMICOL body
     | functions_block
 ;
@@ -207,7 +207,7 @@ functions_block ::=
 ;
 
 function_statement ::=
-    key_types ID:e OP_PAR_OPEN {:tl.rememberIdFunc(e, eright, eleft);:} parameters OP_PAR_CLOSE {:tl.insertTableFunc();:} OP_BRACE_OPEN function_body OP_BRACE_CLOSE
+    key_types ID:e OP_PAR_OPEN {: tl.initCode(); tl.rememberIdFunc(e, eright, eleft);:} parameters OP_PAR_CLOSE {:tl.insertTableFunc();:} OP_BRACE_OPEN function_body OP_BRACE_CLOSE
     | key_types ID OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN function_body OP_BRACE_CLOSE
     | key_types ID OP_PAR_OPEN error OP_BRACE_OPEN function_body OP_BRACE_CLOSE
     | key_types ID OP_PAR_OPEN error function_body OP_BRACE_CLOSE
@@ -336,14 +336,14 @@ write_parameters_list ::=
 ;
 
 if_statement ::=
-    KEY_IF:e OP_PAR_OPEN {:tl.startIf(eright, eleft);:} expression_statement OP_PAR_CLOSE {: tl.testIf(); :} OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
+    KEY_IF:e OP_PAR_OPEN {:tl.startIf(eright, eleft);:} expression_statement OP_PAR_CLOSE OP_BRACE_OPEN {: tl.testIf(); :} block_statement OP_BRACE_CLOSE else_statement
     | KEY_IF OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
     | KEY_IF OP_PAR_OPEN error OP_BRACE_OPEN block_statement OP_BRACE_CLOSE else_statement
     | KEY_IF OP_PAR_OPEN error block_statement OP_BRACE_CLOSE else_statement
 ;
 
 else_statement ::= 
-    KEY_ELSE {: tl.startElse(); :} OP_BRACE_OPEN block_statement OP_BRACE_CLOSE {:tl.endIf();:}
+    KEY_ELSE OP_BRACE_OPEN {: tl.startElse(); :} block_statement OP_BRACE_CLOSE {:tl.endIf();:}
     | KEY_ELSE error block_statement OP_BRACE_CLOSE
     | {:tl.startElse(); tl.endIf();:}
 ;
@@ -364,7 +364,7 @@ for_expression_statement ::=
 ;
 
 while_statement ::= 
-    KEY_WHILE:e OP_PAR_OPEN {:tl.startWhile(eright, eleft);:} expression_statement OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE {:tl.endWhile();:}
+    KEY_WHILE:e OP_PAR_OPEN {:tl.startWhile(eright, eleft);:} expression_statement OP_PAR_CLOSE OP_BRACE_OPEN {: tl.testWhile(); :} block_statement OP_BRACE_CLOSE {:tl.endWhile();:}
     | KEY_WHILE OP_PAR_OPEN error OP_PAR_CLOSE OP_BRACE_OPEN block_statement OP_BRACE_CLOSE
     | KEY_WHILE OP_PAR_OPEN error OP_BRACE_OPEN block_statement OP_BRACE_CLOSE  
     | KEY_WHILE OP_PAR_OPEN error block_statement OP_BRACE_CLOSE

@@ -25,6 +25,10 @@ public class Translator {
     public HashMap<String, IdentifierData> getSymbolTable() {
         return symbolTable;
     }
+    
+    public void initCode(){
+        this.nasmConverter.initCode();
+    }
 
     public void rememberType(Object type, int line, int col){
         RsType rs = new RsType(String.valueOf(type), line, col);
@@ -287,6 +291,7 @@ public class Translator {
     public void testIf(){
         RsDO rsDO = (RsDO) stack.pop();
         RsIf rsIf = (RsIf) stack.findNearest(RsIf.class);
+        System.out.println(rsDO.toString() + " " + rsIf.toString());
         this.nasmConverter.testIf(rsDO, rsIf.elseLabel);
     }
     
@@ -308,13 +313,19 @@ public class Translator {
     public void startWhile(int line, int col){
         RsWhile rs = new RsWhile(stack.whileCounter, line, col);
         stack.whileCounter++;
-        // Generar RS_WHILE.while_label + “:”
+        this.nasmConverter.startWhile(rs.whileLabel);
         stack.push(rs);
+    }
+    
+    public void testWhile(){
+        RsDO rsDO = (RsDO) stack.pop();
+        RsWhile rs = (RsWhile) stack.findNearest(RsWhile.class);
+        this.nasmConverter.testWhile(rsDO, rs.exitLabel);
     }
 
     public void endWhile(){
-        // Generar “JUMP” + RS_WHILE.while_label
-        // Generar RS_WHILE.exit_label + “:”
+        RsWhile rs = (RsWhile) stack.findNearest(RsWhile.class);
+        this.nasmConverter.endWhile(rs.whileLabel, rs.exitLabel);
         while (!stack.peek().getClass().equals(RsWhile.class)){
             stack.pop();
         }

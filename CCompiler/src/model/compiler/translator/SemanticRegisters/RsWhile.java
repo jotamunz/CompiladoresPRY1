@@ -7,7 +7,7 @@ public class RsWhile extends Register{
 
     public RsWhile(int whileCounter, int line, int col) {
         super(line, col);
-        this.whileLabel = "else" + String.valueOf(whileCounter);
-        this.exitLabel = "exitIf" + String.valueOf(whileCounter);
+        this.whileLabel = "while" + String.valueOf(whileCounter);
+        this.exitLabel = "exitWhile" + String.valueOf(whileCounter);
     }
 }
