@@ -31,16 +31,15 @@ public class Model {
     public void parseAndTranslateFile() {
         parser.parseAndTranslate(filePath);
         //parser.printSyntaxErrors();
-//        parser.printSemanticErrors();
-//        parser.printSymbolTable();
-//        parser.printNasmCode();
+        parser.printSemanticErrors();
+        parser.printSymbolTable();
+        //parser.printNasmCode();
    
     }
     
     public ArrayList<Token> getSyntaxErrors(){
          return parser.getSyntaxErrors();
     }
-    
     
     public ArrayList<SemanticError> getSemanticErrors(){
          return parser.getSemanticErrors();
