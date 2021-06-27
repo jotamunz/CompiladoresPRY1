@@ -3,12 +3,23 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import model.compiler.Model;
 import static model.compiler.parser.sym.LEX_ERROR;
 import model.compiler.scanner.Token;
+import model.compiler.translator.SemanticError;
+import model.compiler.translator.Symbols.FunctionData;
+import model.compiler.translator.Symbols.IdentifierData;
+import model.compiler.translator.Symbols.VariableData;
 import view.View;
 
 public class Controller implements ActionListener {
@@ -56,7 +67,9 @@ public class Controller implements ActionListener {
 
             view.txtf_fileName.setText(model.getFileName());
             view.btn_compile.setEnabled(true);
+            view.txtArea_input.setText(readFile(filePath));
         }
+        
     }
     
     public void scanFile(){
@@ -65,6 +78,14 @@ public class Controller implements ActionListener {
         tableScanner.setRowCount(0);
         DefaultTableModel tableParser = (DefaultTableModel)view.table_parserErrors.getModel();
         tableParser.setRowCount(0);
+        DefaultTableModel tableSemantic = (DefaultTableModel)view.table_semanticErrors.getModel();
+        tableSemantic.setRowCount(0);
+        DefaultTableModel symbolVariablesTable = (DefaultTableModel)view.table_symbolVariablesTable.getModel();
+        symbolVariablesTable.setRowCount(0);
+        DefaultTableModel symbolFunctionsTable = (DefaultTableModel)view.table_symbolFunctionsTable.getModel();
+        symbolFunctionsTable.setRowCount(0);
+
+        
         for (Token token : result) {
             String row[] = {token.getValue().toString(),String.valueOf(token.getLineNum()),String.valueOf(token.getColNum())};
             if (token.getId() == LEX_ERROR){
@@ -80,8 +101,56 @@ public class Controller implements ActionListener {
             }
         }
         
+        model.getSemanticErrors().forEach((error) -> {
+            String row[] = {error.getTokenValue().toString(),String.valueOf(error.getLineNumber()),String.valueOf(error.getColNumber()),error.getMessage()};
+            tableSemantic.addRow(row); 
+        });
+
         
+        HashMap<String,IdentifierData> symbolTableValue = model.getSymbolTable();
+        symbolTableValue.keySet().forEach((symbol)->{
+          IdentifierData value = symbolTableValue.get(symbol);
+            if (value.getClass().equals(VariableData.class)) {
+                VariableData variable = (VariableData) value;
+                String row[] = {variable.getType(),variable.getName(),String.valueOf(variable.isError())};
+                symbolVariablesTable.addRow(row);  
+            }
+            else{
+                FunctionData function = (FunctionData) value;
+                String row[] = {function.getType(),function.getName(),function.getParameterData().toString(),String.valueOf(function.isError())};
+                symbolFunctionsTable.addRow(row);   
+            }
+        });
         
-        
+        System.out.println(model.getNasmCode());
+        view.txtArea_output.setText(model.getNasmCode());
+       
+
     }
+      
+    public String readFile(String path){
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(path);
+            byte[] buffer = new byte[10];
+            StringBuilder sb = new StringBuilder();
+            try {
+                while (fis.read(buffer) != -1) {
+                    sb.append(new String(buffer));
+                    buffer = new byte[10];
+                }
+                fis.close();
+
+                String content = sb.toString();
+                return content;
+            } catch (IOException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+    
 }

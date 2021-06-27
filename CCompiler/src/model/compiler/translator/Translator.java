@@ -259,8 +259,8 @@ public class Translator {
                         // TO DO
                     } else {
                         VariableData paramData = (VariableData) symbolTable.get(rsParam.value);
-                        if (!paramData.hasError() && functionData.parameterData.get(i).type.equals(paramData.type)) {
-                            String errorMessage = "incorrect parameter type; expected: " + functionData.parameterData.get(i).type;  //deberiamos definir los errores
+                        if (!paramData.hasError() && functionData.parameterData.get(i).getType().equals(paramData.getType())) {
+                            String errorMessage = "incorrect parameter type; expected: " + functionData.parameterData.get(i).getType();  //deberiamos definir los errores
                             SemanticError error = new SemanticError(rsParam.line, rsParam.col, rsParam.value, errorMessage);     
                             semanticErrors.add(error);   
                         }

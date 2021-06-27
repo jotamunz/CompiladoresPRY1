@@ -33,8 +33,12 @@ public class Model {
         //parser.printSyntaxErrors();
 //        parser.printSemanticErrors();
 //        parser.printSymbolTable();
-//        parser.printNasmCode();
+       // parser.printNasmCode();
    
+    }
+    
+    public String getNasmCode(){
+        return parser.getNasmCode();
     }
     
     public ArrayList<Token> getSyntaxErrors(){

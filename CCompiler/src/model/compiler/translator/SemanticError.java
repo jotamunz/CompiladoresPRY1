@@ -2,10 +2,10 @@
 package model.compiler.translator;
 
 public class SemanticError {
-    public int lineNumber;
-    public int colNumber;
-    public String tokenValue;
-    public String message;
+    private int lineNumber;
+    private int colNumber;
+    private String tokenValue;
+    private String message;
 
     public SemanticError(int lineNumber, int colNumber, String tokenValue, String message) {
         this.lineNumber = lineNumber;
@@ -18,6 +18,24 @@ public class SemanticError {
     public String toString() {
         return "Semantic error " + message + " at line: " + lineNumber + " at column: " + colNumber + " on: " + tokenValue;
     }
+
+    public int getLineNumber() {
+        return lineNumber;
+    }
+
+    public int getColNumber() {
+        return colNumber;
+    }
+
+    public String getTokenValue() {
+        return tokenValue;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+    
+    
     
     
 }

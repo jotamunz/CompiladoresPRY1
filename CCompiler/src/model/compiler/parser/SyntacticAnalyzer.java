@@ -40,9 +40,15 @@ public class SyntacticAnalyzer {
         }
     }
     
+    public String getNasmCode(){
+        return translator.getNasmConverter().getNasmCode();
+    }
+    
+    
     public ArrayList<Token> getSyntaxErrors() {
         return errorTokens;
     }
+    
     
     public void printSemanticErrors(){
         for (SemanticError error : translator.getSemanticErrors()){

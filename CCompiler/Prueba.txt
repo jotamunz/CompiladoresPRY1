@@ -1,7 +1,9 @@
 
+int a;
+int b;
 int main(){
     break;
-    if (0){
+    if (a){
         while (1) {
             break;
         }
@@ -13,5 +15,9 @@ int main(){
             break;
         }
     }
+
+}
+
+int z(int j,int a, int q){
 }
 

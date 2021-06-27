@@ -4,10 +4,12 @@
 out_msg	 db "Results: ",0 
 
 .UDATA 
+a	 resd 	 1 
+b	 resd 	 1 
 
 .CODE 
 	.STARTUP 
-	mov EAX, 0 
+	mov EAX, [a] 
 	cmp EAX, 0 
 	je else0
 
@@ -43,6 +45,9 @@ exitIf1:
 	jmp while1
 exitWhile1:
 
+j	 resd 	 1 
+a	 resd 	 1 
+q	 resd 	 1 
 	.EXIT 
 
 equals:
