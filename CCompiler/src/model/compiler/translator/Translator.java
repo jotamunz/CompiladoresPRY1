@@ -360,6 +360,12 @@ public class Translator {
         stack.pop();
     }
     
+    public void read(){
+        RsDO rs = (RsDO) stack.pop();
+        VariableData paramData = (VariableData) symbolTable.get(rs.value);
+        this.nasmConverter.read(rs, paramData.type);
+    }
+    
     private String getConstType(RsDO rs){
         if (NumberUtils.isCreatable(rs.value))
             return "int";

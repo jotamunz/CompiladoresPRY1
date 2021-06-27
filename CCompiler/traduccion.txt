@@ -9,7 +9,6 @@ int main(){
 		x= x - 2;
 		y = -2;
 		b = y + x;
-		write(x, y, 1, 'c', x + 2);
 	}
 	else{
 		x = x;
@@ -26,4 +25,6 @@ int main(){
 	  y= x + 1;
 	  x++; 
 	}
+	read(x);	
+	write(x, y, a, b, c, 1, 'c');
 }

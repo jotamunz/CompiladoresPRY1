@@ -1773,7 +1773,10 @@ tl.rememberVar(e, eright, eleft);
           case 88: // read_statement ::= KEY_READ OP_PAR_OPEN ID OP_PAR_CLOSE 
             {
               Object RESULT =null;
-
+		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		 tl.rememberVar(e, eright, eleft); tl.read(); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("read_statement",23, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
