@@ -45,7 +45,6 @@ public class Model {
          return parser.getSyntaxErrors();
     }
     
-    
     public ArrayList<SemanticError> getSemanticErrors(){
          return parser.getSemanticErrors();
     }

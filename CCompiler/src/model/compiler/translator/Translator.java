@@ -7,6 +7,7 @@ import model.compiler.translator.SemanticRegisters.*;
 import model.compiler.translator.Symbols.FunctionData;
 import model.compiler.translator.Symbols.IdentifierData;
 import model.compiler.translator.Symbols.VariableData;
+import org.apache.commons.lang3.math.NumberUtils;
 
 public class Translator {
     private ArrayList<SemanticError> semanticErrors = new ArrayList<>();
@@ -61,7 +62,7 @@ public class Translator {
             return true;
         } else if (!symbolTable.get(rsId.name).hasError()){
             symbolTable.get(rsId.name).addError();
-            String errorMessage = "identifier name already declared";  //deberiamos definir los errores
+            String errorMessage = "identifier name already declared";  
             SemanticError error = new SemanticError(rsId.line, rsId.col, rsId.name, errorMessage);     
             semanticErrors.add(error); 
         } 
@@ -108,7 +109,7 @@ public class Translator {
             VariableData variableData = new VariableData("Unknown", rs.value); // Si no está declarada no sabemos el tipo
             variableData.addError(); 
             symbolTable.put(rs.value, variableData);
-            String errorMessage = "variable undeclared";  //deberiamos definir los errores
+            String errorMessage = "variable undeclared"; 
             SemanticError error = new SemanticError(rs.line, rs.col, rs.value, errorMessage);     
             semanticErrors.add(error);        
         }
@@ -232,7 +233,7 @@ public class Translator {
             FunctionData functionData = new FunctionData("Unknown", rs.value, new ArrayList<>()); // Si no está declarada no sabemos el tipo
             functionData.addError();
             symbolTable.put(rs.value, functionData);
-            String errorMessage = "function undeclared";  //deberiamos definir los errores
+            String errorMessage = "function undeclared";  
             SemanticError error = new SemanticError(rs.line, rs.col, rs.value, errorMessage);     
             semanticErrors.add(error);        
         }
@@ -249,22 +250,24 @@ public class Translator {
         FunctionData functionData = (FunctionData) symbolTable.get(rsFunc.value);
         if (!functionData.hasError()){
             if (functionData.parameterAmount != params.size()){
-                String errorMessage = "incorrect parameter amount; expected: " + functionData.parameterAmount;  //deberiamos definir los errores
+                String errorMessage = "incorrect parameter amount; expected: " + functionData.parameterAmount;
                 SemanticError error = new SemanticError(rsFunc.line, rsFunc.col, rsFunc.value, errorMessage);     
                 semanticErrors.add(error);   
             } else {
                 for (int i = 0; i < functionData.parameterAmount; i++){
                     RsDO rsParam = params.get(i);
                     if ("constant".equals(rsParam.type)) {
-                        // TO DO
+                        if (functionData.parameterData.get(i).type.equals(getConstType(rsParam)))
+                            continue;
                     } else {
                         VariableData paramData = (VariableData) symbolTable.get(rsParam.value);
-                        if (!paramData.hasError() && functionData.parameterData.get(i).getType().equals(paramData.getType())) {
-                            String errorMessage = "incorrect parameter type; expected: " + functionData.parameterData.get(i).getType();  //deberiamos definir los errores
-                            SemanticError error = new SemanticError(rsParam.line, rsParam.col, rsParam.value, errorMessage);     
-                            semanticErrors.add(error);   
+                        if (paramData.hasError() || functionData.parameterData.get(i).type.equals(paramData.type)) {
+                            continue;
                         }
                     }
+                    String errorMessage = "incorrect parameter type; expected: " + functionData.parameterData.get(i).type; 
+                    SemanticError error = new SemanticError(rsParam.line, rsParam.col, rsParam.value, errorMessage);     
+                    semanticErrors.add(error);   
                 }
             }
         }
@@ -274,13 +277,12 @@ public class Translator {
         RsDO rsDO1 = (RsDO) stack.pop();
         RsOp rsOp = (RsOp) stack.pop();
         RsDO rsDO2 = (RsDO) stack.pop();
-        // generar código para la asignacion
         this.nasmConverter.assign(rsDO2, rsDO1);
     }
     
     public void validateBreakContinue(Object value, int line, int col){
         if (stack.findNearest(RsWhile.class) == null){
-            String errorMessage = "no loop found";  //deberiamos definir los errores
+            String errorMessage = "no loop found";  
             SemanticError error = new SemanticError(line+1, col+1, String.valueOf(value), errorMessage);     
             semanticErrors.add(error);   
         }
@@ -306,7 +308,6 @@ public class Translator {
     public void endIf(){
         RsIf rsIf = (RsIf) stack.findNearest(RsIf.class);
         this.nasmConverter.endIf(rsIf.exitLabel);
-        
         while (!stack.peek().getClass().equals(RsIf.class)){
             stack.pop();
         }
@@ -333,6 +334,44 @@ public class Translator {
             stack.pop();
         }
         stack.pop();
+    }
+    
+    public void startWrite(int line, int col){
+        RsWrite rs = new RsWrite(line, col);
+        stack.push(rs);
+    }
+    
+    public void endWrite(){
+        ArrayList<RsDO> params = new ArrayList<>();
+        while(!stack.peek().getClass().equals(RsWrite.class)){
+            RsDO rsDO = (RsDO) stack.pop();
+            params.add(0, rsDO);
+        }
+        for (RsDO rs : params){
+            if ("constant".equals(rs.type)){
+               this.nasmConverter.write(rs, getConstType(rs));
+            } else if ("address".equals(rs.type)){
+                VariableData paramData = (VariableData) symbolTable.get(rs.value);
+                this.nasmConverter.write(rs, paramData.type);
+            } else {
+                this.nasmConverter.write(rs,"int");
+            }
+        }
+        stack.pop();
+    }
+    
+    public void read(){
+        RsDO rs = (RsDO) stack.pop();
+        VariableData paramData = (VariableData) symbolTable.get(rs.value);
+        this.nasmConverter.read(rs, paramData.type);
+    }
+    
+    private String getConstType(RsDO rs){
+        if (NumberUtils.isCreatable(rs.value))
+            return "int";
+        else if (rs.value.startsWith("'") && rs.value.endsWith("'"))
+            return "char";
+        return null;
     }
     
     public void endNasmCode(){

@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model.compiler.translator;
 
 import model.compiler.translator.SemanticRegisters.RsDO;
 
-/**
- *
- * @author joaqu
- */
 public class NasmConverter {
     private String nasmCode;
     private boolean isInCodeSection;
@@ -20,7 +12,7 @@ public class NasmConverter {
         this.nasmCode = 
                 "%include \"io.mac\" \n\n" + 
                 ".DATA \n" + 
-                "out_msg\t db \"Results: \",0 \n\n" + 
+                "out_msg\t db \"Input: \",0 \n\n" + 
                 ".UDATA \n";
     }
 
@@ -285,7 +277,7 @@ public class NasmConverter {
                 this.nasmCode += "\tmov dword[" + var.value + "], EAX \n";
                 break;
         }
-        this.nasmCode += "\tsub EAX,EAX \n\n";
+        this.nasmCode += "\txor EAX,EAX \n\n";
     }
     
     public void doExpressionUnary(RsDO operand, String op, boolean isPostfix){
@@ -372,16 +364,16 @@ public class NasmConverter {
     }
     
     public void startElse(String elseLabel, String exitLabel){
-        this.nasmCode += "\tjmp " + exitLabel + "\n";
-        this.nasmCode += elseLabel + ":\n\n";
+        this.nasmCode += "\tjmp " + exitLabel + "\n\n";
+        this.nasmCode += elseLabel + ":\n";
     }
     
     public void endIf(String exitLabel){
-        this.nasmCode += exitLabel + ":\n\n";
+        this.nasmCode += exitLabel + ":\n";
     }
     
     public void startWhile(String whileLabel){
-        this.nasmCode += whileLabel + ":\n\n";
+        this.nasmCode += whileLabel + ":\n";
     }
     
     public void testWhile(RsDO rsDO, String exitLabel){
@@ -398,8 +390,8 @@ public class NasmConverter {
     }
     
     public void endWhile(String whileLabel, String exitLabel){
-        this.nasmCode += "\tjmp " + whileLabel + "\n";
-        this.nasmCode += exitLabel + ":\n\n";
+        this.nasmCode += "\tjmp " + whileLabel + "\n\n";
+        this.nasmCode += exitLabel + ":\n";
     }
     
     public void print(){
@@ -442,6 +434,41 @@ public class NasmConverter {
                         "isTrue:\n" +
                         "    mov EAX,1\n" +
                         "    ret";
+    }
+    
+    public void write(RsDO rsDO, String type){
+        switch(rsDO.type){
+            case "address":
+                this.nasmCode += "\tmov EAX, [" + rsDO.value + "] \n";
+                break;
+            case "constant":
+                this.nasmCode += "\tmov EAX, " + rsDO.value + " \n";
+                break;
+        }
+        switch(type){
+            case "int":
+                this.nasmCode += "\tPutLInt EAX \n";
+                break;
+            case "char":
+                this.nasmCode += "\tPutCh AL \n";
+                break;
+        }
+        this.nasmCode += "\tnwln \n";
+        this.nasmCode += "\txor EAX,EAX \n\n";
+    }
+    
+    public void read(RsDO rsDO, String type){
+        this.nasmCode += "\txor EAX,EAX \n";
+        this.nasmCode += "\tPutStr out_msg \n";
+        switch(type){
+            case "int":
+                this.nasmCode += "\tGetLInt EAX \n";
+                break;
+            case "char":
+                this.nasmCode += "\tGetCh AL \n";
+                break;
+        }
+        this.nasmCode += "\tmov dword[" + rsDO.value + "], EAX \n\n";
     }
    
 }
