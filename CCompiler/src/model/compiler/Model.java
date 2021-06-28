@@ -4,6 +4,7 @@ package model.compiler;
 import java.util.ArrayList;
 import java.util.HashMap;
 import model.compiler.parser.SyntacticAnalyzer;
+
 import model.compiler.scanner.Token;
 import model.compiler.scanner.LexicalAnalyzer;
 import model.compiler.translator.SemanticError;

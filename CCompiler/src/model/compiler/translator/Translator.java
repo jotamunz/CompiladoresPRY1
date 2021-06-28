@@ -257,15 +257,15 @@ public class Translator {
                 for (int i = 0; i < functionData.parameterAmount; i++){
                     RsDO rsParam = params.get(i);
                     if ("constant".equals(rsParam.type)) {
-                        if (functionData.parameterData.get(i).type.equals(getConstType(rsParam)))
+                        if (functionData.parameterData.get(i).getType().equals(getConstType(rsParam)))
                             continue;
                     } else {
                         VariableData paramData = (VariableData) symbolTable.get(rsParam.value);
-                        if (paramData.hasError() || functionData.parameterData.get(i).type.equals(paramData.type)) {
+                        if (paramData.hasError() || functionData.parameterData.get(i).getType().equals(paramData.getType())) {
                             continue;
                         }
                     }
-                    String errorMessage = "incorrect parameter type; expected: " + functionData.parameterData.get(i).type; 
+                    String errorMessage = "incorrect parameter type; expected: " + functionData.parameterData.get(i).getType(); 
                     SemanticError error = new SemanticError(rsParam.line, rsParam.col, rsParam.value, errorMessage);     
                     semanticErrors.add(error);   
                 }
@@ -352,7 +352,7 @@ public class Translator {
                this.nasmConverter.write(rs, getConstType(rs));
             } else if ("address".equals(rs.type)){
                 VariableData paramData = (VariableData) symbolTable.get(rs.value);
-                this.nasmConverter.write(rs, paramData.type);
+                this.nasmConverter.write(rs, paramData.getType());
             } else {
                 this.nasmConverter.write(rs,"int");
             }
@@ -363,7 +363,7 @@ public class Translator {
     public void read(){
         RsDO rs = (RsDO) stack.pop();
         VariableData paramData = (VariableData) symbolTable.get(rs.value);
-        this.nasmConverter.read(rs, paramData.type);
+        this.nasmConverter.read(rs, paramData.getType());
     }
     
     private String getConstType(RsDO rs){

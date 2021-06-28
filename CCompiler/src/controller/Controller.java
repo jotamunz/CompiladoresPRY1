@@ -122,7 +122,7 @@ public class Controller implements ActionListener {
             }
         });
         
-        System.out.println(model.getNasmCode());
+       // System.out.println(model.getNasmCode());
         view.txtArea_output.setText(model.getNasmCode());
        
 
